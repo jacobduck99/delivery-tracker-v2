@@ -64,7 +64,7 @@ import { useState } from 'react';
         value={form.truckDamage}
         onChange={(e) => updateField("truckDamage", e.target.value)}
     />
-    <button>Start shift</button>
+    <button onClick={handleSubmit}>Start shift</button>
     </form>
     ); 
 
