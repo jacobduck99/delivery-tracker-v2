@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import s from './config.module.css';
 
 
     export default function Form() {
