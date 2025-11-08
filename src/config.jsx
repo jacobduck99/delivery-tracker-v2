@@ -24,8 +24,7 @@ export default function Form() {
 
   return (
     <main className={s.wrap}>
-      <div className={s.container}>
-        <h1 className={s.title}>Shift Config</h1>
+      <div className={s.container}> 
 
         <form onSubmit={handleSubmit}>
           <div className={s.group}>
