@@ -2,6 +2,14 @@
 
 PRAGMA foreign_keys = ON;
 
+CREATE TABLE IF NOT EXISTS users (
+  id              integer primary key autoincrement,
+  email           text not null unique,
+  password_hash   text not null,
+  status          integer not null default 1,
+  created_at      text default current_timestamp
+);
+
 CREATE TABLE IF NOT EXISTS config (
   van_number           INTEGER NOT NULL,
   van_name             TEXT    NOT NULL,
