@@ -3,7 +3,6 @@ PRAGMA foreign_keys = ON;
 
 create table if not exists run (
   id              integer primary key autoincrement,
-  user_id         integer not null,
   van_number      integer not null,
   van_name        text    not null,
   start_time      text    not null,
