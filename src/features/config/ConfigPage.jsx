@@ -25,7 +25,7 @@ export default function Form() {
   return (
     <main className={s.wrap}>
       <div className={s.container}> 
-
+<h1 className={s.title}>Love Coles</h1>
         <form onSubmit={handleSubmit}>
           <div className={s.group}>
             <label className={s.label} htmlFor="vanNumber">Van Number</label>
