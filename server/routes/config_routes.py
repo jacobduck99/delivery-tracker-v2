@@ -34,11 +34,11 @@ def save_config():
             """
             INSERT INTO config
               (van_number, van_name, start_time, first_break, second_break,
-               end_time, actual_end_time_at, duration_ms, number_of_drops, truck_damage)
-            VALUES (?,?,?,?,?,?,?,?,?,?)
+               end_time, number_of_drops, truck_damage)
+            VALUES (?,?,?,?,?,?,?,?)
             """,
             (van_number, van_name, start_time, first_break, second_break,
-             end_time, None, None, number_of_drops, truck_damage),
+             end_time, number_of_drops, truck_damage),
         )
         conn.commit()
         return jsonify({"ok": True}), 201
