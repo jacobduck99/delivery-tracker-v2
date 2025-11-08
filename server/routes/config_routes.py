@@ -3,11 +3,12 @@ from flask import Blueprint, request, jsonify
 from sqlite3 import IntegrityError
 import traceback
 from utils.time_helpers import to_utc_iso
+from data.database import get_db
 
 
 config_bp = Blueprint("config", __name__)
 
-@config_bp.route("/config", methods=["POST","OPTIONS"])
+@config_bp.post("/config")
 def save_config():
     if request.method == "OPTIONS":
         return ("", 204)
@@ -23,9 +24,9 @@ def save_config():
         if not van_name:
             raise KeyError("vanName empty")
 
-        first_break  = opt_iso(data.get("firstBreak"))
-        second_break = opt_iso(data.get("secondBreak"))
-        end_time     = opt_iso(data.get("shiftEnd"))
+        first_break  =  to_utc_iso(data.get("firstBreak"))
+        second_break =  to_utc_iso(data.get("secondBreak"))
+        end_time     =  to_utc_iso(data.get("shiftEnd"))
         truck_damage = (data.get("truckDamage") or "").strip() or None
 
         conn = get_db()
