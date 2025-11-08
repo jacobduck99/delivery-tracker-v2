@@ -7,4 +7,5 @@ import traceback
 auth_bp = Blueprint("auth", __name__)
 
 @auth_bp.post("/auth")
-def 
+def login():
+    pass
