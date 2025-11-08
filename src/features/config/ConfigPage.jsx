@@ -1,7 +1,7 @@
 import { useState } from "react";
 import s from "./config.module.css";
 import { loadConfig, saveConfig } from "../../lib/storage/configStorage.js";
-
+import { saveConfigToServer } from "../../lib/api/configApi.js";
 
 export default function Form() {
   const [form, setForm] = useState({
@@ -23,7 +23,8 @@ export default function Form() {
     e.preventDefault();
     saveConfig(form);
     loadConfig();
-    console.log(saveConfig);
+    saveConfigToServer(form);
+    console.log(saveConfig); 
     console.log(loadConfig);
 
     console.log(form);
