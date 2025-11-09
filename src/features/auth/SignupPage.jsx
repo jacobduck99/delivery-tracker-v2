@@ -37,7 +37,7 @@ export default function SignupPage() {
           />
         </div>
 
-        <button className={s.authSubmit}>Sign In</button>
+        <button className={s.authSubmit}>Sign Up</button>
       </div>
     </div>
   );
