@@ -1,10 +1,12 @@
 import { useState } from "react";
 import s from "./authpage.module.css";
 import { signup } from "../../lib/api/signupApi.js";
-import { useNavigation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignupPage() {
-  const [form, setForm] = useState({ email: "", password: "" });
+    const [form, setForm] = useState({ email: "", password: "" });
+    const [err, setErr] = useState("");
+    const navigate = useNavigate();
 
 
   function update(field, value) {
@@ -12,11 +14,14 @@ export default function SignupPage() {
   }
     
    
-  function handleSubmit(e) {
-    const navigate = useNavigate();
-    event.preventDefault();
-    signup(form);
-    navigate('../../features/config/ConfigPage.jsx');
+  async function handleSubmit(e) {  
+    e.preventDefault();
+    try {
+    await signup(form);
+    navigate("/config");
+        } catch (e) {
+        setErr(e.message || "Signup failed");
+        }
   }
 
   return (
