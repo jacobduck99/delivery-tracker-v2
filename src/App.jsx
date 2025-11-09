@@ -1,10 +1,16 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Form from "./features/config/ConfigPage.jsx";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LoginPage from "./features/auth/LoginPage.jsx";
+import ConfigPage from "./features/config/ConfigPage.jsx";
 
 export default function App() {
-  return <Form />;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/config" element={<ConfigPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
+
 
