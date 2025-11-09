@@ -1,18 +1,29 @@
 import { useState } from "react";
 import s from "./authpage.module.css";
+import { signup } from "../../lib/api/signupApi.js";
+import { useNavigation } from 'react-router-dom';
 
 export default function SignupPage() {
   const [form, setForm] = useState({ email: "", password: "" });
 
+
   function update(field, value) {
     setForm((prev) => ({ ...prev, [field]: value }));
+  }
+    
+   
+  function handleSubmit(e) {
+    const navigate = useNavigate();
+    event.preventDefault();
+    signup(form);
+    navigate('../../features/config/ConfigPage.jsx');
   }
 
   return (
     <div className={s.authCenter}>
       <div className={s.authCard}>
         <h1>Sign up</h1>
-
+        <form onSubmit={handleSubmit}>
         <div className={s.authField}>
           <label className={s.authLabel} htmlFor="email">Email</label>
           <input
@@ -38,6 +49,7 @@ export default function SignupPage() {
         </div>
 
         <button className={s.authSubmit}>Sign Up</button>
+        </form>
       </div>
     </div>
   );
