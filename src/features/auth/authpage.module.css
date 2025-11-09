@@ -1,4 +1,4 @@
-.auth-center {
+.authCenter {
   min-height: 100dvh;
   display: grid;
   place-items: center;
@@ -7,7 +7,7 @@
   font-family: system-ui, sans-serif;
 }
 
-.auth-card {
+.authCard {
   width: 92%;
   max-width: 380px;
   background: white;
@@ -17,25 +17,25 @@
   padding: 1.2rem;
 }
 
-.auth-card h1 {
+.authCard h1 {
   margin: 0 0 1rem;
   text-align: center;
   font-size: 1.3rem;
   color: #111;
 }
 
-.auth-field {
+.authField {
   margin-bottom: 1rem;
 }
 
-.auth-label {
+.authLabel {
   display: block;
   margin-bottom: 0.35rem;
   font-size: 0.95rem;
   color: #444;
 }
 
-.auth-input {
+.authInput {
   width: 100%;
   padding: 0.65rem 0.75rem;
   border: 1px solid #d1d5da;
@@ -45,13 +45,13 @@
   box-sizing: border-box;
 }
 
-.auth-input:focus {
+.authInput:focus {
   border-color: #5559ff;
   box-shadow: 0 0 0 3px rgba(85,89,255,.2);
   outline: none;
 }
 
-.auth-submit {
+.authSubmit {
   width: 100%;
   margin-top: 0.5rem;
   padding: 12px;
@@ -63,6 +63,6 @@
   cursor: pointer;
 }
 
-.auth-submit:hover {
+.authSubmit:hover {
   filter: brightness(1.05);
 }

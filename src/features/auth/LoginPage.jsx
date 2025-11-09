@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../auth/authpage.module.css";
+import s from "./authpage.module.css";
 
 export default function LoginPage() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -9,15 +9,15 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="auth-center">
-      <div className="auth-card">
+    <div className={s.authCenter}>
+      <div className={s.authCard}>
         <h1>Sign In</h1>
 
-        <div className="auth-field">
-          <label className="auth-label" htmlFor="email">Email</label>
+        <div className={s.authField}>
+          <label className={s.authLabel} htmlFor="email">Email</label>
           <input
             id="email"
-            className="auth-input"
+            className={s.authInput}
             type="email"
             value={form.email}
             onChange={(e) => update("email", e.target.value)}
@@ -25,11 +25,11 @@ export default function LoginPage() {
           />
         </div>
 
-        <div className="auth-field">
-          <label className="auth-label" htmlFor="password">Password</label>
+        <div className={s.authField}>
+          <label className={s.authLabel} htmlFor="password">Password</label>
           <input
             id="password"
-            className="auth-input"
+            className={s.authInput}
             type="password"
             value={form.password}
             onChange={(e) => update("password", e.target.value)}
@@ -37,7 +37,7 @@ export default function LoginPage() {
           />
         </div>
 
-        <button className="auth-submit">Sign In</button>
+        <button className={s.authSubmit}>Sign In</button>
       </div>
     </div>
   );
