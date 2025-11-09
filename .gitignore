@@ -13,3 +13,6 @@ server/data/database.db
 
 # Local debug helpers and generated junk
 server/utils/.*
+
+__pycache__/
+*.pyc
