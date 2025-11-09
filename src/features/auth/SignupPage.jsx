@@ -5,26 +5,25 @@ import { useNavigate } from 'react-router-dom';
 
 export default function SignupPage() {
     const [form, setForm] = useState({ email: "", password: "" });
-    const [err, setErr] = useState("");
+    const [err, setErr] = useState(""); 
     const navigate = useNavigate();
 
-
-  function update(field, value) {
+    function update(field, value) {
     setForm((prev) => ({ ...prev, [field]: value }));
   }
     
    
-  async function handleSubmit(e) {  
-    e.preventDefault();
+    async function handleSubmit(e) {  
+        e.preventDefault();
     try {
-    await signup(form);
-    navigate("/config");
+        await signup(form);
+        navigate("/config");
         } catch (e) {
         setErr(e.message || "Signup failed");
         }
   }
 
-  return (
+    return (
     <div className={s.authCenter}>
       <div className={s.authCard}>
         <h1>Sign up</h1>
