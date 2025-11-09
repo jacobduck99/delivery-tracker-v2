@@ -3,6 +3,7 @@ import s from "./authpage.module.css";
 import { login } from "../../lib/api/loginApi.js"
 import { useNavigate } from 'react-router-dom';
 
+
 export default function LoginPage() {
     const [form, setForm] = useState({ email: "", password: "" });
     const [err, setErr] = useState(""); 
@@ -52,6 +53,7 @@ export default function LoginPage() {
         </div>
 
         <button className={s.authSubmit}>Sign In</button>
+        {err && <p className={s.authError}>{err}</p>}
         </form>
       </div>
     </div>

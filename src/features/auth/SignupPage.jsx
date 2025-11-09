@@ -53,6 +53,7 @@ export default function SignupPage() {
         </div>
 
         <button className={s.authSubmit}>Sign Up</button>
+        {err && <p className={s.authError}>{err}</p>}
         </form>
       </div>
     </div>
