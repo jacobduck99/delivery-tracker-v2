@@ -46,6 +46,7 @@ def create_app():
     # Register blueprints exactly once
     app.register_blueprint(auth_bp,  url_prefix="/api/auth")
     app.register_blueprint(config_bp, url_prefix="/api")
+    app.register_blueprint(run_bp, url_prefix="/api")
 
     # Ensure DB connection closes after each request
     app.teardown_appcontext(close_db)
