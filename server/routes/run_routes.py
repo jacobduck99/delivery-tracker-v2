@@ -10,5 +10,21 @@ run_bp = Blueprint("run", __name__)
 
 @run_bp.get("/run")
 def run():
-    pass
+    if not request.is_json:
+        return jsonify({"ok": False, "error": "Expected JSON"}), 400 
+    
+    if current_user.is_authenticated:
+    
+        result = get_db().execute(
+            "SELECT number_of_drops FROM config"
+        ).fetchone()
+        
+        if result is None:
+            return jsonify({"error": "No config found"}), 400
+
+        drops = result["number_of_drops"]
+        return jsonify({"ok": True, "Drops": drops}), 200
+
+
+
 
