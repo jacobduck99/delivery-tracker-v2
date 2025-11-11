@@ -1,4 +1,5 @@
 import { useState } from "react";
+import startGps from "./nav.js";
 
 export default function Gps() {
     const [gps, setGps] = useState("");
@@ -8,7 +9,9 @@ export default function Gps() {
     }
 
 
-
+    handleClick(e) {
+    startGps(gps);
+    }
 
 
     return (
@@ -24,7 +27,7 @@ export default function Gps() {
         />
       </div>
 
-      <button type="button">Start navigation</button>
+      <button onClick={handleClick} type="button">Start navigation</button>
         </div>
     </div>
     );
