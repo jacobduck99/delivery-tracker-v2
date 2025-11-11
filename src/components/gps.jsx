@@ -1,18 +1,12 @@
 import { useState } from "react";
-import startGps from "./nav.js";
+import { startGps } from "./nav.js";
 
 export default function Gps() {
-    const [gps, setGps] = useState("");
-
-    function update(field, value) {
-        setGps((prev) => ({...prev, [field]: value}));
-    }
-
+    const [address, setAddress] = useState("");
 
     handleClick(e) {
-    startGps(gps);
+    startGps(address);
     }
-
 
     return (
     <div className="container">
@@ -22,7 +16,7 @@ export default function Gps() {
         <input
           id="gps-input"
           type="text"
-          value={gps.address}
+          value={address}
           onChange={(e) => update("address", e.target.value)}
         />
       </div>
