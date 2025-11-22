@@ -1,20 +1,43 @@
-# React + Vite
+# Delivery Tracker — v2
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+I rebuilt my Delivery Tracker because the original version started hitting real limits.  
+The first version used Flask with server-rendered HTML, and as the project grew, managing state became painful. Features started tangling together, and adding new functionality felt harder than it should’ve been.
 
-Currently, two official plugins are available:
+So I switched gears and rebuilt it properly:  
+**React front end + Flask API back end**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The difference in code quality is massive. The architecture is cleaner, the logic is separated properly, and refactoring has made it easy to add future features without everything collapsing into spaghetti. I’m learning a lot, and I’m enjoying the process.
 
-## React Compiler
+---
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Why This App Exists
 
-Note: This will impact Vite dev & build performances.
+At my job, drivers were skipping their breaks just to keep up with impossible delivery schedules. When I asked management for the break-time data to prove how unrealistic the workload was, they refused to give it to me.
 
-## Expanding the ESLint configuration
+So I built my own system.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Drivers started using it immediately. They helped shape the app by giving feedback, and together we turned it into a tool that actually protects people. Now, when management asks why someone is “slow,” they have real data showing the truth:
 
-Note: will change this soon.
+- No scheduled breaks  
+- Unrealistic delivery windows  
+- Excessive workloads  
+- Unsafe or inefficient processes  
+
+Drivers feel safer and less stressed because they finally have **proof** — data showing they’re doing their job properly, and that the job itself is the problem.
+
+---
+
+## What v2 Delivers
+
+The new architecture makes the project easier to maintain, expand, and evolve.  
+Some of the improvements include:
+
+- Modern React UI  
+- Proper, organized API routes  
+- Clean state management  
+- A structure built for future features like OCR, GPS logging, and historical analytics  
+
+This project is more than an app.  
+It’s a tool that gives workers something they never had before:
+
+**A fair way to defend themselves with data.**
