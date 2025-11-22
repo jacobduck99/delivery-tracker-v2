@@ -32,7 +32,6 @@ async function handleSubmit(e) {
     console.log("Loaded from localStorage:", localConfig);
 
     const userId = getUserId();
-    navigate("/run");
     if (!userId) {
     console.error("No user ID found. User probably not logged in.");
     return;
@@ -52,6 +51,7 @@ async function handleSubmit(e) {
 
     try {
         const result = await saveConfigToServer(payload);
+        navigate("/run");
         console.log("Config saved on server:", result);
     } catch (err) {
         console.error("Error saving config:", err);

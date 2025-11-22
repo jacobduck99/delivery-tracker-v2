@@ -49,3 +49,8 @@ def save_config():
     except Exception as e:
         traceback.print_exc()  # <-- see exact cause in Flask console
         return jsonify({"ok": False, "error": str(e)}), 500
+
+@config_bp.get("/config")
+def list_configs():
+    rows = get_db().execute("SELECT * FROM config").fetchall()
+    return jsonify([dict(row) for row in rows])
