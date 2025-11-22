@@ -17,27 +17,28 @@ def save_config():
         data = request.get_json(force=True) or {}
 
         # ---- your existing validation ----
-        van_number = int(data["vanNumber"])
-        van_name = data["vanName"].strip()
-        start_time = to_utc_iso(data["shiftStart"])  # ensure this handles "HH:MM"
-        number_of_drops = int(data["numberOfDeliveries"])
+        user_id = int(data["user_id"]) 
+        van_number = int(data["van_number"])
+        van_name = data["van_name"].strip()
+        start_time = to_utc_iso(data["start_time"])  # ensure this handles "HH:MM"
+        number_of_drops = int(data["number_of_drops"])
         if not van_name:
-            raise KeyError("vanName empty")
+            raise KeyError("van_name empty")
 
-        first_break  =  to_utc_iso(data.get("firstBreak"))
-        second_break =  to_utc_iso(data.get("secondBreak"))
-        end_time     =  to_utc_iso(data.get("shiftEnd"))
-        truck_damage = (data.get("truckDamage") or "").strip() or None
+        first_break  =  to_utc_iso(data.get("first_break"))
+        second_break =  to_utc_iso(data.get("second_break"))
+        end_time     =  to_utc_iso(data.get("end_time"))
+        truck_damage = (data.get("truck_damage") or "").strip() or None
 
         conn = get_db()
         conn.execute(
             """
             INSERT INTO config
-              (van_number, van_name, start_time, first_break, second_break,
+              (user_id, van_number, van_name, start_time, first_break, second_break,
                end_time, number_of_drops, truck_damage)
-            VALUES (?,?,?,?,?,?,?,?)
+            VALUES (?,?,?,?,?,?,?,?,?)
             """,
-            (van_number, van_name, start_time, first_break, second_break,
+            (user_id, van_number, van_name, start_time, first_break, second_break,
              end_time, number_of_drops, truck_damage),
         )
         conn.commit()
@@ -48,3 +49,8 @@ def save_config():
     except Exception as e:
         traceback.print_exc()  # <-- see exact cause in Flask console
         return jsonify({"ok": False, "error": str(e)}), 500
+
+@config_bp.get("/config")
+def list_configs():
+    rows = get_db().execute("SELECT * FROM config").fetchall()
+    return jsonify([dict(row) for row in rows])

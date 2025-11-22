@@ -1,7 +1,7 @@
 
 
 export function saveConfig(form) {
-   const config = localStorage.setItem("all_drops", JSON.stringify(form)); 
+    localStorage.setItem("all_drops", JSON.stringify(form)); 
 }
 
 export function loadConfig() {

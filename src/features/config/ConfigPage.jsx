@@ -2,9 +2,11 @@ import { useState } from "react";
 import s from "./config.module.css";
 import { loadConfig, saveConfig } from "../../lib/storage/configStorage.js";
 import { saveConfigToServer } from "../../lib/api/configApi.js";
+import { getUserId } from "../../lib/storage/userStorage.js";
+import { useNavigate } from 'react-router-dom';
 
 export default function Form() {
-  const [form, setForm] = useState({
+    const [form, setForm] = useState({
     vanNumber: "",
     vanName: "",
     shiftStart: "",
@@ -15,20 +17,49 @@ export default function Form() {
     truckDamage: "",
   });
 
+    const navigate = useNavigate();
+
   function updateField(field, value) {
     setForm(prev => ({ ...prev, [field]: value }));
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    saveConfig(form);
-    loadConfig();
-    saveConfigToServer(form);
-    console.log(saveConfig); 
-    console.log(loadConfig);
 
-    console.log(form);
+async function handleSubmit(e) {
+    e.preventDefault();
+
+    saveConfig(form);
+    const localConfig = loadConfig();
+    console.log("Loaded from localStorage:", localConfig);
+
+    const userId = getUserId();
+    if (!userId) {
+    console.error("No user ID found. User probably not logged in.");
+    return;
   }
+
+    const payload = {
+    user_id: Number(userId),
+    van_number: form.vanNumber,
+    van_name: form.vanName,
+    start_time: form.shiftStart,
+    first_break: form.firstBreak,
+    second_break: form.secondBreak,
+    end_time: form.shiftEnd,
+    number_of_drops: Number(form.numberOfDeliveries),
+    truck_damage: form.truckDamage,
+  };
+
+    try {
+        const result = await saveConfigToServer(payload);
+        navigate("/run");
+        console.log("Config saved on server:", result);
+    } catch (err) {
+        console.error("Error saving config:", err);
+    }
+
+    console.log("Form state:", form);
+    }
+
 
   return (
     <main className={s.wrap}>

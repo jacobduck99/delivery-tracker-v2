@@ -1,7 +1,8 @@
 import { useState } from "react";
 import s from "./authpage.module.css";
-import { login } from "../../lib/api/loginApi.js"
+import { login } from "../../lib/api/loginApi.js";
 import { useNavigate } from 'react-router-dom';
+import { saveUserId } from "../../lib/storage/userStorage.js";
 
 
 export default function LoginPage() {
@@ -16,7 +17,8 @@ export default function LoginPage() {
     async function handleSubmit(e) {
         e.preventDefault();
     try {
-            await login(form); 
+            const data = await login(form); 
+            saveUserId(data.user);
             navigate("/config");
         } catch (e) {
             setErr(e.message || "Login failed")
