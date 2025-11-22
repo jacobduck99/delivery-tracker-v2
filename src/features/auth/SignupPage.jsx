@@ -2,6 +2,7 @@ import { useState } from "react";
 import s from "./authpage.module.css";
 import { signup } from "../../lib/api/signupApi.js";
 import { useNavigate } from 'react-router-dom';
+import { saveUserId } from "../../lib/storage/loginStorage.js"
 
 export default function SignupPage() {
     const [form, setForm] = useState({ email: "", password: "" });
@@ -16,7 +17,8 @@ export default function SignupPage() {
     async function handleSubmit(e) {  
         e.preventDefault();
     try {
-        await signup(form);
+        const data = await signup(form);
+        saveUserId(data.user);
         navigate("/config");
         } catch (e) {
         setErr(e.message || "Signup failed");
