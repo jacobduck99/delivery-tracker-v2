@@ -1,28 +1,25 @@
-import { useState } from "react";
-import { startGps } from "./nav.js";
 
-export default function Gps() {
-    const [address, setAddress] = useState("");
-
-    handleClick(e) {
-    startGps(address);
-    }
-
-    return (
+// make sure on the run page you create the data for the arguments and also wire up start gps from nav.js
+export default function Gps({ address, setAddress, onStart }) {
+  return (
     <div className="container">
-    <div className="card">
-      <div className="input-row">
-        <label htmlFor="gps-input">Enter address</label>
-        <input
-          id="gps-input"
-          type="text"
-          value={address}
-          onChange={(e) => update("address", e.target.value)}
-        />
-      </div>
-
-      <button onClick={handleClick} type="button">Start navigation</button>
+      <div className="card">
+        <div className="input-row">
+          <label htmlFor="gps-input">Enter address</label>
+          <input
+            id="gps-input"
+            type="text"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
         </div>
+
+        <button type="button" onClick={onStart}>
+          Start Navigation
+        </button>
+      </div>
     </div>
-    );
+  );
+}
+
 
