@@ -1,5 +1,6 @@
 
-// make sure on the run page you create the data for the arguments and also wire up start gps from nav.js
+// make sure on the run page you create the data for the arguments and also wire up start gps from nav.js 
+
 export default function Gps({ address, setAddress, onStart }) {
   return (
     <div className="container">
