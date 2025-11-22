@@ -2,6 +2,7 @@ import { useState } from "react";
 import s from "./config.module.css";
 import { loadConfig, saveConfig } from "../../lib/storage/configStorage.js";
 import { saveConfigToServer } from "../../lib/api/configApi.js";
+import { getUserId } from "../../lib/storage/userStorage.js";
 
 export default function Form() {
   const [form, setForm] = useState({
@@ -23,6 +24,7 @@ export default function Form() {
     e.preventDefault();
     saveConfig(form);
     loadConfig();
+    const user_id = getUserId();
     saveConfigToServer(form);
     console.log(saveConfig); 
     console.log(loadConfig);

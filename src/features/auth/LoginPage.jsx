@@ -2,7 +2,7 @@ import { useState } from "react";
 import s from "./authpage.module.css";
 import { login } from "../../lib/api/loginApi.js";
 import { useNavigate } from 'react-router-dom';
-import { saveUserId } from "../../lib/storage/loginStorage.js";
+import { saveUserId } from "../../lib/storage/userStorage.js";
 
 
 export default function LoginPage() {
