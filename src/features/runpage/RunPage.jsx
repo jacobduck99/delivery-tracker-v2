@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
-import { getDrops } from "../../lib/api/runApi.js"; 
+import { getDrops } from "../../lib/api/runApi.js";
 
 export default function RunPage() {
-  const [config, setConfig] = useState(null);
+  const [drops, setDrops] = useState(null);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState("");
 
   useEffect(() => {
     let cancelled = false;
 
-    async function loadConfig() {
+    async function loadDrops() {
       setLoading(true);
       setErr("");
 
@@ -18,64 +18,34 @@ export default function RunPage() {
       if (cancelled) return;
 
       if (data === null) {
-        setErr("Failed to load config from server");
-        setConfig(null);
+        setErr("Failed to load drops from server");
+        setDrops(null);
       } else {
-        setConfig(data);
+        setDrops(data);
       }
 
       setLoading(false);
     }
 
-    loadConfig();
-
-    return () => {
-      cancelled = true;
-    };
+    loadDrops();
+    return () => { cancelled = true; };
   }, []);
 
-  if (loading) {
-    return <div className="container"><p>Loading run...</p></div>;
-  }
+  if (loading) return <div className="container"><p>Loading run…</p></div>;
+  if (err) return <div className="container"><p style={{ color: "red" }}>{err}</p></div>;
+  if (!drops) return <div className="container"><p>No drops found.</p></div>;
 
-  if (err) {
-    return (
-      <div className="container">
-        <h1>Run Page</h1>
-        <p style={{ color: "red" }}>{err}</p>
-      </div>
-    );
-  }
-
-  if (!config) {
-    return (
-      <div className="container">
-        <h1>Run Page</h1>
-        <p>No config data found.</p>
-      </div>
-    );
-  }
-
-  // Handle both: API returns a single object OR an array of configs
-  const configs = Array.isArray(config) ? config : [config];
+  // Normalize to an array
+  const list = Array.isArray(drops) ? drops : [drops];
 
   return (
     <div className="container">
       <h1>Run Page</h1>
+      <p>Loaded {list.length} drops.</p>
 
-      {configs.map((c, idx) => (
-        <div key={c.id ?? idx} className="card">
-          <h2>Config #{c.id ?? idx + 1}</h2>
-          <p><strong>Van number:</strong> {c.van_number ?? c.vanNumber ?? "N/A"}</p>
-          <p><strong>Van name:</strong> {c.van_name ?? c.vanName ?? "N/A"}</p>
-          <p><strong>Start time:</strong> {c.start_time ?? c.startTime ?? "N/A"}</p>
-          <p><strong>End time:</strong> {c.end_time ?? c.endTime ?? "N/A"}</p>
-          <p><strong>Number of drops:</strong> {c.number_of_drops ?? c.numberOfDrops ?? "N/A"}</p>
-          {c.truck_damage && (
-            <p><strong>Truck damage:</strong> {c.truck_damage}</p>
-          )}
-        </div>
-      ))}
+      <pre style={{ background: "#eee", padding: "10px" }}>
+        {JSON.stringify(list[0], null, 2)}
+      </pre>
     </div>
   );
 }
