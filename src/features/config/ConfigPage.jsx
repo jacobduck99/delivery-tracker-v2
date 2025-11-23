@@ -4,6 +4,7 @@ import { loadConfig, saveConfig } from "../../lib/storage/configStorage.js";
 import { saveConfigToServer } from "../../lib/api/configApi.js";
 import { getUserId } from "../../lib/storage/userStorage.js";
 import { useNavigate } from 'react-router-dom';
+import { saveRun } from "../../lib/storage/runStorage.js";
 
 export default function Form() {
     const [form, setForm] = useState({
@@ -53,6 +54,8 @@ async function handleSubmit(e) {
         const result = await saveConfigToServer(payload);
         navigate("/run");
         console.log("Config saved on server:", result);
+        saveRun(result);
+
     } catch (err) {
         console.error("Error saving config:", err);
     }

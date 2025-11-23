@@ -16,7 +16,6 @@ def save_config():
     try:
         data = request.get_json(force=True) or {}
 
-        # ---- your existing validation ----
         user_id = int(data["user_id"]) 
         van_number = int(data["van_number"])
         van_name = data["van_name"].strip()
@@ -50,7 +49,7 @@ def save_config():
                 INSERT INTO deliveries (run_id, drop_idx, start_ts, end_ts, elapsed, expected_minutes, status)
                 VALUES (?,?,?,?,?,?,?)
                 """, 
-                (run_id, idx, "NA", "NA", "NA", "NA", "Not-started"),
+                (run_id, idx, "Null", "Null", 0, "NA", "Not-started"),
             )
  
         conn.commit()
