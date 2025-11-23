@@ -30,8 +30,8 @@ def save_config():
         end_time     =  to_utc_iso(data.get("end_time"))
         truck_damage = (data.get("truck_damage") or "").strip() or None
 
-        conn = get_db()
-        conn.execute(
+        conn = get_db() 
+        cur = conn.execute(
             """
             INSERT INTO config
               (user_id, van_number, van_name, start_time, first_break, second_break,
@@ -41,8 +41,22 @@ def save_config():
             (user_id, van_number, van_name, start_time, first_break, second_break,
              end_time, number_of_drops, truck_damage),
         )
+
+        run_id = cur.lastrowid
+
+        for idx in range(1, number_of_drops +1):
+            conn.execute(
+                """
+                INSERT INTO deliveries (run_id, drop_idx, start_ts, end_ts, elapsed, expected_minutes, status)
+                VALUES (?,?,?,?,?,?,?)
+                """, 
+                (run_id, idx, "NA", "NA", "NA", "NA", "Not-started"),
+            )
+ 
         conn.commit()
-        return jsonify({"ok": True}), 201
+       
+        return jsonify({"ok": True, "run_id": run_id, "number_of_drops": number_of_drops}), 201
+
 
     except IntegrityError as e:
         return jsonify({"ok": False, "error": f"db integrity: {e}"}), 400
