@@ -8,22 +8,33 @@ from data.database import get_db
 
 run_bp = Blueprint("run", __name__)
 
-@run_bp.get("/run")
-def run():
-    if not request.is_json:
-        return jsonify({"ok": False, "error": "Expected JSON"}), 400 
-    
-    if current_user.is_authenticated:
-    
-        result = get_db().execute(
-            "SELECT number_of_drops FROM config"
-        ).fetchone()
-        
-        if result is None:
-            return jsonify({"error": "No config found"}), 400
+@run_bp.get("/run/<int:run_id>")
+def get_run(run_id):
+    conn = get_db()
+    cur = conn.execute(
+        """
+        SELECT
+            drop_idx,
+            start_ts,
+            end_ts,
+            elapsed,
+            expected_minutes,
+            status
+        FROM deliveries
+        WHERE run_id = ?
+        ORDER BY drop_idx
+        """,
+        (run_id,),
+    )
+    rows = cur.fetchall()
 
-        drops = result["number_of_drops"]
-        return jsonify({"ok": True, "Drops": drops}), 200
+    if not rows:
+        return jsonify({"ok": True, "deliveries": []}), 200
+
+    # rows are Row objects turn them into plain dicts
+    deliveries = [dict(row) for row in rows]
+
+    return jsonify({"ok": True, "deliveries": deliveries}), 200
 
 
 
