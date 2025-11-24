@@ -66,3 +66,9 @@
 .authSubmit:hover {
   filter: brightness(1.05);
 }
+
+.authRedirect {
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 10px;
+}

@@ -25,6 +25,10 @@ export default function LoginPage() {
         }
     }
 
+    function handleClick() {
+        navigate("/signup");
+    }
+
     return (
     <div className={s.authCenter}>
       <div className={s.authCard}>
@@ -52,6 +56,10 @@ export default function LoginPage() {
             onChange={(e) => update("password", e.target.value)}
             placeholder="••••••••"
           />
+        </div>
+
+        <div className={s.authRedirect}>
+            <a onClick={handleClick}>Don't have an account?</a>
         </div>
 
         <button className={s.authSubmit}>Sign In</button>
