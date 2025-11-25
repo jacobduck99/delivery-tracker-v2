@@ -1,9 +1,12 @@
+
 import { loadRun } from "../../lib/storage/runStorage.js";
+
+const API_BASE = import.meta.env.VITE_API_URL;
 
 export async function getDrops() {
     const current_run = loadRun()
     const run_id = current_run.run_id
-    const url = `http://127.0.0.1:5000/api/run/${run_id}`; // TEMP: bypass Vite proxy & correct run id
+    const url = `${API_BASE}/api/run/${run_id}`; // TEMP: bypass Vite proxy & correct run id
     try {
         const response = await fetch(url);
 

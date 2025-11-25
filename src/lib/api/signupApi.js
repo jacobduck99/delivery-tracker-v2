@@ -1,7 +1,7 @@
-
+const API_BASE = import.meta.env.VITE_API_URL;
 
 export async function signup(payload) {
-    const url = "http://127.0.0.1:5000/api/auth/signup";
+    const url = `${API_BASE}/api/auth/signup`;
     let res;
     try {
         res = await fetch(url, {

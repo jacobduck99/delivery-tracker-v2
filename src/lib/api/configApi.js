@@ -1,7 +1,7 @@
-
+const API_BASE = import.meta.env.VITE_API_URL;
 
 export async function saveConfigToServer(payload) {
-  const url = "http://127.0.0.1:5000/api/config"; // TEMP: bypass Vite proxy
+  const url = `${API_BASE}/api/config`; // TEMP: bypass Vite proxy
   let res;
   try {
     res = await fetch(url, {
