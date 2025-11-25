@@ -16,3 +16,7 @@ server/utils/.*
 
 __pycache__/
 *.pyc
+
+.env.local
+
+.env.mobile
