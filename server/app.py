@@ -15,7 +15,16 @@ def create_app():
     app.secret_key = "change-me-in-env"
 
     # Allow React dev server to send/receive cookies
-    CORS(app, origins=["http://localhost:5173"], supports_credentials=True)
+    
+    CORS(
+        app,
+        origins=[
+        "http://localhost:5173",
+        "http://192.168.1.104:5173",
+        ],
+        supports_credentials=True,
+        )
+
 
     # Cookie settings (dev-safe; tighten for prod/HTTPS)
     app.config.update(
