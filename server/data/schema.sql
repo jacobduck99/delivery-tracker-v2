@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS deliveries (
     id               INTEGER PRIMARY KEY AUTOINCREMENT,
     run_id           INTEGER NOT NULL,   -- this points at config.id (your "run")
     drop_idx         INTEGER NOT NULL,   
-    start_ts         TEXT,
+    address          TEXT, 
     end_ts           TEXT,
     elapsed          INTEGER,
     expected_minutes REAL,

@@ -14,9 +14,6 @@ export default function RunPage() {
        startGps(); 
     };
 
-    function update(field, value) {
-        setAddress((prev) => ({ ...prev, [field]: value}));
-    }
     useEffect(() => {
         let cancelled = false;
 
