@@ -2,14 +2,21 @@ import { useState, useEffect } from "react";
 import { getDrops } from "../../lib/api/runApi.js";
 import Dropcard from "../../components/dropcard.jsx";
 import Gps from "../../components/gps.jsx";
+import { startGps } from "../../components/nav.js";
 
 export default function RunPage() {
     const [drops, setDrops] = useState(null);
     const [loading, setLoading] = useState(true);
     const [err, setErr] = useState("");
     const [address, setAddress ] = useState("");
-    
 
+    function onStart() {
+       startGps(); 
+    };
+
+    function update(field, value) {
+        setAddress((prev) => ({ ...prev, [field]: value}));
+    }
     useEffect(() => {
         let cancelled = false;
 
@@ -75,6 +82,12 @@ return (
         drop={drop}
       />
     ))}
+
+    <Gps
+        address={address}
+        setAddress={setAddress}
+        onStart={onStart}
+    />
 
     <pre style={{ background: "#eee", padding: "10px" }}>
       {JSON.stringify(drops[0], null, 2)}
