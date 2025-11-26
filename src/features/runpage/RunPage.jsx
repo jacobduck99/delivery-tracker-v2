@@ -4,18 +4,20 @@ import Dropcard from "../../components/dropcard.jsx";
 import Gps from "../../components/gps.jsx";
 
 export default function RunPage() {
-  const [drops, setDrops] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [err, setErr] = useState("");
+    const [drops, setDrops] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [err, setErr] = useState("");
+    const [address, setAddress ] = useState("");
+    
 
-  useEffect(() => {
-    let cancelled = false;
+    useEffect(() => {
+        let cancelled = false;
 
     async function loadDrops() {
-      setLoading(true);
-      setErr("");
+        setLoading(true);
+        setErr("");
 
-      const data = await getDrops();
+    const data = await getDrops();
 
       if (cancelled) return;
 
