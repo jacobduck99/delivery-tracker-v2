@@ -66,6 +66,18 @@ if (!drops || drops.length === 0) {
     const firstDrop = drops[0];
     const restDrops = drops.slice(1);
 
+
+    function changeStatus(drop_idx, newStatus) {
+        setDrops(prev =>
+            prev.map(drop =>
+            drop.drop_idx === drop_idx
+            ? { ...drop, status: newStatus }
+            : drop
+                )
+            );
+            }
+
+
 return (
   <div className="container">
     <h1>Run Page</h1>
