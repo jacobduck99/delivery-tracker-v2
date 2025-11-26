@@ -8,12 +8,7 @@ export default function RunPage() {
     const [drops, setDrops] = useState(null);
     const [loading, setLoading] = useState(true);
     const [err, setErr] = useState("");
-    const [address, setAddress ] = useState("");
-
-    function onStart() {
-       startGps(); 
-    };
-
+    
     useEffect(() => {
         let cancelled = false;
 
@@ -30,6 +25,7 @@ export default function RunPage() {
         setDrops(null);
       } else {
         setDrops(data.deliveries || []);
+        console.log(data.deliveries)
       }
 
       setLoading(false);
@@ -78,13 +74,7 @@ return (
         index={index}
         drop={drop}
       />
-    ))}
-
-    <Gps
-        address={address}
-        setAddress={setAddress}
-        onStart={onStart}
-    />
+    ))} 
 
     <pre style={{ background: "#eee", padding: "10px" }}>
       {JSON.stringify(drops[0], null, 2)}
