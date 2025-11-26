@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { getDrops } from "../../lib/api/runApi.js";
 import Dropcard from "../../components/dropcard.jsx";
-import Gps from "../../components/gps.jsx";
-import { startGps } from "../../components/nav.js";
 
 export default function RunPage() {
     const [drops, setDrops] = useState([]);
