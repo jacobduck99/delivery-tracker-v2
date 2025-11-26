@@ -4,13 +4,14 @@ import { startGps } from "./nav.js";
 import s from './Dropcard.module.css';
 import Startbtn from "./buttons.jsx";
 
-export default function Dropcard({ drop, index }) {
+export default function Dropcard({ drop, index, onChangeStatus }) {
     const [address, setAddress] = useState("");
 
     const [arrived, setArrived] = useState(null);
 
     function onStart() {
         startGps(address); 
+        onChangeStatus(index, "Navigating"); 
         };
 
     function onArrived() {

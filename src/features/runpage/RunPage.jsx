@@ -66,8 +66,10 @@ if (!drops || drops.length === 0) {
     const firstDrop = drops[0];
     const restDrops = drops.slice(1);
 
+    console.log(drops);
 
-    function changeStatus(drop_idx, newStatus) {
+
+    function onChangeStatus(drop_idx, newStatus) {
         setDrops(prev =>
             prev.map(drop =>
             drop.drop_idx === drop_idx
@@ -76,7 +78,6 @@ if (!drops || drops.length === 0) {
                 )
             );
             }
-
 
 return (
   <div className="container">
@@ -88,6 +89,7 @@ return (
         key={firstDrop}
         index={firstDrop.drop_idx}
         drop={firstDrop}
+        onChangeStatus={onChangeStatus}
         />
     
     <details>
