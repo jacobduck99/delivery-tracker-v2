@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Gps from "./gps.jsx";
 import { startGps } from "./nav.js";
+import s from './Dropcard.module.css';
 
 export default function Dropcard({ drop, index }) {
     const [address, setAddress] = useState("");
@@ -11,11 +12,8 @@ export default function Dropcard({ drop, index }) {
         };
     
     return (
-    <div className="card">
+    <div className={s.dropCard}>
       <h2>Drop {index + 1}</h2>
-      <pre style={{ background: "#eee", padding: "6px" }}>
-
-      </pre>
     <Gps 
         address={address}
         setAddress={setAddress}
