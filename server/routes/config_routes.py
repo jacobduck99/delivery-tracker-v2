@@ -46,11 +46,10 @@ def save_config():
         for idx in range(1, number_of_drops +1):
             conn.execute(
                 """
-                INSERT INTO deliveries (run_id, drop_idx, start_ts, end_ts, elapsed, expected_minutes, status)
-                VALUES (?,?,?,?,?,?,?)
+                INSERT INTO deliveries (run_id, drop_idx, address, start_ts, end_ts, elapsed, expected_minutes, status)
+                VALUES (?,?,?,?,?,?,?,?)
                 """, 
-                (run_id, idx, "Null", "Null", 0, "NA", "Not-started"),
-            )
+                (run_id, idx, None, None, None, 0, None, "Not-started"),)
  
         conn.commit()
        
