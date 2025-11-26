@@ -76,9 +76,6 @@ return (
       />
     ))} 
 
-    <pre style={{ background: "#eee", padding: "10px" }}>
-      {JSON.stringify(drops[0], null, 2)}
-    </pre>
   </div>
 );
 }
