@@ -13,7 +13,7 @@ export default function Dropcard({ drop, index }) {
     
     return (
     <div className={s.dropCard}>
-      <h2>Drop {index + 1}</h2>
+      <h2>Drop {index}</h2>
     <Gps 
         address={address}
         setAddress={setAddress}

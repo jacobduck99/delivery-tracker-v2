@@ -83,14 +83,14 @@ return (
     <details>
       <summary>
         <span>Upcoming drops</span>
-        <span className="count"> {upcomingDrops.length}</span>
+        <span className="count"> {restDrops.length}</span>
       </summary>
 
       <ul className="run-list upcoming-list" id="upcoming-list">
         {restDrops.map((drop, index) => (
         <Dropcard
             key={drop.drop_idx ?? index}
-            index={index}
+            index={drop.drop_idx}
             drop={drop}
             />
         ))}
