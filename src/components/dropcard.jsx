@@ -2,14 +2,21 @@ import { useState, useEffect } from "react";
 import Gps from "./gps.jsx";
 import { startGps } from "./nav.js";
 import s from './Dropcard.module.css';
+import Startbtn from "./buttons.jsx";
 
 export default function Dropcard({ drop, index }) {
     const [address, setAddress] = useState("");
 
+    const [arrived, setArrvied] = useState(null);
 
     function onStart() {
         startGps(address); 
         };
+
+    function onStart() {
+        const start = Date.now();
+        setArrived(start);
+    };
     
     return (
     <div className={s.dropCard}>
@@ -19,6 +26,7 @@ export default function Dropcard({ drop, index }) {
         setAddress={setAddress}
         onStart={onStart}
         />
+    <Startbtn />
     </div>
   );
 }
