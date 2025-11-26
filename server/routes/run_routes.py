@@ -15,6 +15,7 @@ def get_run(run_id):
         """
         SELECT
             drop_idx,
+            address,
             start_ts,
             end_ts,
             elapsed,
