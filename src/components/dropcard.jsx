@@ -7,13 +7,13 @@ import Startbtn from "./buttons.jsx";
 export default function Dropcard({ drop, index }) {
     const [address, setAddress] = useState("");
 
-    const [arrived, setArrvied] = useState(null);
+    const [arrived, setArrived] = useState(null);
 
     function onStart() {
         startGps(address); 
         };
 
-    function onStart() {
+    function onArrived() {
         const start = Date.now();
         setArrived(start);
     };
@@ -26,7 +26,7 @@ export default function Dropcard({ drop, index }) {
         setAddress={setAddress}
         onStart={onStart}
         />
-    <Startbtn />
+    <Startbtn onArrived={onArrived}/>
     </div>
   );
 }
