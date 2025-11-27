@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import Gps from "./gps.jsx";
 import { startGps } from "./nav.js";
 import s from './Dropcard.module.css';
-import Startbtn from "./buttons.jsx";
+import Startbtn, { Stopbtn } from "./buttons.jsx";
 
 export default function Dropcard({ drop, index, onChangeStatus }) {
     const [address, setAddress] = useState("");
-
     const [arrived, setArrived] = useState(null);
+    const [delivered, setDelivered] = useState(null);
 
     function onStart() {
         startGps(address); 
@@ -17,6 +17,13 @@ export default function Dropcard({ drop, index, onChangeStatus }) {
     function onArrived() {
         const start = Date.now();
         setArrived(start);
+        onChangeStatus(drop.drop_idx, "In-progress");
+    };
+
+    function onDelivered() {
+        const end = Date.now();
+        setDelivered(end);
+        onChangeStatus(drop.drop_idx, "Completed");
     };
 
     if (drop.status === "Not-started") {
@@ -39,5 +46,15 @@ export default function Dropcard({ drop, index, onChangeStatus }) {
 
     </div>
                 )
+    }
+
+    if (drop.status === "In-progress") {
+    return (
+    <div className={s.dropCard}>
+        <h2>Drop {index}</h2>
+    <Stopbtn onDelivered={onDelivered}/>
+
+    </div>
+        ) 
     }
 }
