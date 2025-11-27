@@ -98,6 +98,16 @@ if (!drops || drops.length === 0) {
         );
     }
 
+    function onChangeElapsed(drop_idx, ms) {
+        setDrops(prev => 
+        prev.map(drop => 
+        drop.drop_idx === drop_idx
+            ? {...drop, elapsed: ms }
+            : drop )
+        );
+
+    }
+
 return (
   <div className="container">
     <h1>Run Page</h1>
@@ -111,6 +121,7 @@ return (
         onChangeStatus={onChangeStatus}
         onChangeStart={onChangeStart}
         onChangeStop={onChangeStop}
+        onChangeElapsed={onChangeElapsed}
         />
     
     <details>
@@ -128,6 +139,7 @@ return (
             onChangeStatus={onChangeStatus}
             onChangeStart={onChangeStart}
             onChangeStop={onChangeStop}
+            onChangeElapsed={onChangeElapsed}
             />
         ))}
       </ul>
