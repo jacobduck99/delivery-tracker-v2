@@ -30,10 +30,17 @@ export default function Dropcard({ drop, index, onChangeStatus, onChangeStart, o
         console.log(end);
     };
 
-    function onCompleted() {
-        const elapsedms = delivered - arrived;
-        return elapsedms;
-    }
+    function onCompleted(ms) {
+        const totalSeconds = Math.floor(ms / 1000);
+
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+
+        const paddedSeconds = seconds.toString().padStart(2, "0");
+
+        return `${minutes}:${paddedSeconds}`;    
+
+    };
 
     if (drop.status === "Not-started") {
     
@@ -69,7 +76,7 @@ export default function Dropcard({ drop, index, onChangeStatus, onChangeStart, o
     if (drop.status === "Completed") {
         return (
         <div className={s.dropCard}>
-        <h3>elapsed time: {onCompleted()}</h3>
+        <h3>elapsed time: {onCompleted(delivered - arrived )}</h3>
         </div>
         )
     }
