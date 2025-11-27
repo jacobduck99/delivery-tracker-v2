@@ -78,6 +78,24 @@ if (!drops || drops.length === 0) {
             );
             }
 
+    function onChangeStart(drop_idx, newStart) {
+        setDrops(prev => 
+        prev.map(drop => 
+        drop.drop_idx === drop_idx
+            ? {...drop, start_ts: newStart }
+            : drop )
+        );
+    }
+
+    function onChangeStop(drop_idx, newStop) {
+        setDrops(prev => 
+        prev.map(drop => 
+        drop.drop_idx === drop_idx
+            ? {...drop, end_ts: newStop }
+            : drop )
+        );
+    }
+
 return (
   <div className="container">
     <h1>Run Page</h1>
@@ -89,6 +107,7 @@ return (
         index={firstDrop.drop_idx}
         drop={firstDrop}
         onChangeStatus={onChangeStatus}
+        onChangeStart={onChangeStart}
         />
     
     <details>
@@ -104,6 +123,7 @@ return (
             index={drop.drop_idx}
             drop={drop}
             onChangeStatus={onChangeStatus}
+            onChangeStart={onChangeStart}
             />
         ))}
       </ul>
