@@ -11,13 +11,15 @@ export default function Dropcard({ drop, index, onChangeStatus }) {
 
     function onStart() {
         startGps(address); 
-        onChangeStatus(index, "Navigating"); 
+        onChangeStatus(drop.drop_idx, "Navigating"); 
         };
 
     function onArrived() {
         const start = Date.now();
         setArrived(start);
     };
+
+    if (drop.status === "Not-started") {
     
     return (
     <div className={s.dropCard}>
@@ -27,7 +29,15 @@ export default function Dropcard({ drop, index, onChangeStatus }) {
         setAddress={setAddress}
         onStart={onStart}
         />
-    <Startbtn onArrived={onArrived}/>
     </div>
-  );
+           ) }
+    if (drop.status === "Navigating") {
+    return (
+    <div className={s.dropCard}>
+        <h2>Drop {index}</h2>
+    <Startbtn onArrived={onArrived}/>
+
+    </div>
+                )
+    }
 }
