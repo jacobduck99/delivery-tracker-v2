@@ -63,6 +63,8 @@ if (!drops || drops.length === 0) {
 
     const currentDrops = drops.filter( (drop) => drop.status === "In-progress" );
 
+    const completedDrops = drops.filter( (drop) => drop.status === "Completed" );
+
     const firstDrop = drops[0];
     const restDrops = drops.slice(1);
 
