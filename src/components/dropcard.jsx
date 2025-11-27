@@ -4,7 +4,7 @@ import { startGps } from "./nav.js";
 import s from './Dropcard.module.css';
 import Startbtn, { Stopbtn } from "./buttons.jsx";
 
-export default function Dropcard({ drop, index, onChangeStatus, onChangeStart }) {
+export default function Dropcard({ drop, index, onChangeStatus, onChangeStart, onChangeStop }) {
     const [address, setAddress] = useState("");
     const [arrived, setArrived] = useState(null);
     const [delivered, setDelivered] = useState(null);
@@ -27,10 +27,11 @@ export default function Dropcard({ drop, index, onChangeStatus, onChangeStart })
         setDelivered(end);
         onChangeStatus(drop.drop_idx, "Completed");
         onChangeStop(drop.drop_idx, end);
+        console.log(end);
     };
 
     function onCompleted() {
-        const elapsedms = deliverd - arrived;
+        const elapsedms = delivered - arrived;
         return elapsedms;
     }
 
@@ -68,7 +69,7 @@ export default function Dropcard({ drop, index, onChangeStatus, onChangeStart })
     if (drop.status === "Completed") {
         return (
         <div className={s.dropCard}>
-        <h3>elapsed time: {onCompleted}</h3>
+        <h3>elapsed time: {onCompleted()}</h3>
         </div>
         )
     }

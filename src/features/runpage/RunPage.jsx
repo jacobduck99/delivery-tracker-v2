@@ -108,6 +108,7 @@ return (
         drop={firstDrop}
         onChangeStatus={onChangeStatus}
         onChangeStart={onChangeStart}
+        onChangeStop={onChangeStop}
         />
     
     <details>
@@ -124,6 +125,7 @@ return (
             drop={drop}
             onChangeStatus={onChangeStatus}
             onChangeStart={onChangeStart}
+            onChangeStop={onChangeStop}
             />
         ))}
       </ul>
