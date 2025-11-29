@@ -53,7 +53,7 @@ def save_config():
  
         conn.commit()
        
-        return jsonify({"ok": True, "run_id": run_id, "number_of_drops": number_of_drops}), 201
+        return jsonify({"ok": True, "number_of_drops": number_of_drops}), 201
 
 
     except IntegrityError as e:

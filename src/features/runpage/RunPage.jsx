@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getDrops } from "../../lib/api/runApi.js";
 import Dropcard from "../../components/dropcard.jsx";
+import { saveDeliveries } from "../../lib/storage/runStorage.js";
 
 export default function RunPage() {
     const [drops, setDrops] = useState([]);
@@ -23,6 +24,7 @@ export default function RunPage() {
         setDrops(null);
       } else {
         setDrops(data.deliveries || []);
+        saveDeliveries(data.run_id, data.deliveries);
         console.log(data.deliveries)
       }
 

@@ -35,7 +35,8 @@ def get_run(run_id):
     # rows are Row objects turn them into plain dicts
     deliveries = [dict(row) for row in rows]
 
-    return jsonify({"ok": True, "deliveries": deliveries}), 200
+    return jsonify({"ok": True, "run_id": run_id, "deliveries": deliveries}), 200
+
 
 
 
