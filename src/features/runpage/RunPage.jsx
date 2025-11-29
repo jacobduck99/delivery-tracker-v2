@@ -106,16 +106,19 @@ if (!drops || drops.length === 0) {
             ? {...drop, end_ts: newStop }
             : drop );
             saveDeliveries(runId, nextDrops);
+            return nextDrops;
         });
     }
 
     function onChangeElapsed(drop_idx, ms) {
-        setDrops(prev => 
-        prev.map(drop => 
+        setDrops(prev => {
+        const nextDrops = prev.map(drop => 
         drop.drop_idx === drop_idx
             ? {...drop, elapsed: ms }
-            : drop )
-        );
+            : drop );
+            saveDeliveries(runId, nextDrops);
+            return nextDrops;
+        });
 
     }
 
