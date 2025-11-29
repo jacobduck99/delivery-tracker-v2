@@ -115,7 +115,7 @@ return (
     <p>Loaded {drops.length} drops.</p>
     
     <Dropcard 
-        key={firstDrop}
+        key={firstDrop.drop_idx}
         index={firstDrop.drop_idx}
         drop={firstDrop}
         onChangeStatus={onChangeStatus}
