@@ -25,9 +25,16 @@ export default function RunPage() {
         setDrops(null);
       } else {
         setRunId(data.run_id);
-        setDrops(data.deliveries || []);
+        const cache = loadDeliveries(data.run_id);
+        if (!cache) {
+        setDrops(data.deliveries || []); 
         saveDeliveries(data.run_id, data.deliveries);
         console.log(data.deliveries)
+                }
+        else {
+            setRunId(data.run_id);
+            setDrops(cache);
+                }
       }
 
       setLoading(false);
