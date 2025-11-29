@@ -12,7 +12,6 @@ export default function Dropcard({ drop, index, onChangeStatus, onChangeStart, o
     function onStart() {
         startGps(address); 
         onChangeStatus(drop.drop_idx, "Navigating"); 
-        saveDeliveries(data.run_id, data.deliveries);
         };
 
     function onArrived() {

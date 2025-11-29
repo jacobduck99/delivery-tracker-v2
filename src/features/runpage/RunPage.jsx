@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { getDrops } from "../../lib/api/runApi.js";
 import Dropcard from "../../components/dropcard.jsx";
-import { saveDeliveries } from "../../lib/storage/runStorage.js";
+import { saveDeliveries, loadDeliveries } from "../../lib/storage/runStorage.js";
 
 export default function RunPage() {
     const [drops, setDrops] = useState([]);
     const [loading, setLoading] = useState(true);
     const [err, setErr] = useState("");
+    const [runId, setRunId] = useState(null);
     
     useEffect(() => {
         let cancelled = false;
@@ -23,6 +24,7 @@ export default function RunPage() {
         setErr("Failed to load drops from server");
         setDrops(null);
       } else {
+        setRunId(data.run_id);
         setDrops(data.deliveries || []);
         saveDeliveries(data.run_id, data.deliveries);
         console.log(data.deliveries)
@@ -73,14 +75,17 @@ if (!drops || drops.length === 0) {
     console.log(drops);
 
     function onChangeStatus(drop_idx, newStatus) {
-        setDrops(prev =>
-            prev.map(drop =>
-            drop.drop_idx === drop_idx
-            ? { ...drop, status: newStatus }
-            : drop
-                )
-            );
-            }
+        setDrops(prev => {
+        const nextDrops = prev.map(drop =>
+        drop.drop_idx === drop_idx
+        ? { ...drop, status: newStatus }
+        : drop
+        );
+
+    saveDeliveries(runId, nextDrops);
+    return nextDrops;
+  });     
+}
 
     function onChangeStart(drop_idx, newStart) {
         setDrops(prev => 
