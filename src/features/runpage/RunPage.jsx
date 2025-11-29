@@ -100,12 +100,13 @@ if (!drops || drops.length === 0) {
     }
 
     function onChangeStop(drop_idx, newStop) {
-        setDrops(prev => 
-        prev.map(drop => 
+        setDrops(prev => {
+        const nextDrops = prev.map(drop => 
         drop.drop_idx === drop_idx
             ? {...drop, end_ts: newStop }
-            : drop )
-        );
+            : drop );
+            saveDeliveries(runId, nextDrops);
+        });
     }
 
     function onChangeElapsed(drop_idx, ms) {
