@@ -72,12 +72,9 @@ if (!drops || drops.length === 0) {
 
     const upcomingDrops = drops.filter( (drop) => drop.status === "Not-started" ); 
 
-    const currentDrops = drops.filter( (drop) => drop.status === "In-progress" );
+    const currentDrops = drops.filter(drop => drop.status === "Navigating" || drop.status === "In-progress");
 
     const completedDrops = drops.filter( (drop) => drop.status === "Completed" );
-
-    const firstDrop = drops[0];
-    const restDrops = drops.slice(1);
 
     console.log(drops);
 
@@ -129,6 +126,14 @@ if (!drops || drops.length === 0) {
 
     }
 
+
+    const currentDrop = currentDrops[0] ?? upcomingDrops[0] ?? null;
+
+
+    const remainingUpcoming = currentDrop
+    ? upcomingDrops.filter(d => d.drop_idx !== currentDrop.drop_idx)
+    : upcomingDrops;
+
 return (
   <div className="container">
     <h1>Run Page</h1>
@@ -141,37 +146,56 @@ return (
         <span>Completed drops</span>
         <span className="count"> {completedDrops.length}</span>
       </summary>
-      </details>
-
-    <Dropcard 
-        key={firstDrop.drop_idx}
-        index={firstDrop.drop_idx}
-        drop={firstDrop}
-        onChangeStatus={onChangeStatus}
-        onChangeStart={onChangeStart}
-        onChangeStop={onChangeStop}
-        onChangeElapsed={onChangeElapsed}
-        />
-    
-    <details>
-      <summary>
-        <span>Upcoming drops</span>
-        <span className="count"> {restDrops.length}</span>
-      </summary>
-
-      <ul className="run-list upcoming-list" id="upcoming-list">
-        {restDrops.map((drop, index) => (
+        
+      <ul className="run-list completed-list" id="completed-list"> {completedDrops.map((drop, index) => (
         <Dropcard
             key={drop.drop_idx ?? index}
             index={drop.drop_idx}
-            drop={drop}
+            drop={drop} 
             onChangeStatus={onChangeStatus}
             onChangeStart={onChangeStart}
             onChangeStop={onChangeStop}
             onChangeElapsed={onChangeElapsed}
-            />
-        ))}
+        />
+      ))} 
       </ul>
+      </details>
+
+
+    <section id="current-drop-slot" className="drops">
+        {currentDrop && (
+        <Dropcard
+        key={currentDrop.drop_idx}
+        index={currentDrop.drop_idx}
+        drop={currentDrop}
+        onChangeStatus={onChangeStatus}
+        onChangeStart={onChangeStart}
+        onChangeStop={onChangeStop}
+        onChangeElapsed={onChangeElapsed}
+         />
+            )}
+        </section>
+
+    <details>
+      <summary>
+        <span>Upcoming drops</span>
+        <span className="count"> {remainingUpcoming.length}</span>
+      </summary>
+    
+<ul className="run-list upcoming-list" id="upcoming-list">
+  {remainingUpcoming.map((drop, index) => (
+    <Dropcard
+      key={drop.drop_idx ?? index}
+      index={drop.drop_idx}
+      drop={drop}
+      onChangeStatus={onChangeStatus}
+      onChangeStart={onChangeStart}
+      onChangeStop={onChangeStop}
+      onChangeElapsed={onChangeElapsed}
+    />
+  ))}
+</ul>
+
     </details>
   </div>
 );
