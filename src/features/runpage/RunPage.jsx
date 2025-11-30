@@ -135,6 +135,14 @@ return (
 
     <p>Loaded {drops.length} drops.</p>
     
+    
+    <details>
+      <summary>
+        <span>Completed drops</span>
+        <span className="count"> {completedDrops.length}</span>
+      </summary>
+      </details>
+
     <Dropcard 
         key={firstDrop.drop_idx}
         index={firstDrop.drop_idx}
