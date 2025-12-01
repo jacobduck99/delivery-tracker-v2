@@ -22,19 +22,29 @@ export default function Dropcard({ drop, index, onChangeStatus, onChangeStart, o
         console.log(start);
     };
 
-    function onDelivered() {
+    async function onDelivered() {
         const end = Date.now();
         setDelivered(end);
 
         const ms = end - arrived;
 
-        onChangeStatus(drop.drop_idx, "Completed");
+        onChangeStatus(drop.drop_idx, "Finishing");
         onChangeStop(drop.drop_idx, end);
         onChangeElapsed(drop.drop_idx, ms); 
-
+        console.log("waiting")
+        await timerForStatus(4000);
+        console.log("done");
+        onChangeStatus(drop.drop_idx, "Completed");
         console.log(end);
         }
 
+    function timerForStatus(ms) {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve("done");
+            }, ms);
+            });
+        }
 
     function onCompleted(ms) {
         const totalSeconds = Math.floor(ms / 1000);
@@ -77,7 +87,7 @@ export default function Dropcard({ drop, index, onChangeStatus, onChangeStart, o
         ) 
     }
 
-    if (drop.status === "Completed") {
+    if (drop.status === "Finishing") {
         const ms = drop.end_ts - drop.start_ts;
     return (
         <div className={s.dropCard}>
@@ -86,4 +96,12 @@ export default function Dropcard({ drop, index, onChangeStatus, onChangeStart, o
     );
 }
 
+    if (drop.status === "Completed") {
+        const ms = drop.end_ts - drop.start_ts;
+    return (
+        <div className={s.dropCard}>
+            <h3>elapsed time: {onCompleted(ms)}</h3>
+        </div>
+    );
+}
 }

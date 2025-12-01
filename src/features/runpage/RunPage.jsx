@@ -72,7 +72,7 @@ if (!drops || drops.length === 0) {
 
     const upcomingDrops = drops.filter( (drop) => drop.status === "Not-started" ); 
 
-    const currentDrops = drops.filter(drop => drop.status === "Navigating" || drop.status === "In-progress");
+    const currentDrops = drops.filter(drop => drop.status === "Navigating" || drop.status === "In-progress" || drop.status === "Finishing");
 
     const completedDrops = drops.filter( (drop) => drop.status === "Completed" );
 
@@ -123,24 +123,20 @@ if (!drops || drops.length === 0) {
             saveDeliveries(runId, nextDrops);
             return nextDrops;
         });
-
     }
 
 
     const currentDrop = currentDrops[0] ?? upcomingDrops[0] ?? null;
 
-
     const remainingUpcoming = currentDrop
-    ? upcomingDrops.filter(d => d.drop_idx !== currentDrop.drop_idx)
-    : upcomingDrops;
+    ? upcomingDrops.filter(d => d.drop_idx !== currentDrop.drop_idx) : upcomingDrops;
 
 return (
   <div className="container">
     <h1>Run Page</h1>
 
     <p>Loaded {drops.length} drops.</p>
-    
-    
+     
     <details>
       <summary>
         <span>Completed drops</span>
@@ -160,7 +156,6 @@ return (
       ))} 
       </ul>
       </details>
-
 
     <section id="current-drop-slot" className="drops">
         {currentDrop && (
