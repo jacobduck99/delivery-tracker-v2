@@ -4,7 +4,7 @@ import { startGps } from "./nav.js";
 import s from './Dropcard.module.css';
 import Startbtn, { Stopbtn } from "./buttons.jsx";
 
-export default function Dropcard({ drop, index, onChangeStatus, onChangeStart, onChangeStop, onChangeElapsed }) {
+export default function Dropcard({ drop, index, onChangeStatus, onChangeAddress, onChangeStart, onChangeStop, onChangeElapsed }) {
     const [address, setAddress] = useState("");
     const [arrived, setArrived] = useState(null);
     const [delivered, setDelivered] = useState(null);
@@ -12,6 +12,7 @@ export default function Dropcard({ drop, index, onChangeStatus, onChangeStart, o
     function onStart() {
         startGps(address); 
         onChangeStatus(drop.drop_idx, "Navigating"); 
+        onChangeAddress(drop.drop_idx, address); 
         };
 
     function onArrived() {

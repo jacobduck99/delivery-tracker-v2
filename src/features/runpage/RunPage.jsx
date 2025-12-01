@@ -103,6 +103,18 @@ if (!drops || drops.length === 0) {
     });
     }
 
+
+    function onChangeAddress(drop_idx, newAddress) {
+        setDrops(prev => {
+            const nextDrops = prev.map(drop => 
+            drop.drop_idx === drop_idx
+            ? {...drop, address: newAddress }
+            : drop);
+            saveDeliveries(runId, nextDrops);
+            return nextDrops;
+        });
+    }
+
     function onChangeStop(drop_idx, newStop) {
         setDrops(prev => {
         const nextDrops = prev.map(drop => 
@@ -149,6 +161,7 @@ return (
             index={drop.drop_idx}
             drop={drop} 
             onChangeStatus={onChangeStatus}
+            onChangeAddress={onChangeAddress}
             onChangeStart={onChangeStart}
             onChangeStop={onChangeStop}
             onChangeElapsed={onChangeElapsed}
@@ -164,6 +177,7 @@ return (
         index={currentDrop.drop_idx}
         drop={currentDrop}
         onChangeStatus={onChangeStatus}
+        onChangeAddress={onChangeAddress}
         onChangeStart={onChangeStart}
         onChangeStop={onChangeStop}
         onChangeElapsed={onChangeElapsed}
@@ -180,13 +194,14 @@ return (
 <ul className="run-list upcoming-list" id="upcoming-list">
   {remainingUpcoming.map((drop, index) => (
     <Dropcard
-      key={drop.drop_idx ?? index}
-      index={drop.drop_idx}
-      drop={drop}
-      onChangeStatus={onChangeStatus}
-      onChangeStart={onChangeStart}
-      onChangeStop={onChangeStop}
-      onChangeElapsed={onChangeElapsed}
+        key={drop.drop_idx ?? index}
+        index={drop.drop_idx}
+        drop={drop}
+        onChangeStatus={onChangeStatus}
+        onChangeAddress={onChangeAddress}
+        onChangeStart={onChangeStart}
+        onChangeStop={onChangeStop}
+        onChangeElapsed={onChangeElapsed}
     />
   ))}
 </ul>
