@@ -19,3 +19,14 @@ export function loadDeliveries(run_id) {
   return JSON.parse(raw);
 }
 
+export function addCompletedLs() {
+    const queue = [];
+    const getDeliveries = loadDeliveries();
+    const completed = getDeliveries.filter(drop => drop.status === "Completed");
+    queue.push(completed);
+    const saveQueueLs = localStorage.setItem("Pending_queue_v1", JSON.stringify(queue));
+    return saveQueueLs;
+    console.log(queue);
+}
+
+
