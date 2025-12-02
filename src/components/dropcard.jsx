@@ -3,6 +3,7 @@ import Gps from "./gps.jsx";
 import { startGps } from "./nav.js";
 import s from './Dropcard.module.css';
 import Startbtn, { Stopbtn } from "./buttons.jsx";
+import { addCompletedLs } from "../lib/storage/runStorage.js";
 
 export default function Dropcard({ drop, index, onChangeStatus, onChangeAddress, onChangeStart, onChangeStop, onChangeElapsed }) {
     const [address, setAddress] = useState("");

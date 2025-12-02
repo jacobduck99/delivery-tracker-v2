@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getDrops } from "../../lib/api/runApi.js";
 import Dropcard from "../../components/dropcard.jsx";
-import { saveDeliveries, loadDeliveries } from "../../lib/storage/runStorage.js";
+import { saveDeliveries, loadDeliveries, addCompletedLs } from "../../lib/storage/runStorage.js";
 
 export default function RunPage() {
     const [drops, setDrops] = useState([]);
@@ -75,6 +75,10 @@ if (!drops || drops.length === 0) {
     const currentDrops = drops.filter(drop => drop.status === "Navigating" || drop.status === "In-progress" || drop.status === "Finishing");
 
     const completedDrops = drops.filter( (drop) => drop.status === "Completed" );
+    
+    if (completedDrops) {
+        addCompletedLs(runId);
+    };
 
     console.log(drops);
 
