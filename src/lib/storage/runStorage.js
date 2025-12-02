@@ -19,10 +19,12 @@ export function loadDeliveries(run_id) {
   return JSON.parse(raw);
 }
 
+// need to fix this function up buggy as hell
 export function addCompletedLs(runId) {
     const queue = [];
     const getDeliveries = loadDeliveries(runId);
     const completed = getDeliveries.filter(drop => drop.status === "Completed");
+    if (completed.length === 0) {}
     queue.push(completed);
     const saveQueueLs = localStorage.setItem("Pending_queue_v1", JSON.stringify(queue));
 };
