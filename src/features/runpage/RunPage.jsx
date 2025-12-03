@@ -75,10 +75,9 @@ if (!drops || drops.length === 0) {
     const currentDrops = drops.filter(drop => drop.status === "Navigating" || drop.status === "In-progress" || drop.status === "Finishing");
 
     const completedDrops = drops.filter( (drop) => drop.status === "Completed" );
-   
-    // fix this up in runstorage -jacob
+    
     if (completedDrops) {
-        addCompletedLs(runId);
+        addCompletedLs(runId, completedDrops);
     };
 
     console.log(drops);
