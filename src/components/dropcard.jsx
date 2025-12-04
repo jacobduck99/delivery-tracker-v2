@@ -5,7 +5,7 @@ import s from './Dropcard.module.css';
 import Startbtn, { Stopbtn } from "./buttons.jsx";
 import { addCompletedLs } from "../lib/storage/runStorage.js";
 
-export default function Dropcard({ drop, index, onChangeStatus, onChangeAddress, onChangeStart, onChangeStop, onChangeElapsed }) {
+export default function Dropcard({ drop, index, onChangeStatus, onChangeAddress, onChangeStart, onChangeStop, onChangeElapsed, onChangeSyncStatus }) {
     const [address, setAddress] = useState("");
     const [arrived, setArrived] = useState(null);
     const [delivered, setDelivered] = useState(null);
@@ -37,6 +37,7 @@ export default function Dropcard({ drop, index, onChangeStatus, onChangeAddress,
         await timerForStatus(4000);
         console.log("done");
         onChangeStatus(drop.drop_idx, "Completed");
+        onChangeSyncStatus(drop.drop_idx, "Pending");
         console.log(end);
         }
 

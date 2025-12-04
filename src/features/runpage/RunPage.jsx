@@ -180,6 +180,7 @@ return (
             onChangeStart={onChangeStart}
             onChangeStop={onChangeStop}
             onChangeElapsed={onChangeElapsed}
+            onChangeSyncStatus={onChangeSyncStatus}
         />
       ))} 
       </ul>
@@ -196,6 +197,7 @@ return (
         onChangeStart={onChangeStart}
         onChangeStop={onChangeStop}
         onChangeElapsed={onChangeElapsed}
+        onChangeSyncStatus={onChangeSyncStatus}
          />
             )}
         </section>
@@ -217,6 +219,7 @@ return (
         onChangeStart={onChangeStart}
         onChangeStop={onChangeStop}
         onChangeElapsed={onChangeElapsed}
+        onChangeSyncStatus={onChangeSyncStatus}
     />
   ))}
 </ul>
