@@ -88,7 +88,10 @@ if (!drops || drops.length === 0) {
 
     saveDeliveries(runId, nextDrops);
     return nextDrops;
-  });     
+  });    
+    if (newStatus === "Completed") {
+            addCompletedLs(runId, drop_idx)
+        }
 }
 
     function onChangeSyncStatus(drop_idx, newSyncStatus) {
@@ -103,6 +106,7 @@ if (!drops || drops.length === 0) {
     });
         if (newSyncStatus === "Pending") {
             addCompletedLs(runId, drop_idx);
+            savePendingDrops();
             
 
         }
@@ -183,6 +187,7 @@ return (
             onChangeStop={onChangeStop}
             onChangeElapsed={onChangeElapsed}
             onChangeSyncStatus={onChangeSyncStatus}
+            addCompletedLs={addCompletedLs}
         />
       ))} 
       </ul>
@@ -200,6 +205,7 @@ return (
         onChangeStop={onChangeStop}
         onChangeElapsed={onChangeElapsed}
         onChangeSyncStatus={onChangeSyncStatus}
+        addCompletedLs={addCompletedLs}
          />
             )}
         </section>
@@ -222,6 +228,7 @@ return (
         onChangeStop={onChangeStop}
         onChangeElapsed={onChangeElapsed}
         onChangeSyncStatus={onChangeSyncStatus}
+        addCompletedLs={addCompletedLs}
     />
   ))}
 </ul>

@@ -25,14 +25,7 @@ export async function getDrops() {
 
 
 export async function savePendingDrops() {
-  const queue = loadPendingQueue("Pending_queue_v1");
-  console.log("[savePendingDrops] queue:", queue);
-  console.log("[savePendingDrops] isArray?", Array.isArray(queue));
-
-  const dropidx = queue?.drop_idx;
-  console.log("[savePendingDrops] dropidx:", dropidx);
-
-  const payLoad = queue;
-  console.log("[savePendingDrops] payload:", payLoad);
+    const queue = loadPendingQueue("Pending_queue_v1");
+    console.log("[savePendingDrops] queue:", queue);
 }
 
