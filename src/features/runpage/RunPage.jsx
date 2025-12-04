@@ -75,10 +75,6 @@ if (!drops || drops.length === 0) {
     const currentDrops = drops.filter(drop => drop.status === "Navigating" || drop.status === "In-progress" || drop.status === "Finishing");
 
     const completedDrops = drops.filter( (drop) => drop.status === "Completed" );
-    
-    if (completedDrops) {
-        addCompletedLs(runId, completedDrops);
-    };
 
     console.log(drops);
 
@@ -93,6 +89,9 @@ if (!drops || drops.length === 0) {
     saveDeliveries(runId, nextDrops);
     return nextDrops;
   });     
+    if (newStatus === "Completed" && runId !== null) {
+            addCompletedLs(runId, drop_idx);
+        }
 }
 
     function onChangeStart(drop_idx, newStart) {

@@ -19,16 +19,23 @@ export function loadDeliveries(run_id) {
   return JSON.parse(raw);
 }
 
-export function addCompletedLs(runId, drop_idx) {
-    const getDeliveries = loadDeliveries(runId); 
-    const completed = getDeliveries.filter(drop => drop.drop_idx === drop_idx && drop.status === "Completed");
-    const queue = completed;
-    if (completed.length === 0) {
-        return;
-    }
-    const saveQueueLs = localStorage.setItem("Pending_queue_v1", JSON.stringify(queue));
+export function loadPendingQueue(key) {
+    const raw = localStorage.getItem(key);
+    if (!raw) return [];
+    return JSON.parse(raw);
 };
 
+export function addCompletedLs(runId, drop_idx) {
+    const deliveries = loadDeliveries(runId);
+    if (!deliveries) return;
+    
+    const completed = deliveries.filter( (drop) => drop.status === "Completed" );
+    if (!completed) return;
+    const queue = completed; 
+
+    localStorage.setItem("Pending_queue_v1", JSON.stringify(queue));
+
+    };
 
 
 
