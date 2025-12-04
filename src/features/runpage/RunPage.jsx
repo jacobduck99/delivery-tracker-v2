@@ -55,6 +55,7 @@ useEffect(() => {
 
     completedPending.forEach(drop => {
         addCompletedLs(runId, drop);
+        savePendingDrops();
     });
 
 }, [drops]);
