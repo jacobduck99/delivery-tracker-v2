@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS deliveries (
     elapsed          INTEGER,
     expected_minutes REAL,
     status           TEXT,
+    sync_status      TEXT,
     FOREIGN KEY (run_id) REFERENCES config(id) ON DELETE CASCADE,
     UNIQUE (run_id, drop_idx)
 );
