@@ -5,7 +5,6 @@ import traceback
 from utils.time_helpers import to_utc_iso
 from data.database import get_db
 
-
 config_bp = Blueprint("config", __name__)
 
 @config_bp.post("/config")
@@ -46,10 +45,10 @@ def save_config():
         for idx in range(1, number_of_drops +1):
             conn.execute(
                 """
-                INSERT INTO deliveries (run_id, drop_idx, address, start_ts, end_ts, elapsed, expected_minutes, status)
-                VALUES (?,?,?,?,?,?,?,?)
+                INSERT INTO deliveries (run_id, drop_idx, address, start_ts, end_ts, elapsed, expected_minutes, status, sync_status)
+                VALUES (?,?,?,?,?,?,?,?,?)
                 """, 
-                (run_id, idx, None, None, None, 0, None, "Not-started"),)
+                (run_id, idx, None, None, None, 0, None, "Not-started", None),)
  
         conn.commit()
        
