@@ -29,8 +29,7 @@ export function addCompletedLs(runId, drop_idx) {
     const deliveries = loadDeliveries(runId);
     if (!deliveries) return;
     
-    const completed = deliveries.filter( (drop) => drop.status === "Completed" );
-    if (!completed) return;
+    const completed = deliveries.filter( (drop) => drop.idx === drop_idx && drop.status === "Completed" );
     const queue = completed; 
 
     localStorage.setItem("Pending_queue_v1", JSON.stringify(queue));

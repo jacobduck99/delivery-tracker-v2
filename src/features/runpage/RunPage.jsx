@@ -94,6 +94,18 @@ if (!drops || drops.length === 0) {
         }
 }
 
+    function onChangeSyncStatus(drop_idx, newSyncStatus) {
+        setDrops(prev => {
+            const nextDrops = prev.map(drop => 
+            drop.drop_idx === drop_idx
+            ? {...drop, sync_status: newSyncStatus }
+            : drop
+        );
+            saveDeliveries(runId, nextDrops);
+            return nextDrops;
+    });
+}
+
     function onChangeStart(drop_idx, newStart) {
         setDrops(prev => { 
         const nextDrops = prev.map(drop => 
