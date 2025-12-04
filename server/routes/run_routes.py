@@ -20,7 +20,8 @@ def get_run(run_id):
             end_ts,
             elapsed,
             expected_minutes,
-            status
+            status,
+            sync_status
         FROM deliveries
         WHERE run_id = ?
         ORDER BY drop_idx
