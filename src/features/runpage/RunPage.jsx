@@ -104,12 +104,6 @@ if (!drops || drops.length === 0) {
             saveDeliveries(runId, nextDrops);
             return nextDrops;
     });
-        if (newSyncStatus === "Pending") {
-            addCompletedLs(runId, drop_idx);
-            savePendingDrops();
-            
-
-        }
 }
 
     function onChangeStart(drop_idx, newStart) {
