@@ -46,6 +46,19 @@ export default function RunPage() {
     };
   }, []);
 
+useEffect(() => {
+    if (!drops || drops.length === 0) return;
+
+    const completedPending = drops.filter(
+        d => d.status === "Completed" && d.sync_status === "Pending"
+    );
+
+    completedPending.forEach(drop => {
+        addCompletedLs(runId, drop);
+    });
+
+}, [drops]);
+
 if (loading) {
   return (
     <div className="container">
@@ -89,9 +102,6 @@ if (!drops || drops.length === 0) {
     saveDeliveries(runId, nextDrops);
     return nextDrops;
   });    
-    if (newStatus === "Completed") {
-            addCompletedLs(runId, drop_idx)
-        }
 }
 
     function onChangeSyncStatus(drop_idx, newSyncStatus) {
@@ -151,7 +161,6 @@ if (!drops || drops.length === 0) {
             return nextDrops;
         });
     }
-
 
     const currentDrop = currentDrops[0] ?? upcomingDrops[0] ?? null;
 

@@ -25,23 +25,23 @@ export function loadPendingQueue(key) {
     return JSON.parse(raw);
 };
 
-export function addCompletedLs(runId, drop_idx) {
-
-    const deliveries = loadDeliveries(runId);
-    if (!deliveries) return;
-
-    const completed = deliveries.filter( (drop) => drop.status === "Completed" && drop.sync_status === "Pending");
-
-    if (!completed) return;
-  
+export function addCompletedLs(runId, drop) {
     const stored = localStorage.getItem("Pending_queue_v1");
     const queue = stored ? JSON.parse(stored) : [];
 
+    const alreadyQueued = queue.some(
+        item => item.drop_idx === drop.drop_idx
+    );
 
-    queue.push(...completed);
+    if (alreadyQueued) return;
+
+    queue.push(drop);
 
     localStorage.setItem("Pending_queue_v1", JSON.stringify(queue));
 }
+
+
+
 
 
 
