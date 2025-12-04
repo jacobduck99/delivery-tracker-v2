@@ -38,6 +38,51 @@ def get_run(run_id):
 
     return jsonify({"ok": True, "run_id": run_id, "deliveries": deliveries}), 200
 
+@run_bp.post("/run/<int:run_id>/<int:drop_idx>")
+def update_drop(run_id, drop_idx):
+    if request.method == "OPTIONS":
+        return ("", 204)
+
+    try:
+        data = request.get_json(force=True) or {}
+
+        runid = run_id
+        dropidx = drop_idx
+
+        address = data["address"]
+        start_ts = data["start_ts"]
+        end_ts = data["end_ts"]
+        elapsed = data["elapsed"]
+        expected_minutes = data["expected_minutes"]
+        status = data["status"]
+        sync_status = "synced"
+
+        conn = get_db()
+        cur = conn.execute(
+            """
+            UPDATE deliveries
+            SET
+                address = ?,
+                start_ts = ?,
+                end_ts = ?,
+                elapsed = ?,
+                expected_minutes = ?,
+                status = ?,
+                sync_status = ?
+            WHERE run_id = ? AND drop_idx = ?
+            """,
+            (address, start_ts, end_ts, elapsed, expected_minutes, status, sync_status, runid, dropidx),
+        )
+
+        conn.commit()
+
+        if cur.rowcount != 1:
+            return jsonify({"ok": False, "error": "Drop not found"}), 404
+
+        return jsonify({"ok": True, "message": "Drop synced"}), 200
+
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e)}), 400
 
 
 
