@@ -1,5 +1,5 @@
 
-import { loadRun } from "../../lib/storage/runStorage.js";
+import { loadRun, loadPendingQueue,  } from "../../lib/storage/runStorage.js";
 
 const API_BASE = import.meta.env.VITE_API_URL;
 
@@ -22,3 +22,17 @@ export async function getDrops() {
     } 
  
 }
+
+
+export async function savePendingDrops() {
+  const queue = loadPendingQueue("Pending_queue_v1");
+  console.log("[savePendingDrops] queue:", queue);
+  console.log("[savePendingDrops] isArray?", Array.isArray(queue));
+
+  const dropidx = queue?.drop_idx;
+  console.log("[savePendingDrops] dropidx:", dropidx);
+
+  const payLoad = queue;
+  console.log("[savePendingDrops] payload:", payLoad);
+}
+

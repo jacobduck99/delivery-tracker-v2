@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getDrops } from "../../lib/api/runApi.js";
+import { getDrops, savePendingDrops } from "../../lib/api/runApi.js";
 import Dropcard from "../../components/dropcard.jsx";
 import { saveDeliveries, loadDeliveries, addCompletedLs } from "../../lib/storage/runStorage.js";
 
@@ -103,6 +103,8 @@ if (!drops || drops.length === 0) {
     });
         if (newSyncStatus === "Pending") {
             addCompletedLs(runId, drop_idx);
+            
+
         }
 }
 
