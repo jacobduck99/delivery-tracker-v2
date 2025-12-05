@@ -79,7 +79,7 @@ def update_drop(run_id, drop_idx):
         if cur.rowcount != 1:
             return jsonify({"ok": False, "error": "Drop not found"}), 404
 
-        return jsonify({"ok": True, "message": "Drop synced"}), 200
+        return jsonify({"ok": True, "message": "Drop synced", "drop": drop_idx }), 200
 
     except Exception as e:
         return jsonify({"ok": False, "error": str(e)}), 400
