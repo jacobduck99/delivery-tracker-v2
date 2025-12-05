@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getDrops, savePendingDrops } from "../../lib/api/runApi.js";
 import Dropcard from "../../components/dropcard.jsx";
-import { saveDeliveries, loadDeliveries, addCompletedLs } from "../../lib/storage/runStorage.js";
+import { saveDeliveries, loadDeliveries, addCompletedLs, drainQueue } from "../../lib/storage/runStorage.js";
 
 export default function RunPage() {
     const [drops, setDrops] = useState([]);
@@ -73,7 +73,7 @@ export default function RunPage() {
         );
 
         syncedDrop.forEach(drop => {
-            
+           drainQueue(drop.drop_idx, runId); 
         })
     }, [drops]);
 
