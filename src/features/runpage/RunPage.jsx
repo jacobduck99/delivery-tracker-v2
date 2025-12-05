@@ -46,19 +46,23 @@ export default function RunPage() {
     };
   }, []);
 
-useEffect(() => {
-    if (!drops || drops.length === 0) return;
+    useEffect(() => {
+        if (!drops || drops.length === 0) return;
 
-    const completedPending = drops.filter(
+        const completedPending = drops.filter(
         d => d.status === "Completed" && d.sync_status === "Pending"
-    );
+        );
 
-    completedPending.forEach(drop => {
+        completedPending.forEach(async (drop) => {
         addCompletedLs(runId, drop);
-        savePendingDrops(runId, drop);
-    });
+        const result = await savePendingDrops(runId, drop);
 
-}, [drops]);
+        if (result.ok) {
+                console.log(result);
+            }
+        });
+
+    }, [drops]);
 
 if (loading) {
   return (
