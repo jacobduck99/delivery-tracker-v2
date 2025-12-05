@@ -73,7 +73,7 @@ export default function RunPage() {
         );
 
         syncedDrop.forEach(drop => {
-            addCompletedLs(runId, drop);
+            
         })
     }, [drops]);
 

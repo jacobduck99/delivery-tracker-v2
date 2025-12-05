@@ -46,6 +46,16 @@ export function addCompletedLs(runId, drop) {
     localStorage.setItem("Pending_queue_v1", JSON.stringify(queue));
 }
 
+export function drainQueue(dropidx, runId) {
+    const queue = loadPendingQueue("Pending_queue_v1");
+
+    const filtered = queue.filter(item => item.drop_idx !== dropidx);
+
+    localStorage.setItem("Pending_queue_v1", JSON.stringify(filtered));
+
+
+}
+
 
 
 
