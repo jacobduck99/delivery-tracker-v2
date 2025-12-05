@@ -58,6 +58,7 @@ export default function RunPage() {
         const result = await savePendingDrops(runId, drop);
 
         if (result.ok) {
+            onChangeSyncStatus(drop.drop_idx, "synced") 
                 console.log(result);
             }
         });

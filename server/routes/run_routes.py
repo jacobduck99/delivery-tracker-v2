@@ -55,7 +55,7 @@ def update_drop(run_id, drop_idx):
         elapsed = data["elapsed"]
         expected_minutes = data["expected_minutes"]
         status = data["status"]
-        sync_status = "synced"
+        sync_status = "Synced"
 
         conn = get_db()
         cur = conn.execute(
