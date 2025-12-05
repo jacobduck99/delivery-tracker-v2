@@ -33,7 +33,13 @@ export function addCompletedLs(runId, drop) {
         item => item.drop_idx === drop.drop_idx
     );
 
-    if (alreadyQueued) return;
+    if (alreadyQueued) {
+    const updated = queue.map(item =>
+        item.drop_idx === drop.drop_idx ? drop : item
+    );
+    localStorage.setItem("Pending_queue_v1", JSON.stringify(updated));
+    return;
+}
 
     queue.push(drop);
 
