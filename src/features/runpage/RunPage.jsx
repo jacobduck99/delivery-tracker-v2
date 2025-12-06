@@ -148,7 +148,6 @@ if (!drops || drops.length === 0) {
     });
     }
 
-
     function onChangeAddress(drop_idx, newAddress) {
         setDrops(prev => {
             const nextDrops = prev.map(drop => 
@@ -188,18 +187,18 @@ if (!drops || drops.length === 0) {
     ? upcomingDrops.filter(d => d.drop_idx !== currentDrop.drop_idx) : upcomingDrops;
 
 return (
-  <div className="container">
+  <div className="flex flex-col h-full min-h-screen bg-gray-200">
     <h1>Run Page</h1>
 
     <p>Loaded {drops.length} drops.</p>
      
     <details>
-      <summary>
+      <summary className="">
         <span>Completed drops</span>
         <span className="count"> {completedDrops.length}</span>
       </summary>
         
-      <ul className="run-list completed-list" id="completed-list"> {completedDrops.map((drop, index) => (
+      <ul className=""> {completedDrops.map((drop, index) => (
         <Dropcard
             key={drop.drop_idx ?? index}
             index={drop.drop_idx}
@@ -239,7 +238,7 @@ return (
         <span className="count"> {remainingUpcoming.length}</span>
       </summary>
     
-<ul className="run-list upcoming-list" id="upcoming-list">
+<ul className="">
   {remainingUpcoming.map((drop, index) => (
     <Dropcard
         key={drop.drop_idx ?? index}

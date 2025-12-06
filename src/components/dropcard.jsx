@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Gps from "./gps.jsx";
 import { startGps } from "./nav.js";
-import s from './Dropcard.module.css';
 import Startbtn, { Stopbtn } from "./buttons.jsx";
 
 
@@ -62,8 +61,7 @@ export default function Dropcard({ drop, index, onChangeStatus, onChangeAddress,
     if (drop.status === "Not-started") {
     
     return (
-    <div className={s.dropCard}>
-      <h2>Drop {index}</h2>
+   <div className="flex flex-col gap-4 w-full p-4 bg-white border border-gray-200 rounded-xl shadow-sm">      <h2>Drop {index}</h2>
     <Gps 
         address={address}
         setAddress={setAddress}
@@ -73,7 +71,7 @@ export default function Dropcard({ drop, index, onChangeStatus, onChangeAddress,
            ) }
     if (drop.status === "Navigating") {
     return (
-    <div className={s.dropCard}>
+    <div className="bg-white rounded-2x1 shadow-md p-6 w-full max-w-md mx-auto mt-6">
         <h2>Drop {index}</h2>
     <Startbtn onArrived={onArrived}/>
     </div>
@@ -82,7 +80,7 @@ export default function Dropcard({ drop, index, onChangeStatus, onChangeAddress,
 
     if (drop.status === "In-progress") {
     return (
-    <div className={s.dropCard}>
+    <div className="bg-white rounded-2x1 shadow-md p-6 w-full max-w-md mx-auto mt-6">
         <h2>Drop {index}</h2>
     <Stopbtn onDelivered={onDelivered}/>
 
@@ -93,7 +91,7 @@ export default function Dropcard({ drop, index, onChangeStatus, onChangeAddress,
     if (drop.status === "Finishing") {
         const ms = drop.end_ts - drop.start_ts;
     return (
-        <div className={s.dropCard}>
+    <div className="bg-white rounded-2x1 shadow-md p-6 w-full max-w-md mx-auto mt-6">
             <h3>elapsed time: {onCompleted(ms)}</h3>
         </div>
     );
@@ -102,7 +100,7 @@ export default function Dropcard({ drop, index, onChangeStatus, onChangeAddress,
     if (drop.status === "Completed") {
         const ms = drop.end_ts - drop.start_ts;
     return (
-        <div className={s.dropCard}>
+    <div className="bg-white rounded-2x1 shadow-md p-6 w-full max-w-md mx-auto mt-6">
             <h3>elapsed time: {onCompleted(ms)}</h3>
         </div>
     );
