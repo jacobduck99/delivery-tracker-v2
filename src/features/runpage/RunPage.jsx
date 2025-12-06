@@ -112,7 +112,7 @@ if (!drops || drops.length === 0) {
     const completedDrops = drops.filter( (drop) => drop.status === "Completed" ); 
 
 
-if (currentDrops.length === 0) {
+if (currentDrops.length === 0 && upcomingDrops.length === 0) {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4">
       <h1 className="text-xl font-semibold mb-4">No active drop</h1>
