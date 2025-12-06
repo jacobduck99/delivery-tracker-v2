@@ -1,27 +1,34 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Gps from "./gps.jsx";
 import { startGps } from "./nav.js";
 import Startbtn, { Stopbtn } from "./buttons.jsx";
 
-
-export default function Dropcard({ drop, index, onChangeStatus, onChangeAddress, onChangeStart, onChangeStop, onChangeElapsed, onChangeSyncStatus }) {
+export default function Dropcard({
+    drop,
+    index,
+    onChangeStatus,
+    onChangeAddress,
+    onChangeStart,
+    onChangeStop,
+    onChangeElapsed,
+    onChangeSyncStatus,
+}) {
     const [address, setAddress] = useState("");
     const [arrived, setArrived] = useState(null);
     const [delivered, setDelivered] = useState(null);
 
     function onStart() {
-        startGps(address); 
-        onChangeStatus(drop.drop_idx, "Navigating"); 
-        onChangeAddress(drop.drop_idx, address); 
-        };
+        startGps(address);
+        onChangeStatus(drop.drop_idx, "Navigating");
+        onChangeAddress(drop.drop_idx, address);
+        }
 
     function onArrived() {
         const start = Date.now();
         setArrived(start);
         onChangeStatus(drop.drop_idx, "In-progress");
         onChangeStart(drop.drop_idx, start);
-        console.log(start);
-    };
+    }
 
     async function onDelivered() {
         const end = Date.now();
@@ -31,79 +38,112 @@ export default function Dropcard({ drop, index, onChangeStatus, onChangeAddress,
 
         onChangeStatus(drop.drop_idx, "Finishing");
         onChangeStop(drop.drop_idx, end);
-        onChangeElapsed(drop.drop_idx, ms); 
-        console.log("waiting")
-        await timerForStatus(4000);
-        console.log("done");
+        onChangeElapsed(drop.drop_idx, ms);
+
+        await new Promise((resolve) => setTimeout(resolve, 4000));
+
         onChangeStatus(drop.drop_idx, "Completed");
         onChangeSyncStatus(drop.drop_idx, "Pending");
-        console.log(end);
-        }
-
-    function timerForStatus(ms) {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve("done");
-            }, ms);
-            });
         }
 
     function onCompleted(ms) {
         const totalSeconds = Math.floor(ms / 1000);
         const minutes = Math.floor(totalSeconds / 60);
-        const seconds = totalSeconds % 60;
-        const paddedSeconds = seconds.toString().padStart(2, "0");
-
-        return `${minutes}:${paddedSeconds}`;
-}
-
-
-    if (drop.status === "Not-started") {
+        const seconds = (totalSeconds % 60).toString().padStart(2, "0");
+        return `${minutes}:${seconds}`;
+        }
     
-    return (
-   <div className="bg-white rounded-xl shadow-md p-4 max-w-sm w-full mx-auto">     
-    <h2 className="text-lg font-semibold mb-3">Drop {index}</h2>
-    <Gps 
-        address={address}
-        setAddress={setAddress}
-        onStart={onStart}
-        />
-    </div>
-           ) }
-    if (drop.status === "Navigating") {
-    return (
-    <div className="bg-white rounded-2x1 shadow-md p-6 w-full max-w-md mx-auto mt-6">
-        <h2>Drop {index}</h2>
-    <Startbtn onArrived={onArrived}/>
-    </div>
-                )
-    }
+const Card = ({ children }) => (
+  <div className="bg-white rounded-2xl shadow-md p-6 w-full max-w-md mx-auto mt-6 min-h-[220px] flex flex-col">
+    {children}
+  </div>
+);
 
-    if (drop.status === "In-progress") {
-    return (
-    <div className="bg-white rounded-2x1 shadow-md p-6 w-full max-w-md mx-auto mt-6">
-        <h2>Drop {index}</h2>
-    <Stopbtn onDelivered={onDelivered}/>
 
-    </div>
-        ) 
-    }
+if (drop.status === "Not-started") {
+  return (
+    <Card>
+      <h2 className="text-lg font-semibold mb-4">Drop {index}</h2>
 
-    if (drop.status === "Finishing") {
-        const ms = drop.end_ts - drop.start_ts;
-    return (
-    <div className="bg-white rounded-2x1 shadow-md p-6 w-full max-w-md mx-auto mt-6">
-            <h3>elapsed time: {onCompleted(ms)}</h3>
-        </div>
-    );
+      <div className="flex-1 flex flex-col justify-center">
+        <Gps address={address} setAddress={setAddress} onStart={onStart} />
+      </div>
+    </Card>
+  );
 }
 
-    if (drop.status === "Completed") {
-        const ms = drop.end_ts - drop.start_ts;
-    return (
-    <div className="bg-white rounded-2x1 shadow-md p-6 w-full max-w-md mx-auto mt-6">
-            <h3>elapsed time: {onCompleted(ms)}</h3>
-        </div>
-    );
+
+
+if (drop.status === "Navigating") {
+  return (
+    <Card>
+      <h2 className="text-lg font-semibold mb-4">Drop {index}</h2>
+
+      <div className="flex-1 flex flex-col justify-center">
+        <button
+          onClick={onArrived}
+          className="w-full bg-blue-600 text-white py-3 rounded-full font-semibold hover:bg-blue-700"
+        >
+          Arrived
+        </button>
+      </div>
+    </Card>
+  );
 }
+
+
+
+if (drop.status === "In-progress") {
+  return (
+    <Card>
+      <h2 className="text-lg font-semibold mb-4">Drop {index}</h2>
+
+      <div className="flex-1 flex flex-col justify-center">
+        <button
+          onClick={onDelivered}
+          className="w-full bg-red-600 text-white py-3 rounded-full font-semibold hover:bg-red-700"
+        >
+          Delivered
+        </button>
+      </div>
+    </Card>
+  );
 }
+
+
+
+if (drop.status === "Finishing") {
+  const ms = drop.end_ts - drop.start_ts;
+
+  return (
+    <Card>
+      <h2 className="text-lg font-semibold mb-4">Drop {index}</h2>
+
+      <div className="flex-1 flex flex-col justify-center">
+        <h3 className="text-lg font-semibold text-gray-800">
+          Total-time <span className="text-blue-600">{onCompleted(ms)}</span>
+        </h3>
+      </div>
+    </Card>
+  );
+}
+
+if (drop.status === "Completed") {
+  const ms = drop.end_ts - drop.start_ts;
+
+  return (
+    <Card>
+      <h2 className="text-lg font-semibold mb-4">Drop {index}</h2>
+
+      <div className="flex-1 flex flex-col justify-center">
+        <h3 className="text-lg font-semibold text-gray-800">
+          Completed:{" "}
+          <span className="font-bold text-green-600">{onCompleted(ms)}</span>
+        </h3>
+      </div>
+    </Card>
+  );
+}
+  return null;
+}
+

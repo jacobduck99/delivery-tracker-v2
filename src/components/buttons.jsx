@@ -4,8 +4,7 @@ export default function Startbtn({ onArrived }) {
   return (
     <button
       onClick={onArrived}
-      className="w-full bg-blue-500 text-white font-semibold py-3 rounded-full shadow-sm active:scale-[0.98] transition"
-    >
+      className="w-full bg-blue-500 text-white font-semibold py-3 rounded-full shadow-sm active:scale-[0.98] transition text-center"    >
       Arrived
     </button>
   );

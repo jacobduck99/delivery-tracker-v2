@@ -4,15 +4,13 @@
 export default function Gps({ address, setAddress, onStart }) {
   return (
    
-  <div className="bg-white rounded-xl shadow-md p-5 flex flex-col gap-4">
+  <div className="bg-white rounded-xl p-5 flex flex-col gap-4">
     <div className="flex flex-col gap-2">
-      <label htmlFor="gps-input" className="text-sm font-medium">
-        Enter address
-      </label>
 
       <input
         id="gps-input"
         type="text"
+        placeholder="Enter address"
         value={address}
         onChange={(e) => setAddress(e.target.value)}
         className="border border-gray-300 rounded-lg p-2"
