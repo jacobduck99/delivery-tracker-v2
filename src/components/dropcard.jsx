@@ -72,17 +72,15 @@ if (drop.status === "Not-started") {
   );
 }
 
-
-
 if (drop.status === "Navigating") {
   return (
     <Card>
       <h2 className="text-[0.9rem] font-bold ">Drop {index}</h2>
 
-      <div className="flex-1 flex flex-col justify-center">
+      <div className="flex-1 flex flex-col justify-center items-center">
         <button
           onClick={onArrived}
-          className="w-full bg-blue-600 text-white py-3 rounded-full font-semibold hover:bg-blue-700"
+          className="w-70 bg-blue-600 text-white py-2.5 rounded-full font-semibold hover:bg-blue-700"
         >
           Arrived
         </button>
@@ -91,16 +89,14 @@ if (drop.status === "Navigating") {
   );
 }
 
-
-
 if (drop.status === "In-progress") {
   return (
     <Card>
       <h2 className="text-[0.9rem] font-bold ">Drop {index}</h2>
-      <div className="flex-1 flex flex-col justify-center">
+      <div className="flex-1 flex flex-col justify-center items-center">
         <button
           onClick={onDelivered}
-          className="w-full bg-red-600 text-white py-3 rounded-full font-semibold hover:bg-red-700"
+          className="w-70 bg-red-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700"
         >
           Delivered
         </button>
@@ -109,16 +105,14 @@ if (drop.status === "In-progress") {
   );
 }
 
-
-
 if (drop.status === "Finishing") {
   const ms = drop.end_ts - drop.start_ts;
 
   return (
     <Card>
       <h2 className="text-[0.9rem] font-bold ">Drop {index}</h2>
-      <div className="flex-1 flex flex-col justify-center">
-        <h3 className="text-lg font-semibold text-gray-800 justify-center">
+      <div className="flex-1 flex flex-col justify-center items-center1">
+        <h3 className="text-lg font-semibold text-gray-800">
           Total-time <span className="text-blue-600">{onCompleted(ms)}</span>
         </h3>
       </div>
@@ -133,7 +127,7 @@ if (drop.status === "Completed") {
     <Card>
       <h2 className="text-[0.9rem] font-bold ">Drop {index}</h2>
 
-      <div className="flex-1 flex flex-col justify-center">
+      <div className="flex-1 flex flex-col justify-center items-center min-h-[150px]">
         <h3 className="text-lg font-semibold text-gray-800">
           Completed:{" "}
           <span className="font-bold text-green-600">{onCompleted(ms)}</span>

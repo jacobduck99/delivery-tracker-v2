@@ -206,14 +206,14 @@ if (currentDrops.length === 0 && upcomingDrops.length === 0) {
 
 return (
   <div className="min-h-screen bg-gray-100 px-4 pt-6 pb-20">
-    <h1 className="text-xl font-bold mb-4 flex justify-center">Your run for today Good luck!</h1>
+    <h1 className="text-xl font-semibold mb-4 flex justify-center">Your run for today Good luck!</h1>
 
     <p className="text-gray-600 mb-4">Loaded {drops.length} drops.</p>
 
 
     <details className="mb-4">
   
-<summary className="flex items-center gap-2 text-[1rem] font-medium cursor-pointer">
+<summary className="flex items-center mt-50 gap-2 text-[1rem] font-medium cursor-pointer">
   <span>Completed drops</span>
 
   <span className="bg-green-200 text-green-700 text-xs px-2 py-0.5 rounded-full">
