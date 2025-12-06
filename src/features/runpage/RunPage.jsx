@@ -219,7 +219,7 @@ return (
 
     <details className="mb-4">
   
-<summary className="flex items-center mt-10 gap-2 text-[1rem] font-medium cursor-pointer">
+<summary className="flex items-center mt-8 gap-2 text-[1rem] font-medium cursor-pointer">
   <span>Completed drops</span>
 
   <span className="bg-green-200 text-green-700 text-xs px-2 py-0.5 rounded-full">
