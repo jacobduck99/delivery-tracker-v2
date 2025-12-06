@@ -189,18 +189,26 @@ if (!drops || drops.length === 0) {
 
 return (
   <div className="min-h-screen bg-gray-100 px-4 pt-6 pb-20">
-    <h1 className="text-xl font-bold mb-4">Run Page</h1>
+    <h1 className="text-xl font-bold mb-4 flex justify-center">Your run for today Good luck!</h1>
 
     <p className="text-gray-600 mb-4">Loaded {drops.length} drops.</p>
 
-    {/* Completed Drops */}
+
     <details className="mb-4">
-      <summary className="flex items-center gap-2 text-[1rem] font-medium cursor-pointer">
-        <span>Completed drops</span>
-        <span className="bg-green-200 text-green-700 text-xs px-2 py-0.5 rounded-full">
-          {completedDrops.length}
-        </span>
-      </summary>
+  
+<summary className="flex items-center gap-2 text-[1rem] font-medium cursor-pointer">
+  <span>Completed drops</span>
+
+  <span className="bg-green-200 text-green-700 text-xs px-2 py-0.5 rounded-full">
+    {completedDrops.length}
+  </span>
+
+
+  <span className="text-gray-500 text-lg leading-none transition-transform group-open:rotate-90">
+    ▸
+  </span>
+</summary>
+
 
       <ul className="space-y-4 mt-3">
         {completedDrops.map((drop, index) => (
@@ -245,6 +253,10 @@ return (
         <span className="bg-green-200 text-green-700 text-xs px-2 py-0.5 rounded-full">
           {remainingUpcoming.length}
         </span>
+
+        <span className="text-gray-500 text-lg leading-none transition-transform group-open:rotate-90">
+    ▸
+  </span>
       </summary>
 
       <ul className="space-y-4 mt-3">
