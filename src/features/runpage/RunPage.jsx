@@ -186,23 +186,28 @@ if (!drops || drops.length === 0) {
     const remainingUpcoming = currentDrop
     ? upcomingDrops.filter(d => d.drop_idx !== currentDrop.drop_idx) : upcomingDrops;
 
-return (
-  <div className="flex flex-col h-full min-h-screen bg-gray-200">
-    <h1>Run Page</h1>
 
-    <p>Loaded {drops.length} drops.</p>
-     
-    <details>
-      <summary className="">
+return (
+  <div className="min-h-screen bg-gray-100 px-4 pt-6 pb-20">
+    <h1 className="text-xl font-bold mb-4">Run Page</h1>
+
+    <p className="text-gray-600 mb-4">Loaded {drops.length} drops.</p>
+
+    {/* Completed Drops */}
+    <details className="mb-4">
+      <summary className="flex items-center gap-2 text-lg font-medium cursor-pointer">
         <span>Completed drops</span>
-        <span className="count"> {completedDrops.length}</span>
+        <span className="bg-green-200 text-green-700 text-xs px-2 py-0.5 rounded-full">
+          {completedDrops.length}
+        </span>
       </summary>
-        
-      <ul className=""> {completedDrops.map((drop, index) => (
-        <Dropcard
+
+      <ul className="space-y-4 mt-3">
+        {completedDrops.map((drop, index) => (
+          <Dropcard
             key={drop.drop_idx ?? index}
             index={drop.drop_idx}
-            drop={drop} 
+            drop={drop}
             onChangeStatus={onChangeStatus}
             onChangeAddress={onChangeAddress}
             onChangeStart={onChangeStart}
@@ -210,52 +215,56 @@ return (
             onChangeElapsed={onChangeElapsed}
             onChangeSyncStatus={onChangeSyncStatus}
             syncCompletedLs={syncCompletedLs}
-        />
-      ))} 
+          />
+        ))}
       </ul>
-      </details>
+    </details>
 
-    <section id="current-drop-slot" className="drops">
-        {currentDrop && (
+    {/* Current Drop */}
+    <section id="current-drop-slot" className="drops mt-6 mb-6">
+      {currentDrop && (
         <Dropcard
-        key={currentDrop.drop_idx}
-        index={currentDrop.drop_idx}
-        drop={currentDrop}
-        onChangeStatus={onChangeStatus}
-        onChangeAddress={onChangeAddress}
-        onChangeStart={onChangeStart}
-        onChangeStop={onChangeStop}
-        onChangeElapsed={onChangeElapsed}
-        onChangeSyncStatus={onChangeSyncStatus}
-        syncCompletedLs={syncCompletedLs}
-         />
-            )}
-        </section>
+          key={currentDrop.drop_idx}
+          index={currentDrop.drop_idx}
+          drop={currentDrop}
+          onChangeStatus={onChangeStatus}
+          onChangeAddress={onChangeAddress}
+          onChangeStart={onChangeStart}
+          onChangeStop={onChangeStop}
+          onChangeElapsed={onChangeElapsed}
+          onChangeSyncStatus={onChangeSyncStatus}
+          syncCompletedLs={syncCompletedLs}
+        />
+      )}
+    </section>
 
-    <details>
-      <summary>
+    {/* Upcoming Drops */}
+    <details className="mb-4">
+      <summary className="flex items-center gap-2 text-lg font-medium cursor-pointer">
         <span>Upcoming drops</span>
-        <span className="count"> {remainingUpcoming.length}</span>
+        <span className="bg-green-200 text-green-700 text-xs px-2 py-0.5 rounded-full">
+          {remainingUpcoming.length}
+        </span>
       </summary>
-    
-<ul className="">
-  {remainingUpcoming.map((drop, index) => (
-    <Dropcard
-        key={drop.drop_idx ?? index}
-        index={drop.drop_idx}
-        drop={drop}
-        onChangeStatus={onChangeStatus}
-        onChangeAddress={onChangeAddress}
-        onChangeStart={onChangeStart}
-        onChangeStop={onChangeStop}
-        onChangeElapsed={onChangeElapsed}
-        onChangeSyncStatus={onChangeSyncStatus}
-        syncCompletedLs={syncCompletedLs}
-    />
-  ))}
-</ul>
 
+      <ul className="space-y-4 mt-3">
+        {remainingUpcoming.map((drop, index) => (
+          <Dropcard
+            key={drop.drop_idx ?? index}
+            index={drop.drop_idx}
+            drop={drop}
+            onChangeStatus={onChangeStatus}
+            onChangeAddress={onChangeAddress}
+            onChangeStart={onChangeStart}
+            onChangeStop={onChangeStop}
+            onChangeElapsed={onChangeElapsed}
+            onChangeSyncStatus={onChangeSyncStatus}
+            syncCompletedLs={syncCompletedLs}
+          />
+        ))}
+      </ul>
     </details>
   </div>
 );
+
 }

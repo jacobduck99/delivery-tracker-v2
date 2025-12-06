@@ -61,7 +61,8 @@ export default function Dropcard({ drop, index, onChangeStatus, onChangeAddress,
     if (drop.status === "Not-started") {
     
     return (
-   <div className="flex flex-col gap-4 w-full p-4 bg-white border border-gray-200 rounded-xl shadow-sm">      <h2>Drop {index}</h2>
+   <div className="bg-white rounded-xl shadow-md p-4 max-w-sm w-full mx-auto">     
+    <h2 className="text-lg font-semibold mb-3">Drop {index}</h2>
     <Gps 
         address={address}
         setAddress={setAddress}
