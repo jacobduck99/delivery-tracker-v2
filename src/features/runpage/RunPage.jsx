@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getDrops, savePendingDrops } from "../../lib/api/runApi.js";
+import { getDrops, syncPendingDrops } from "../../lib/api/runApi.js";
 import Dropcard from "../../components/dropcard.jsx";
 import { saveDeliveries, loadDeliveries, syncCompletedLs, drainQueue } from "../../lib/storage/runStorage.js";
 
@@ -57,7 +57,7 @@ export default function RunPage() {
 
         completedPending.forEach(async (drop) => {
         syncCompletedLs(runId, drop);
-        const result = await savePendingDrops(runId, drop);
+        const result = await syncPendingDrops(runId, drop);
 
         if (result.ok) {
             onChangeSyncStatus(drop.drop_idx, "Synced");  
