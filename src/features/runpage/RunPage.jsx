@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { getDrops, savePendingDrops } from "../../lib/api/runApi.js";
 import Dropcard from "../../components/dropcard.jsx";
-import { saveDeliveries, loadDeliveries, addCompletedLs, drainQueue } from "../../lib/storage/runStorage.js";
+import { saveDeliveries, loadDeliveries, syncCompletedLs, drainQueue } from "../../lib/storage/runStorage.js";
+
+// haven't cached any files for pwa do that once add more things
 
 export default function RunPage() {
     const [drops, setDrops] = useState([]);
@@ -54,7 +56,7 @@ export default function RunPage() {
         );
 
         completedPending.forEach(async (drop) => {
-        addCompletedLs(runId, drop);
+        syncCompletedLs(runId, drop);
         const result = await savePendingDrops(runId, drop);
 
         if (result.ok) {
@@ -208,7 +210,7 @@ return (
             onChangeStop={onChangeStop}
             onChangeElapsed={onChangeElapsed}
             onChangeSyncStatus={onChangeSyncStatus}
-            addCompletedLs={addCompletedLs}
+            syncCompletedLs={syncCompletedLs}
         />
       ))} 
       </ul>
@@ -226,7 +228,7 @@ return (
         onChangeStop={onChangeStop}
         onChangeElapsed={onChangeElapsed}
         onChangeSyncStatus={onChangeSyncStatus}
-        addCompletedLs={addCompletedLs}
+        syncCompletedLs={syncCompletedLs}
          />
             )}
         </section>
@@ -249,7 +251,7 @@ return (
         onChangeStop={onChangeStop}
         onChangeElapsed={onChangeElapsed}
         onChangeSyncStatus={onChangeSyncStatus}
-        addCompletedLs={addCompletedLs}
+        syncCompletedLs={syncCompletedLs}
     />
   ))}
 </ul>

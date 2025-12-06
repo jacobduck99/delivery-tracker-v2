@@ -25,7 +25,7 @@ export function loadPendingQueue(key) {
     return JSON.parse(raw);
 };
 
-export function addCompletedLs(runId, drop) {
+export function syncCompletedLs(runId, drop) {
     const stored = localStorage.getItem("Pending_queue_v1");
     const queue = stored ? JSON.parse(stored) : [];
 
