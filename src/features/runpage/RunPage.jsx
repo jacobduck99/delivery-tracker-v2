@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getDrops, syncPendingDrops } from "../../lib/api/runApi.js";
 import Dropcard from "../../components/dropcard.jsx";
 import { saveDeliveries, loadDeliveries, syncCompletedLs, drainQueue } from "../../lib/storage/runStorage.js";
+import { useNavigate } from 'react-router-dom';
 
 // haven't cached any files for pwa do that once add more things
 
@@ -10,6 +11,7 @@ export default function RunPage() {
     const [loading, setLoading] = useState(true);
     const [err, setErr] = useState("");
     const [runId, setRunId] = useState(null);
+    const navigate = useNavigate();
     
     useEffect(() => {
         let cancelled = false;
@@ -107,8 +109,23 @@ if (!drops || drops.length === 0) {
 
     const currentDrops = drops.filter(drop => drop.status === "Navigating" || drop.status === "In-progress" || drop.status === "Finishing");
 
-    const completedDrops = drops.filter( (drop) => drop.status === "Completed" );
+    const completedDrops = drops.filter( (drop) => drop.status === "Completed" ); 
 
+
+if (currentDrops.length === 0) {
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center px-4">
+      <h1 className="text-xl font-semibold mb-4">No active drop</h1>
+
+      <button
+        onClick={() => navigate("/config")}
+        className="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold shadow hover:bg-blue-700"
+      >
+        Configure Shift
+      </button>
+    </div>
+  );
+}
     console.log(drops);
 
     function onChangeStatus(drop_idx, newStatus) {
