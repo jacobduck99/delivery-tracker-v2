@@ -21,7 +21,7 @@ export default function Circleprogress() {
         cy="100"
         r="90"
         stroke="#e5e7eb"
-        strokeWidth="12"
+        strokeWidth="18"
         fill="none"
       />
 
@@ -30,7 +30,7 @@ export default function Circleprogress() {
         cy="100"
         r="90"
         stroke="#3b82f6"
-        strokeWidth="12"
+        strokeWidth="18"
         fill="none"
       />
     </svg>
