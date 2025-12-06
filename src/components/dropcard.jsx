@@ -63,7 +63,7 @@ const Card = ({ children }) => (
 if (drop.status === "Not-started") {
   return (
     <Card>
-      <h2 className="text-lg font-semibold mb-4">Drop {index}</h2>
+      <h2 className="text-[0.9rem] font-bold ">Drop {index}</h2>
 
       <div className="flex-1 flex flex-col justify-center">
         <Gps address={address} setAddress={setAddress} onStart={onStart} />
@@ -77,7 +77,7 @@ if (drop.status === "Not-started") {
 if (drop.status === "Navigating") {
   return (
     <Card>
-      <h2 className="text-lg font-semibold mb-4">Drop {index}</h2>
+      <h2 className="text-[0.9rem] font-bold ">Drop {index}</h2>
 
       <div className="flex-1 flex flex-col justify-center">
         <button
@@ -96,8 +96,7 @@ if (drop.status === "Navigating") {
 if (drop.status === "In-progress") {
   return (
     <Card>
-      <h2 className="text-lg font-semibold mb-4">Drop {index}</h2>
-
+      <h2 className="text-[0.9rem] font-bold ">Drop {index}</h2>
       <div className="flex-1 flex flex-col justify-center">
         <button
           onClick={onDelivered}
@@ -117,10 +116,9 @@ if (drop.status === "Finishing") {
 
   return (
     <Card>
-      <h2 className="text-lg font-semibold mb-4">Drop {index}</h2>
-
+      <h2 className="text-[0.9rem] font-bold ">Drop {index}</h2>
       <div className="flex-1 flex flex-col justify-center">
-        <h3 className="text-lg font-semibold text-gray-800">
+        <h3 className="text-lg font-semibold text-gray-800 justify-center">
           Total-time <span className="text-blue-600">{onCompleted(ms)}</span>
         </h3>
       </div>
@@ -133,7 +131,7 @@ if (drop.status === "Completed") {
 
   return (
     <Card>
-      <h2 className="text-lg font-semibold mb-4">Drop {index}</h2>
+      <h2 className="text-[0.9rem] font-bold ">Drop {index}</h2>
 
       <div className="flex-1 flex flex-col justify-center">
         <h3 className="text-lg font-semibold text-gray-800">
