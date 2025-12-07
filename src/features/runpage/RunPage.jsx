@@ -205,6 +205,10 @@ if (currentDrops.length === 0 && upcomingDrops.length === 0) {
     const remainingUpcoming = currentDrop
     ? upcomingDrops.filter(d => d.drop_idx !== currentDrop.drop_idx) : upcomingDrops;
 
+    function endShift() { 
+        navigate("/config");
+    };
+
 
 return (
   <div className="min-h-screen bg-gray-100 px-4 pt-6 pb-20">
@@ -302,7 +306,8 @@ return (
     </details>
 
 <div className="flex mt-11 justify-center">
-<EndshiftBtn className="w-70 bg-red-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700"
+<EndshiftBtn
+    endShift={endShift}
 />
 </div>
   </div>
