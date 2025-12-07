@@ -3,8 +3,7 @@
 export default function Startbtn({ onArrived }) {
   return (
     <button
-      onClick={onArrived}
-      className="w-full bg-green-500 text-white font-semibold py-3 rounded-full shadow-sm active:scale-[0.98] transition text-center"    >
+      onClick={onArrived}>
       Arrived
     </button>
   );
@@ -13,11 +12,15 @@ export default function Startbtn({ onArrived }) {
 export function Stopbtn({ onDelivered }) {
   return (
     <button
-      onClick={onDelivered}
-      className="w-full bg-red-500 text-white font-semibold py-3 rounded-full shadow-sm active:scale-[0.98] transition"
-    >
-      Delivered
+      onClick={onDelivered}>Delivered
     </button>
   );
 }
 
+export function EndshiftBtn( { className }) {
+    return (
+    <button className={className}>
+    End shift
+    </button>
+    )
+}

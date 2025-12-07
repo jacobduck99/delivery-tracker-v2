@@ -4,6 +4,7 @@ import Dropcard from "../../components/dropcard.jsx";
 import { saveDeliveries, loadDeliveries, syncCompletedLs, drainQueue } from "../../lib/storage/runStorage.js";
 import { useNavigate } from 'react-router-dom';
 import Circleprogress, { Card } from "../../components/progresscircle.jsx";
+import { EndshiftBtn } from "../../components/buttons.jsx";
 
 // haven't cached any files for pwa do that once add more things
 
@@ -299,7 +300,13 @@ return (
         ))}
       </ul>
     </details>
+
+<div className="flex mt-11 justify-center">
+<EndshiftBtn className="w-70 bg-red-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700"
+/>
+</div>
   </div>
+
 );
 
 }
