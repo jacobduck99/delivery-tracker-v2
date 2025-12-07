@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getDrops, syncPendingDrops } from "../../lib/api/runApi.js";
+import { getDrops, syncPendingDrops, endShift } from "../../lib/api/runApi.js";
 import Dropcard from "../../components/dropcard.jsx";
 import { saveDeliveries, loadDeliveries, syncCompletedLs, drainQueue } from "../../lib/storage/runStorage.js";
 import { useNavigate } from 'react-router-dom';
@@ -205,10 +205,14 @@ if (currentDrops.length === 0 && upcomingDrops.length === 0) {
     const remainingUpcoming = currentDrop
     ? upcomingDrops.filter(d => d.drop_idx !== currentDrop.drop_idx) : upcomingDrops;
 
-    function endShift(runId) { 
+    async function onEndShift(runId) { 
         const end = Date.now();
         const run_id = runId;
+        const result = await endShift(run_id, end);
+        if (result.ok) {
+            console.log(result)
         navigate("/config");
+        }
     };
 
 
@@ -309,7 +313,7 @@ return (
 
 <div className="flex mt-11 justify-center">
 <EndshiftBtn
-    endShift={endShift}
+    endShift={onEndShift}
 />
 </div>
   </div>

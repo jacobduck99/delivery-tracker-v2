@@ -56,11 +56,11 @@ export async function syncPendingDrops(runId, drop) {
     return body || { ok: true };
     }
 
-export async function shiftEnd(runId, end_ts) {
+export async function endShift(runId, end_ts) {
     const run_id = runId;
     const end = end_ts;
 
-    const url = `${API_BASE}/api/run/${run_id}`;
+    const url = `${API_BASE}/api/run/${run_id}/${end}`;
 
     let res;
 

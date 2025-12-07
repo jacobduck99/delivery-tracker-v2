@@ -84,6 +84,35 @@ def update_drop(run_id, drop_idx):
     except Exception as e:
         return jsonify({"ok": False, "error": str(e)}), 400
 
+@run_bp.post("/run/<int:run_id>/<int:end>")
+def update_end_time(run_id, end):
+    if request.method == "OPTIONS":
+        return ("", 204)
 
+    try:
+        runid = run_id
+        actual_end_time = end
 
+        conn = get_db()
+        conn.execute(
+            """
+            UPDATE config
+            SET actual_end_time = ?
+            WHERE run_id = ?
+            """,
+            (actual_end_time, runid),
+        )
+        conn.commit()
+
+        return jsonify({
+            "ok": True,
+            "message": "Actual end time set",
+            "runid": runid
+        }), 200
+
+    except Exception as e:
+        return jsonify({
+            "ok": False,
+            "error": str(e)
+        }), 400
 
