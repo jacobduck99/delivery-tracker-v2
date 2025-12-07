@@ -1,6 +1,6 @@
 import Gps from "./gps.jsx";
 
-const Card = ({ children }) => (
+export const Card = ({ children }) => (
   <div className="bg-white rounded-2xl shadow-md p-6 w-full max-w-md mx-auto mt-6 min-h-[240px] flex flex-col">
     {children}
   </div>
@@ -9,7 +9,6 @@ const Card = ({ children }) => (
 export default function Circleprogress() {
   return (
 
-<Card>
   <div className="flex-1 flex flex-col items-center justify-center">
     <svg
       width="180"
@@ -36,7 +35,6 @@ export default function Circleprogress() {
     </svg>
 
   </div>
-</Card>
 
   );
 }

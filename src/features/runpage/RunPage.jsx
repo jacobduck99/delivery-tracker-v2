@@ -3,7 +3,7 @@ import { getDrops, syncPendingDrops } from "../../lib/api/runApi.js";
 import Dropcard from "../../components/dropcard.jsx";
 import { saveDeliveries, loadDeliveries, syncCompletedLs, drainQueue } from "../../lib/storage/runStorage.js";
 import { useNavigate } from 'react-router-dom';
-import Circleprogress from "../../components/progresscircle.jsx";
+import Circleprogress, { Card } from "../../components/progresscircle.jsx";
 
 // haven't cached any files for pwa do that once add more things
 
@@ -212,15 +212,17 @@ return (
     <p className="text-gray-600 mb-4">Loaded {drops.length} drops.</p>
 
     <div>
+        <Card>
         <Circleprogress
         />
+        </Card>
     </div>
 
 
     <details className="mb-4">
   
 <summary className="flex items-center mt-8 gap-2 text-[1rem] font-medium cursor-pointer">
-  <span>Completed drops</span>
+  <span>Completed</span>
 
   <span className="bg-green-200 text-green-700 text-xs px-2 py-0.5 rounded-full">
     {completedDrops.length}
@@ -272,7 +274,7 @@ return (
     {/* Upcoming Drops */}
     <details className="mb-4">
       <summary className="flex items-center gap-2 text-[1rem] font-medium cursor-pointer">
-        <span>Upcoming drops</span>
+        <span>Remaining</span>
         <span className="bg-green-200 text-green-700 text-xs px-2 py-0.5 rounded-full">
           {remainingUpcoming.length}
         </span>
