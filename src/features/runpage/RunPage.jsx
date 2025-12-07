@@ -207,7 +207,6 @@ if (currentDrops.length === 0 && upcomingDrops.length === 0) {
 
 return (
   <div className="min-h-screen bg-gray-100 px-4 pt-6 pb-20">
-    <h1 className="text-xl font-semibold mb-4 flex justify-center">Your run for today Good luck!</h1>
 
     <p className="text-gray-600 mb-4">Loaded {drops.length} drops.</p>
 

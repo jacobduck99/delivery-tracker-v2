@@ -20,7 +20,7 @@ export default function Gps({ address, setAddress, onStart }) {
     <button
       type="button"
       onClick={onStart}
-      className="bg-green-500 text-white py-2.5 rounded-full font-semibold"
+      className="bg-blue-500 text-white py-2.5 rounded-full font-semibold"
     >
       Start Navigation
     </button>
