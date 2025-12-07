@@ -33,11 +33,11 @@ def save_config():
             """
             INSERT INTO config
               (user_id, van_number, van_name, start_time, first_break, second_break,
-               end_time, number_of_drops, truck_damage)
-            VALUES (?,?,?,?,?,?,?,?,?)
+               end_time, actual_end_time, number_of_drops, truck_damage)
+            VALUES (?,?,?,?,?,?,?,?,?,?)
             """,
             (user_id, van_number, van_name, start_time, first_break, second_break,
-             end_time, number_of_drops, truck_damage),
+             end_time, None, number_of_drops, truck_damage),
         )
 
         run_id = cur.lastrowid
