@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS config (
     first_break         TEXT,
     second_break        TEXT,
     end_time            TEXT,
+    actual_end_time     TEXT,
     number_of_drops     INTEGER NOT NULL CHECK (number_of_drops >= 0),
     truck_damage        TEXT DEFAULT NULL,
     FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
