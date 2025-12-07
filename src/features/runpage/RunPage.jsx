@@ -214,6 +214,8 @@ return (
     <div>
         <Card>
         <Circleprogress
+        completed={completedDrops.length}
+        total={drops.length}
         />
         </Card>
     </div>
