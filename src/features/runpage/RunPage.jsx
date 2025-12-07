@@ -205,7 +205,9 @@ if (currentDrops.length === 0 && upcomingDrops.length === 0) {
     const remainingUpcoming = currentDrop
     ? upcomingDrops.filter(d => d.drop_idx !== currentDrop.drop_idx) : upcomingDrops;
 
-    function endShift() { 
+    function endShift(runId) { 
+        const end = Date.now();
+        const run_id = runId;
         navigate("/config");
     };
 
