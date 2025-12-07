@@ -205,16 +205,15 @@ if (currentDrops.length === 0 && upcomingDrops.length === 0) {
     const remainingUpcoming = currentDrop
     ? upcomingDrops.filter(d => d.drop_idx !== currentDrop.drop_idx) : upcomingDrops;
 
-    async function onEndShift(runId) { 
+    async function handleEndShift() { 
+        console.log("runId =", runId);
         const end = Date.now();
-        const run_id = runId;
-        const result = await endShift(run_id, end);
+        const result = await endShift(runId, end);
         if (result.ok) {
             console.log(result)
         navigate("/config");
         }
     };
-
 
 return (
   <div className="min-h-screen bg-gray-100 px-4 pt-6 pb-20">
@@ -312,9 +311,7 @@ return (
     </details>
 
 <div className="flex mt-11 justify-center">
-<EndshiftBtn
-    endShift={onEndShift}
-/>
+<EndshiftBtn endShift={handleEndShift} runId={runId} />
 </div>
   </div>
 

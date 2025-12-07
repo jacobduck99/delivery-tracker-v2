@@ -60,15 +60,13 @@ export async function endShift(runId, end_ts) {
     const run_id = runId;
     const end = end_ts;
 
-    const url = `${API_BASE}/api/run/${run_id}/${end}`;
+    const url = `${API_BASE}/api/run/end/${run_id}/${end}`;
 
     let res;
 
     try {
         res = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(end),
+        method: "POST"
         });
     } catch (e) {
     // Network-level failure (server down, wrong port, mixed content)

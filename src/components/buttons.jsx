@@ -17,11 +17,13 @@ export function Stopbtn({ onDelivered }) {
   );
 }
 
-export function EndshiftBtn( { endShift }) {
+export function EndshiftBtn({ endShift, runId }) {
     return (
-    <button  className="w-70 bg-red-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700" 
-    onClick={endShift}>
-    End shift
-    </button>
-    )
+        <button 
+            className="w-70 bg-red-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700"
+            onClick={() => endShift(runId)}
+        >
+            End shift
+        </button>
+    );
 }
