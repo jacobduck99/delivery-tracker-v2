@@ -61,9 +61,7 @@ export function clearRun(run_id) {
 };
 
 export function endShiftPendingSync(endShift) {
-  localStorage.setItem(
-    "Pending_endShift_sync",
-    JSON.stringify(endShift)
+  localStorage.setItem("Pending_endShift_sync", JSON.stringify(endShift)
   );
 }
 

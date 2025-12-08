@@ -203,10 +203,12 @@ if (!drops || drops.length === 0 || currentDrops.length === 0 && upcomingDrops.l
     async function handleEndShift() { 
         console.log("runId =", runId);
         const end = Date.now();
-        const endRun = { runid: runId, endShift: end, synced_status: pending}
+        const endRun = { runid: runId, endShift: end, synced_status: "pending"}
         endShiftPendingSync(endRun);
         const result = await endShift(runId, end);
         if (result.ok) {
+            const synced = { ...endRun, synced_status: "Completed"};
+            endShiftPendingSync(synced);
             clearRun(runId);
             console.log(result)
         navigate("/config");

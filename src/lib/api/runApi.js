@@ -57,9 +57,9 @@ export async function syncPendingDrops(runId, drop) {
     }
 
 export async function endShift() {
-    const getEndShift = loadPendingQueue("Pending_endShift_sync")
+    const getEndShift = loadPendingQueue("Pending_endShift_sync");
     const run_id = getEndShift.runid;
-    const end = getEndShift.endShift
+    const end = getEndShift.endShift;
     const url = `${API_BASE}/api/run/end/${run_id}/${end}`;
 
     let res;
