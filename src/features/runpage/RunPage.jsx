@@ -123,10 +123,6 @@ if (!drops || drops.length === 0 || currentDrops.length === 0 && upcomingDrops.l
   );
 }
 
-if (modal === true) {
-        return <EndShiftModal />
-    }
-
     function onChangeStatus(drop_idx, newStatus) {
         setDrops(prev => {
         const nextDrops = prev.map(drop =>
@@ -311,6 +307,10 @@ return (
 
 <div className="flex mt-11 justify-center">
 <EndshiftBtn endShift={handleEndShift} runId={runId} showModal={showModal}/>
+{modal && (
+  <EndShiftModal showModal={showModal} />
+)}
+
 </div>
   </div>
 

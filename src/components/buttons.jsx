@@ -30,12 +30,18 @@ export function EndshiftBtn({ endShift, runId, showModal }) {
   );
 }
 
-export function EndShiftModal() {
+export function EndShiftModal({ showModal }) {
     return (
     <div>
+        <p>Are you sure you want to end shift?</p>
+        <button
+            className="" onClick={() => showModal(false)}>
+            No
+        </button>
+
         <button
             className="">
-            Cancel
+                Yes
         </button>
         </div>
 
