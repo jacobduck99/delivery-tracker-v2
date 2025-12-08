@@ -1,4 +1,3 @@
-
 export function saveRun(run) {
   localStorage.setItem("current_run", JSON.stringify(run));
 }
@@ -60,6 +59,14 @@ export function clearRun(run_id) {
     localStorage.removeItem(`run_drops_${run_id}`);
     localStorage.removeItem("Pending_queue_v1");
 };
+
+export function endShiftPendingSync(endShift) {
+  localStorage.setItem(
+    "Pending_endShift_sync",
+    JSON.stringify(endShift)
+  );
+}
+
 
 
 

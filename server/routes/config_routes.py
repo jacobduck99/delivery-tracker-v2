@@ -26,6 +26,7 @@ def save_config():
         first_break  =  to_utc_iso(data.get("first_break"))
         second_break =  to_utc_iso(data.get("second_break"))
         end_time     =  to_utc_iso(data.get("end_time"))
+        actual_end_time = None
         truck_damage = (data.get("truck_damage") or "").strip() or None
 
         conn = get_db() 

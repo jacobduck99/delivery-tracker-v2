@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getDrops, syncPendingDrops, endShift } from "../../lib/api/runApi.js";
 import Dropcard from "../../components/dropcard.jsx";
-import { saveDeliveries, loadDeliveries, syncCompletedLs, drainQueue, clearRun } from "../../lib/storage/runStorage.js";
+import { saveDeliveries, loadDeliveries, syncCompletedLs, endShiftPendingSync, drainQueue, clearRun } from "../../lib/storage/runStorage.js";
 import { useNavigate } from 'react-router-dom';
 import Circleprogress, { Card } from "../../components/progresscircle.jsx";
 import { EndshiftBtn, EndShiftModal } from "../../components/buttons.jsx";
@@ -203,6 +203,8 @@ if (!drops || drops.length === 0 || currentDrops.length === 0 && upcomingDrops.l
     async function handleEndShift() { 
         console.log("runId =", runId);
         const end = Date.now();
+        const endRun = { runid: runId, endShift: end}
+        endShiftPendingSync(endRun);
         const result = await endShift(runId, end);
         if (result.ok) {
             clearRun(runId);
