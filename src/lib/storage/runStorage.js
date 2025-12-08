@@ -52,9 +52,13 @@ export function drainQueue(dropidx, runId) {
     const filtered = queue.filter(item => item.drop_idx !== dropidx);
 
     localStorage.setItem("Pending_queue_v1", JSON.stringify(filtered));
-
-
 }
+
+export function clearRun(run_id) {
+   localStorage.removeItem("current_run");
+    localStorage.removeItem("Pending_queue_v1");
+    localStorage.removeItem(`run_drops_${run_id}`);
+};
 
 
 

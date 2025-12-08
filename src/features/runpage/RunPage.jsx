@@ -205,6 +205,7 @@ if (!drops || drops.length === 0 || currentDrops.length === 0 && upcomingDrops.l
         const end = Date.now();
         const result = await endShift(runId, end);
         if (result.ok) {
+            clearRun(runId);
             console.log(result)
         navigate("/config");
         }
