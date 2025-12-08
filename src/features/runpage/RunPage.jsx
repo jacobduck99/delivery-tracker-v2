@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getDrops, syncPendingDrops, endShift } from "../../lib/api/runApi.js";
 import Dropcard from "../../components/dropcard.jsx";
-import { saveDeliveries, loadDeliveries, syncCompletedLs, drainQueue } from "../../lib/storage/runStorage.js";
+import { saveDeliveries, loadDeliveries, syncCompletedLs, drainQueue, clearRun } from "../../lib/storage/runStorage.js";
 import { useNavigate } from 'react-router-dom';
 import Circleprogress, { Card } from "../../components/progresscircle.jsx";
 import { EndshiftBtn, EndShiftModal } from "../../components/buttons.jsx";
