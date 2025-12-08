@@ -47,6 +47,7 @@ async function handleSubmit(e) {
     first_break: form.firstBreak,
     second_break: form.secondBreak,
     end_time: form.shiftEnd,
+    actual_end_time: form.actualEndTime,
     number_of_drops: Number(form.numberOfDeliveries),
     truck_damage: form.truckDamage,
   };
