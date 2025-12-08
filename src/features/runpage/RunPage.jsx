@@ -207,8 +207,10 @@ if (!drops || drops.length === 0 || currentDrops.length === 0 && upcomingDrops.l
         }
     };
 
-return (
+// WHERE THE CIRCLE PROGRESS AND PAGE STARTS 
+return ( 
   <div className="min-h-screen bg-gray-100 px-4 pt-6 pb-20">
+    <h1 className="flex justify-center text-[1.3rem] font-semibold">Your run for today Good luck!</h1>
     <div>
         <Card>
         <Circleprogress
