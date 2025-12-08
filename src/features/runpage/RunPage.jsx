@@ -308,7 +308,7 @@ return (
 <div className="flex mt-11 justify-center">
 <EndshiftBtn endShift={handleEndShift} runId={runId} showModal={showModal}/>
 {modal && (
-  <EndShiftModal showModal={showModal} />
+  <EndShiftModal showModal={showModal} endshift={handleEndShift}/>
 )}
 
 </div>

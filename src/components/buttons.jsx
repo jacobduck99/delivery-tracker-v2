@@ -17,7 +17,7 @@ export function Stopbtn({ onDelivered }) {
   );
 }
 
-export function EndshiftBtn({ endShift, runId, showModal }) {
+export function EndshiftBtn({ showModal }) {
   return (
     <div>
       <button
@@ -30,7 +30,7 @@ export function EndshiftBtn({ endShift, runId, showModal }) {
   );
 }
 
-export function EndShiftModal({ showModal }) {
+export function EndShiftModal({ showModal, endshift }) {
     return (
     <div>
         <p>Are you sure you want to end shift?</p>
@@ -40,7 +40,7 @@ export function EndShiftModal({ showModal }) {
         </button>
 
         <button
-            className="">
+            className="" onClick={() => endshift()}>
                 Yes
         </button>
         </div>
