@@ -3,7 +3,6 @@
 export function startGps(rawAddress) {
     const address = rawAddress.trim();
     if (!address) {
-        alert("Please enter an address first!");
         return;
     }
 
