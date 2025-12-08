@@ -4,7 +4,7 @@ import Dropcard from "../../components/dropcard.jsx";
 import { saveDeliveries, loadDeliveries, syncCompletedLs, drainQueue } from "../../lib/storage/runStorage.js";
 import { useNavigate } from 'react-router-dom';
 import Circleprogress, { Card } from "../../components/progresscircle.jsx";
-import { EndshiftBtn } from "../../components/buttons.jsx";
+import { EndshiftBtn, EndShiftModal } from "../../components/buttons.jsx";
 
 // haven't cached any files for pwa do that once add more things
 
@@ -14,6 +14,7 @@ export default function RunPage() {
     const [err, setErr] = useState("");
     const [runId, setRunId] = useState(null);
     const navigate = useNavigate();
+    const [modal, showModal] = useState(false); 
     
     useEffect(() => {
         let cancelled = false;
@@ -121,6 +122,10 @@ if (!drops || drops.length === 0 || currentDrops.length === 0 && upcomingDrops.l
     </div>
   );
 }
+
+if (modal === true) {
+        return <EndShiftModal />
+    }
 
     function onChangeStatus(drop_idx, newStatus) {
         setDrops(prev => {
@@ -305,7 +310,7 @@ return (
     </details>
 
 <div className="flex mt-11 justify-center">
-<EndshiftBtn endShift={handleEndShift} runId={runId} />
+<EndshiftBtn endShift={handleEndShift} runId={runId} showModal={showModal}/>
 </div>
   </div>
 

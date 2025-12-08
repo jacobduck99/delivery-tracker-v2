@@ -17,13 +17,28 @@ export function Stopbtn({ onDelivered }) {
   );
 }
 
-export function EndshiftBtn({ endShift, runId }) {
-    return (
-        <button 
-            className="w-70 bg-red-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700"
-            onClick={() => endShift(runId)}
-        >
-            End shift
-        </button>
-    );
+export function EndshiftBtn({ endShift, runId, showModal }) {
+  return (
+    <div>
+      <button
+        className="w-70 bg-red-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700"
+        onClick={() => showModal(true)}
+      >
+        End shift
+      </button>
+      </div>
+  );
 }
+
+export function EndShiftModal() {
+    return (
+    <div>
+        <button
+            className="">
+            Cancel
+        </button>
+        </div>
+
+
+    ) 
+} 
