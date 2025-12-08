@@ -17,12 +17,12 @@ export function Stopbtn({ onDelivered }) {
   );
 }
 
-export function EndshiftBtn({ showModal }) {
+export function EndshiftBtn({ showModal, hideEndShift }) {
   return (
     <div>
       <button
         className="w-70 bg-red-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700"
-        onClick={() => showModal(true)}
+        onClick={() => { showModal(true); hideEndShift(true);}}
       >
         End shift
       </button>
@@ -30,17 +30,16 @@ export function EndshiftBtn({ showModal }) {
   );
 }
 
-export function EndShiftModal({ showModal, endshift }) {
+export function EndShiftModal({ showModal, handleEndShift, hideEndShift }) {
     return (
-    <div>
-        <p>Are you sure you want to end shift?</p>
+    <div className="">
         <button
-            className="" onClick={() => showModal(false)}>
+            className="" onClick={() => { showModal(false); hideEndShift(false);}}>
             No
         </button>
 
         <button
-            className="" onClick={() => endshift()}>
+            className="" onClick={() => handleEndShift()}>
                 Yes
         </button>
         </div>
