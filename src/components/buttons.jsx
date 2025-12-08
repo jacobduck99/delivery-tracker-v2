@@ -32,14 +32,16 @@ export function EndshiftBtn({ showModal, hideEndShift }) {
 
 export function EndShiftModal({ showModal, handleEndShift, hideEndShift }) {
     return (
-    <div className="">
+    <div className="flex space-x-4">
         <button
-            className="" onClick={() => { showModal(false); hideEndShift(false);}}>
+            className="w-50 bg-red-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700" 
+            onClick={() => { showModal(false); hideEndShift(false);}}>
             No
         </button>
 
         <button
-            className="" onClick={() => handleEndShift()}>
+            className="w-50 bg-blue-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700" 
+            onClick={() => handleEndShift()}>
                 Yes
         </button>
         </div>
