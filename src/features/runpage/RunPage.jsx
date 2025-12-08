@@ -99,25 +99,18 @@ if (err) {
   );
 }
 
-if (!drops || drops.length === 0) {
-  return (
-    <div className="container">
-      <p>No drops found.</p>
-    </div>
-  );
-}
-
     const upcomingDrops = drops.filter( (drop) => drop.status === "Not-started" ); 
 
     const currentDrops = drops.filter(drop => drop.status === "Navigating" || drop.status === "In-progress" || drop.status === "Finishing");
 
     const completedDrops = drops.filter( (drop) => drop.status === "Completed" ); 
 
+    console.log(drops);
 
-if (currentDrops.length === 0 && upcomingDrops.length === 0) {
+if (!drops || drops.length === 0 || currentDrops.length === 0 && upcomingDrops.length === 0) {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4">
-      <h1 className="text-xl font-semibold mb-4">No active drop</h1>
+      <h1 className="text-xl font-semibold mb-4">No active drops</h1>
 
       <button
         onClick={() => navigate("/config")}
@@ -128,7 +121,6 @@ if (currentDrops.length === 0 && upcomingDrops.length === 0) {
     </div>
   );
 }
-    console.log(drops);
 
     function onChangeStatus(drop_idx, newStatus) {
         setDrops(prev => {
