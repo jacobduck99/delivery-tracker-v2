@@ -14,6 +14,7 @@ export default function Form() {
     firstBreak: "",
     secondBreak: "",
     shiftEnd: "",
+    actualEndTime: "",
     numberOfDeliveries: "",
     truckDamage: "",
   });
