@@ -15,7 +15,8 @@ export default function RunPage() {
     const [runId, setRunId] = useState(null);
     const navigate = useNavigate();
     const [modal, showModal] = useState(false); 
-    const [endShift, hideEndShift] = useState(true);
+    const [isEndShiftVisible, setIsEndShiftVisible] = useState(true);
+
     
     useEffect(() => {
         let cancelled = false;
@@ -310,13 +311,13 @@ return (
 <div className="flex mt-11 justify-center">
 
   {!modal && (
-    <EndshiftBtn showModal={showModal} hideEndShift={hideEndShift} />
+    <EndshiftBtn showModal={showModal} setIsEndShiftVisible={setIsEndShiftVisible} />
   )}
 
   {modal && (
     <EndShiftModal 
       showModal={showModal} 
-      hideEndShift={hideEndShift}
+      setIsEndShiftVisible={setIsEndShiftVisible}
       handleEndShift={handleEndShift}
     />
   )}

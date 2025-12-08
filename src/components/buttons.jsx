@@ -17,12 +17,12 @@ export function Stopbtn({ onDelivered }) {
   );
 }
 
-export function EndshiftBtn({ showModal, hideEndShift }) {
+export function EndshiftBtn({ showModal, setIsEndShiftVisible }) {
   return (
     <div>
       <button
         className="w-70 bg-red-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700"
-        onClick={() => { showModal(true); hideEndShift(true);}}
+        onClick={() => { showModal(true); setIsEndShiftVisible(true);}}
       >
         End shift
       </button>
@@ -30,17 +30,18 @@ export function EndshiftBtn({ showModal, hideEndShift }) {
   );
 }
 
-export function EndShiftModal({ showModal, handleEndShift, hideEndShift }) {
+export function EndShiftModal({ showModal, handleEndShift, setIsEndShiftVisible }) {
     return (
-    <div className="flex space-x-4">
+    <div className="flex space-x-8">
         <button
-            className="w-50 bg-red-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700" 
-            onClick={() => { showModal(false); hideEndShift(false);}}>
+            className="w-35 bg-red-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700" 
+            onClick={() => { showModal(false); setIsEndShiftVisible(false);}}>
             No
         </button>
 
+
         <button
-            className="w-50 bg-blue-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700" 
+            className="w-35 bg-blue-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700" 
             onClick={() => handleEndShift()}>
                 Yes
         </button>
