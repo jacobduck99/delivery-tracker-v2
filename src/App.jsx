@@ -21,13 +21,11 @@ export default function App() {
                 const synced = { ...getEndShift, synced_status: "Completed" };
                 endShiftPendingSync(synced);
                 clearCurrentRun();
-                drainEndShiftQueue();
-            
+                drainEndShiftQueue();            
                 }
             }
         }
-        window.addEventListener("online", syncEndShift);
-        return () => window.removeEventListener("online", syncEndShift)
+        window.addEventListener("online", syncEndShift); 
     }, []);
 
   return (
