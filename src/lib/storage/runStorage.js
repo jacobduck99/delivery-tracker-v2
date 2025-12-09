@@ -71,9 +71,10 @@ export function endShiftPendingSync(endShift) {
 
 export function drainEndShiftQueue() {
     const queue = loadPendingQueue("Pending_endShift_sync");
-    const filtered = queue.filter(end => end.synced_status === "Completed");
+    if (queue.synced_status === "Completed"); 
+
     localStorage.removeItem("Pending_endShift_sync");
-}
+    }
 
 
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getDrops, syncPendingDrops, endShift } from "../../lib/api/runApi.js";
 import Dropcard from "../../components/dropcard.jsx";
-import { saveDeliveries, loadDeliveries, syncCompletedLs, endShiftPendingSync, drainQueue, clearCurrentRun, loadPendingQueue, resetRun } from "../../lib/storage/runStorage.js";
+import { saveDeliveries, drainEndShiftQueue, loadDeliveries, syncCompletedLs, endShiftPendingSync, drainQueue, clearCurrentRun, loadPendingQueue, resetRun } from "../../lib/storage/runStorage.js";
 import { useNavigate } from 'react-router-dom';
 import Circleprogress, { Card } from "../../components/progresscircle.jsx";
 import { EndshiftBtn, EndShiftModal } from "../../components/buttons.jsx";
@@ -196,24 +196,12 @@ if (loading) {
             const synced = { ...endRun, synced_status: "Completed"};
             endShiftPendingSync(synced);
             clearCurrentRun();
+            drainEndShiftQueue();
+            resetRun(runId);
             console.log(result) 
-
         }
     };
-
-    window.addEventListener("online", async () => {
-        const getEndShift = loadPendingQueue("Pending_endShift_sync");
-        if (getEndShift.synced_status === "Pending") {
-            const result = await endShift(); 
-        if (result.ok) {
-            const synced = { ...getEndShift, synced_status: "Completed"};
-            endShiftPendingSync(synced);
-            clearCurrentRun();
-        }
-         }});
-
             
-
 // WHERE THE CIRCLE PROGRESS AND PAGE STARTS 
 return ( 
   <div className="min-h-screen bg-gray-100 px-4 pt-6 pb-20">
