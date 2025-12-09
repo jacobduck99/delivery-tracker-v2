@@ -70,11 +70,13 @@ export function endShiftPendingSync(endShift) {
 }
 
 export function drainEndShiftQueue() {
-    const queue = loadPendingQueue("Pending_endShift_sync");
-    if (queue.synced_status === "Completed"){} 
-    localStorage.removeItem("Pending_endShift_sync");
+    const pending = loadPendingEndShift();
+    if (!pending) return;
 
-};
+    if (pending.synced_status === "Completed") {
+        localStorage.removeItem("Pending_endShift_sync");
+    }
+}
 
 export function loadPendingEndShift() {
     const raw = localStorage.getItem("Pending_endShift_sync");

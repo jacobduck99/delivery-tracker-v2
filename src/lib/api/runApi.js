@@ -56,11 +56,8 @@ export async function syncPendingDrops(runId, drop) {
     return body || { ok: true };
     }
 
-export async function endShift() {
-    const getEndShift = loadPendingEndShift();
+export async function endShift(run_id, end) {
     if (!getEndShift) throw new Error("No pending end shift in storage");
-    const run_id = getEndShift.runid;
-    const end = getEndShift.endShift;
     const url = `${API_BASE}/api/run/end/${run_id}/${end}`;
 
     let res;

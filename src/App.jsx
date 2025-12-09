@@ -18,7 +18,7 @@ export default function App() {
         if (!pending) return;
         if (pending.synced_status !== "Pending") return;
 
-        const result = await endShift();
+        const result = await endShift(pending.runid, pending.endshift);
 
         if (result.ok) {
             const synced = { ...pending, synced_status: "Completed" };
