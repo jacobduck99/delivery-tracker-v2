@@ -209,7 +209,6 @@ if (!drops || drops.length === 0 || currentDrops.length === 0 && upcomingDrops.l
         if (result.ok) {
             const synced = { ...endRun, synced_status: "Completed"};
             endShiftPendingSync(synced);
-            clearRun(runId);
             console.log(result) 
         }
     };
