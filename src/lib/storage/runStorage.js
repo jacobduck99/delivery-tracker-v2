@@ -59,6 +59,11 @@ export function clearCurrentRun() {
     localStorage.removeItem("Pending_queue_v1");
 };
 
+export function resetRun(runId) {
+    localStorage.removeItem(`run_drops_${run_Id}`);
+    localStorage.removeItem("config");
+}
+
 export function endShiftPendingSync(endShift) {
   localStorage.setItem("Pending_endShift_sync", JSON.stringify(endShift)
   );
