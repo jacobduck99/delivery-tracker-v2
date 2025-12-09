@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import LoginPage from "./features/auth/LoginPage.jsx";
@@ -6,10 +6,27 @@ import SignupPage from "./features/auth/SignupPage.jsx";
 import ConfigPage from "./features/config/ConfigPage.jsx";
 import RunPage from "./features/runpage/RunPage.jsx";
 import { getUserId } from "./lib/storage/userStorage.js";
+import { loadPendingQueue, endShiftPendingSync, clearCurrentRun} from "./lib/storage/runStorage.js";
+import { endShift } from "./lib/api/runApi.js";
 
 export default function App() {
   // React controlled auth state
-  const [loggedIn, setLoggedIn] = useState(() => !!getUserId("user_id"));
+    const [loggedIn, setLoggedIn] = useState(() => !!getUserId("user_id"));
+    useEffect(() => {
+       async function syncEndShift() {
+            const getEndShift = loadPendingQueue("Pending_endShift_sync")
+            if (getEndShift.synced_status === "Pending") {
+                const result = await endShift();
+            if (result.ok) {
+                const synced = { ...getEndShift, synced_status: "Completed" };
+                endShiftPendingSync(synced);
+                clearCurrentRun();
+                }
+            }
+        }
+        window.addEventListener("online", syncEndShift);
+        return () => window.removeEventListener("online", syncEndShift)
+    }, []);
 
   return (
     <BrowserRouter>
@@ -24,16 +41,6 @@ export default function App() {
               : <Navigate to="/login" replace />
           }
 
-    window.addEventListener("online", async () => {
-        const getEndShift = loadPendingQueue("Pending_endShift_sync");
-        if (getEndShift.synced_status === "Pending") {
-            const result = await endShift(); 
-        if (result.ok) {
-            const synced = { ...getEndShift, synced_status: "Completed"};
-            endShiftPendingSync(synced);
-            clearCurrentRun();
-        }
-         }});
         />
 
         {/* Public routes */}
