@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getDrops, syncPendingDrops, endShift } from "../../lib/api/runApi.js";
 import Dropcard from "../../components/dropcard.jsx";
-import { saveDeliveries, loadDeliveries, syncCompletedLs, endShiftPendingSync, drainQueue, clearRun, loadPendingQueue } from "../../lib/storage/runStorage.js";
+import { saveDeliveries, loadDeliveries, syncCompletedLs, endShiftPendingSync, drainQueue, clearCurrentRun, loadPendingQueue } from "../../lib/storage/runStorage.js";
 import { useNavigate } from 'react-router-dom';
 import Circleprogress, { Card } from "../../components/progresscircle.jsx";
 import { EndshiftBtn, EndShiftModal } from "../../components/buttons.jsx";
@@ -86,14 +86,6 @@ export default function RunPage() {
         })
     }, [drops]);
 
-if (loading) {
-  return (
-    <div className="container">
-      <p>Loading run…</p>
-    </div>
-  );
-}
-
 if (err) {
   return (
     <div className="container">
@@ -101,7 +93,6 @@ if (err) {
     </div>
   );
 }
-
     const upcomingDrops = drops.filter( (drop) => drop.status === "Not-started" ); 
 
     const currentDrops = drops.filter(drop => drop.status === "Navigating" || drop.status === "In-progress" || drop.status === "Finishing");
@@ -110,7 +101,7 @@ if (err) {
 
     console.log(drops);
 
-if (!drops || drops.length === 0 || currentDrops.length === 0 && upcomingDrops.length === 0) {
+if (!drops || drops.length === 0 || currentDrops.length === 0 && upcomingDrops.length === 0 || loading) {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4">
       <h1 className="text-xl font-semibold mb-4">No active drops</h1>
@@ -209,7 +200,9 @@ if (!drops || drops.length === 0 || currentDrops.length === 0 && upcomingDrops.l
         if (result.ok) {
             const synced = { ...endRun, synced_status: "Completed"};
             endShiftPendingSync(synced);
+            clearCurrentRun();
             console.log(result) 
+
         }
     };
 
@@ -221,7 +214,7 @@ if (!drops || drops.length === 0 || currentDrops.length === 0 && upcomingDrops.l
         if (result.ok) {
             const synced = { ...getEndShift, synced_status: "Completed"};
             endShiftPendingSync(synced);
-            clearRun(runId); 
+            clearCurrentRun();
         }
          }});
 

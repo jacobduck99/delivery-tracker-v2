@@ -53,7 +53,7 @@ export function drainQueue(dropidx, runId) {
     localStorage.setItem("Pending_queue_v1", JSON.stringify(filtered));
 }
 
-export function clearRun() {
+export function clearCurrentRun() {
     localStorage.removeItem("current_run");
     localStorage.removeItem("Pending_queue_v1");
     localStorage.removeItem("Pending_queue_v1");
