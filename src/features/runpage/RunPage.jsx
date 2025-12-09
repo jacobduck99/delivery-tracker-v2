@@ -191,15 +191,6 @@ if (loading) {
         const endRun = { runid: runId, endShift: end, synced_status: "Pending"}
         endShiftPendingSync(endRun);
         navigate("/config");
-        const result = await endShift();
-        if (result.ok) {
-            const synced = { ...endRun, synced_status: "Completed"};
-            endShiftPendingSync(synced);
-            clearCurrentRun();
-            drainEndShiftQueue();
-            resetRun(runId);
-            console.log(result) 
-        }
     };
             
 // WHERE THE CIRCLE PROGRESS AND PAGE STARTS 

@@ -22,6 +22,7 @@ export default function App() {
                 endShiftPendingSync(synced);
                 clearCurrentRun();
                 drainEndShiftQueue();            
+                console.log(result);
                 }
             }
         }
