@@ -76,7 +76,11 @@ export function drainEndShiftQueue() {
 
 };
 
-
+export function loadPendingEndShift() {
+    const raw = localStorage.getItem("Pending_endShift_sync");
+    if (!raw) return null;          // IMPORTANT
+    return JSON.parse(raw);
+}
 
 
 
