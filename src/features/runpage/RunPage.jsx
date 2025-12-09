@@ -95,8 +95,12 @@ if (err) {
 }
 
 if (loading) {
-    
-    }
+    return (
+        <div className="container">
+            <p>Loading run…</p>
+        </div>
+        );
+        }
 
     const upcomingDrops = drops.filter( (drop) => drop.status === "Not-started" ); 
 
@@ -105,21 +109,6 @@ if (loading) {
     const completedDrops = drops.filter( (drop) => drop.status === "Completed" ); 
 
     console.log(drops);
-
-if (!drops || drops.length === 0 || currentDrops.length === 0 && upcomingDrops.length === 0) {
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4">
-      <h1 className="text-xl font-semibold mb-4">No active drops</h1>
-
-      <button
-        onClick={() => { navigate("/config"); resetRun(runId);}}
-        className="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold shadow hover:bg-blue-700"
-      >
-        Configure Shift
-      </button>
-    </div>
-  );
-}
 
     function onChangeStatus(drop_idx, newStatus) {
         setDrops(prev => {
@@ -210,7 +199,6 @@ if (!drops || drops.length === 0 || currentDrops.length === 0 && upcomingDrops.l
 
         }
     };
-
 
     window.addEventListener("online", async () => {
         const getEndShift = loadPendingQueue("Pending_endShift_sync");
