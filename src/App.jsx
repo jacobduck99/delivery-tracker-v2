@@ -23,6 +23,17 @@ export default function App() {
               ? <Navigate to="/run" replace />
               : <Navigate to="/login" replace />
           }
+
+    window.addEventListener("online", async () => {
+        const getEndShift = loadPendingQueue("Pending_endShift_sync");
+        if (getEndShift.synced_status === "Pending") {
+            const result = await endShift(); 
+        if (result.ok) {
+            const synced = { ...getEndShift, synced_status: "Completed"};
+            endShiftPendingSync(synced);
+            clearCurrentRun();
+        }
+         }});
         />
 
         {/* Public routes */}
