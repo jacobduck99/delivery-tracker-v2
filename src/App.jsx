@@ -6,7 +6,7 @@ import SignupPage from "./features/auth/SignupPage.jsx";
 import ConfigPage from "./features/config/ConfigPage.jsx";
 import RunPage from "./features/runpage/RunPage.jsx";
 import { getUserId } from "./lib/storage/userStorage.js";
-import { loadPendingQueue, endShiftPendingSync, clearCurrentRun, drainEndShiftQueue} from "./lib/storage/runStorage.js";
+import { loadPendingEndShift, endShiftPendingSync, clearCurrentRun, drainEndShiftQueue} from "./lib/storage/runStorage.js";
 import { endShift } from "./lib/api/runApi.js";
 
 export default function App() {
@@ -14,8 +14,9 @@ export default function App() {
     const [loggedIn, setLoggedIn] = useState(() => !!getUserId("user_id"));
     useEffect(() => {
        async function syncEndShift() {
-            const getEndShift = loadPendingQueue("Pending_endShift_sync");
-            if (getEndShift.synced_status === "Pending") {
+            const pending = loadPendingEndShift();
+            if (!pending) return;
+            if (pending.synced_status !== "Pending") return;
             const result = await endShift();
             if (result.ok) {
                 const synced = { ...getEndShift, synced_status: "Completed" };
