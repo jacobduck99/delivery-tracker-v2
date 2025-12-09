@@ -1,5 +1,5 @@
 
-import { loadRun, loadPendingQueue,  } from "../../lib/storage/runStorage.js";
+import { loadRun, loadPendingEndShift,  } from "../../lib/storage/runStorage.js";
 
 const API_BASE = import.meta.env.VITE_API_URL;
 
@@ -57,7 +57,7 @@ export async function syncPendingDrops(runId, drop) {
     }
 
 export async function endShift() {
-    const getEndShift = loadPendingQueue("Pending_endShift_sync");
+    const getEndShift = loadPendingEndShift("Pending_endShift_sync");
     const run_id = getEndShift.runid;
     const end = getEndShift.endShift;
     const url = `${API_BASE}/api/run/end/${run_id}/${end}`;

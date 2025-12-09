@@ -13,25 +13,31 @@ export default function App() {
   // React controlled auth state
     const [loggedIn, setLoggedIn] = useState(() => !!getUserId("user_id"));
     useEffect(() => {
-       async function syncEndShift() {
-            const pending = loadPendingEndShift();
-            if (!pending) return;
-            if (pending.synced_status !== "Pending") return;
-            const result = await endShift();
-            if (result.ok) {
-                const synced = { ...getEndShift, synced_status: "Completed" };
-                endShiftPendingSync(synced);
-                clearCurrentRun();
-                drainEndShiftQueue();            
-                console.log(result);
-                }
-            }
-        }
-        syncEndShift();
-        window.addEventListener("online", syncEndShift); 
+    async function syncEndShift() {
+        const pending = loadPendingEndShift();
+        if (!pending) return;
+        if (pending.synced_status !== "Pending") return;
 
-        return () => window.removeEventListener("online", syncEndShift)
-    }, []);
+        const result = await endShift(pending.runid, pending.endShift);
+
+        if (result.ok) {
+            const synced = { ...pending, synced_status: "Completed" };
+            endShiftPendingSync(synced);
+            clearCurrentRun();
+            drainEndShiftQueue();
+            console.log("End shift synced:", result);
+        }
+    }
+
+    // run at startup
+    syncEndShift();
+
+    // run when online
+    window.addEventListener("online", syncEndShift);
+    return () => window.removeEventListener("online", syncEndShift);
+
+}, []);
+
 
 
 
