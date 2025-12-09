@@ -18,7 +18,7 @@ export default function App() {
         if (!pending) return;
         if (pending.synced_status !== "Pending") return;
 
-        const result = await endShift(pending.runid, pending.endshift);
+        const result = await endShift(pending.runid, pending.endShift);
 
         if (result.ok) {
             const synced = { ...pending, synced_status: "Completed" };
@@ -31,15 +31,13 @@ export default function App() {
 
     // run at startup
     syncEndShift();
+    console.log("SYNC STARTED", Date.now());
 
     // run when online
     window.addEventListener("online", syncEndShift);
     return () => window.removeEventListener("online", syncEndShift);
 
 }, []);
-
-
-
 
   return (
     <BrowserRouter>
