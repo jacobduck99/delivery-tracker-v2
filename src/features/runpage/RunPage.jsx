@@ -190,6 +190,7 @@ if (loading) {
         const end = Date.now();
         const endRun = { runid: runId, endShift: end, synced_status: "Pending"}
         endShiftPendingSync(endRun);
+        navigate("/config");
         const result = await endShift();
         if (result.ok) {
             const synced = { ...endRun, synced_status: "Completed"};
