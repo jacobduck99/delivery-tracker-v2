@@ -14,6 +14,8 @@ export default function App() {
     const [loggedIn, setLoggedIn] = useState(() => !!getUserId("user_id"));
     useEffect(() => {
        async function syncEndShift() {
+            const getEndShift = loadPendingQueue("Pending_endShift_sync");
+            if (getEndShift.synced_status === "Pending") {
             const result = await endShift();
             if (result.ok) {
                 const synced = { ...getEndShift, synced_status: "Completed" };
@@ -22,9 +24,15 @@ export default function App() {
                 drainEndShiftQueue();            
                 console.log(result);
                 }
+            }
         }
+        syncEndShift();
         window.addEventListener("online", syncEndShift); 
+
+        return () => window.removeEventListener("online", syncEndShift)
     }, []);
+
+
 
   return (
     <BrowserRouter>
