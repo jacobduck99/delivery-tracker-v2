@@ -191,6 +191,7 @@ if (loading) {
         const endRun = { runid: runId, endShift: end, synced_status: "Pending"}
         endShiftPendingSync(endRun);
         navigate("/config");
+        window.dispatchEvent(new Event("online"));
     };
             
 // WHERE THE CIRCLE PROGRESS AND PAGE STARTS 
