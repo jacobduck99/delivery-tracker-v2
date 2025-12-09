@@ -60,7 +60,7 @@ export function clearCurrentRun() {
 };
 
 export function resetRun(runId) {
-    localStorage.removeItem(`run_drops_${run_Id}`);
+    localStorage.removeItem(`run_drops_${runId}`);
     localStorage.removeItem("config");
 }
 

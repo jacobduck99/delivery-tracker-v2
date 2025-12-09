@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getDrops, syncPendingDrops, endShift } from "../../lib/api/runApi.js";
 import Dropcard from "../../components/dropcard.jsx";
-import { saveDeliveries, loadDeliveries, syncCompletedLs, endShiftPendingSync, drainQueue, clearCurrentRun, loadPendingQueue } from "../../lib/storage/runStorage.js";
+import { saveDeliveries, loadDeliveries, syncCompletedLs, endShiftPendingSync, drainQueue, clearCurrentRun, loadPendingQueue, resetRun } from "../../lib/storage/runStorage.js";
 import { useNavigate } from 'react-router-dom';
 import Circleprogress, { Card } from "../../components/progresscircle.jsx";
 import { EndshiftBtn, EndShiftModal } from "../../components/buttons.jsx";
@@ -93,6 +93,11 @@ if (err) {
     </div>
   );
 }
+
+if (loading) {
+    
+    }
+
     const upcomingDrops = drops.filter( (drop) => drop.status === "Not-started" ); 
 
     const currentDrops = drops.filter(drop => drop.status === "Navigating" || drop.status === "In-progress" || drop.status === "Finishing");
@@ -101,13 +106,13 @@ if (err) {
 
     console.log(drops);
 
-if (!drops || drops.length === 0 || currentDrops.length === 0 && upcomingDrops.length === 0 || loading) {
+if (!drops || drops.length === 0 || currentDrops.length === 0 && upcomingDrops.length === 0) {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4">
       <h1 className="text-xl font-semibold mb-4">No active drops</h1>
 
       <button
-        onClick={() => navigate("/config")}
+        onClick={() => { navigate("/config"); resetRun(runId);}}
         className="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold shadow hover:bg-blue-700"
       >
         Configure Shift
