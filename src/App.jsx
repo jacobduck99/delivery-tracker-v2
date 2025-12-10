@@ -6,7 +6,7 @@ import SignupPage from "./features/auth/SignupPage.jsx";
 import ConfigPage from "./features/config/ConfigPage.jsx";
 import RunPage from "./features/runpage/RunPage.jsx";
 import { getUserId } from "./lib/storage/userStorage.js";
-import { loadPendingEndShift, endShiftPendingSync, clearCurrentRun, drainEndShiftQueue} from "./lib/storage/runStorage.js";
+import { loadPendingEndShift, queueEndingShift, clearCurrentRun, drainEndShiftQueue} from "./lib/storage/runStorage.js";
 import { endShift } from "./lib/api/runApi.js";
 
 export default function App() {
@@ -22,7 +22,7 @@ export default function App() {
 
         if (result.ok) {
             const synced = { ...pending, synced_status: "Completed" };
-            endShiftPendingSync(synced);
+            queueEndingShift(synced);
             clearCurrentRun();
             drainEndShiftQueue();
             console.log("End shift synced:", result);

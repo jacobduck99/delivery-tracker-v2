@@ -64,7 +64,7 @@ export function resetRun(runId) {
     localStorage.removeItem("config");
 }
 
-export function endShiftPendingSync(endShift) {
+export function queueEndingShift(endShift) {
   localStorage.setItem("Pending_endShift_sync", JSON.stringify(endShift)
   );
 }
