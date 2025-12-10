@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { getDrops, syncPendingDrops, endShift } from "../../lib/api/runApi.js";
+import { syncPendingDrops, endShift } from "../../lib/api/runApi.js";
 import Dropcard from "../../components/dropcard.jsx";
 import { saveDeliveries, loadRun, drainQueue, loadDeliveries, savePendingDrop, loadPendingQueue } from "../../lib/storage/runStorage.js";
 import { clearCurrentRun, resetRun, queueEndingShift, drainEndShiftQueue,loadPendingEndShift} from "../../lib/storage/endshiftStorage.js";
 import { useNavigate } from 'react-router-dom';
 import Circleprogress, { Card } from "../../components/progresscircle.jsx";
 import { EndshiftBtn, EndShiftModal } from "../../components/buttons.jsx";
+import { loadDrops } from "./runloader.js";
 
 // haven't cached any files for pwa do that once add more things
 
@@ -17,58 +18,25 @@ export default function RunPage() {
     const navigate = useNavigate();
     const [modal, showModal] = useState(false); 
     const [isEndShiftVisible, setIsEndShiftVisible] = useState(true);
+ 
 
-    
-    useEffect(() => {
-        let cancelled = false;
+useEffect(() => {
+    async function init() {
+        const result = await loadDrops();
 
-    async function loadDrops() {
-        setLoading(true);
-        setErr("");
-  
-const run = loadRun("current_run");
+        if (!result.ok) {
+            setErr(result.error);
+            return;
+        }
 
-if (!run) {
-    console.log("❌ No current_run in localStorage");
-    return;
-}
-
-console.log("✅ Loaded run from LS:", run);
-
-const runid = run.run_id;
-console.log("➡️ Using runId:", runid);
-
-const data = await getDrops(runid);
-console.log("📦 Drops loaded:", data);
-
-
-      if (cancelled) return;
-
-      if (data === null) {
-        setErr("Failed to load drops from server");
-        setDrops(null);
-      } else {
-        setRunId(data.run_id);
-        const cache = loadDeliveries(data.run_id);
-        if (cache === null) {
-        setDrops(data.deliveries || []); 
-        saveDeliveries(data.run_id, data.deliveries);
-        console.log(data.deliveries)
-                }
-        else {
-            setRunId(data.run_id);
-            setDrops(cache);
-                }
-      }
-
-      setLoading(false);
+        setRunId(result.runId);
+        setDrops(result.deliveries);
+        setLoading(false);
     }
 
-    loadDrops();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+    init();
+}, []);
+
 
     useEffect(() => {
         if (!drops || drops.length === 0) return;
