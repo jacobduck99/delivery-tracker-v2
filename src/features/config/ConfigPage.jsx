@@ -54,9 +54,10 @@ async function handleSubmit(e) {
 
     try {
         const result = await saveConfigToServer(payload);
+        saveRun(result);
         navigate("/run");
         console.log("Config saved on server:", result);
-        saveRun(result);
+        
 
     } catch (err) {
         console.error("Error saving config:", err);

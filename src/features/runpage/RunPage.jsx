@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getDrops, syncPendingDrops, endShift } from "../../lib/api/runApi.js";
 import Dropcard from "../../components/dropcard.jsx";
-import { saveDeliveries,loadRun, loadDeliveries, savePendingDrop, loadPendingQueue } from "../../lib/storage/runStorage.js";
+import { saveDeliveries, loadRun, loadDeliveries, savePendingDrop, loadPendingQueue } from "../../lib/storage/runStorage.js";
 import { clearCurrentRun, resetRun, queueEndingShift, drainEndShiftQueue,loadPendingEndShift} from "../../lib/storage/endshiftStorage.js";
 import { useNavigate } from 'react-router-dom';
 import Circleprogress, { Card } from "../../components/progresscircle.jsx";
@@ -25,13 +25,22 @@ export default function RunPage() {
     async function loadDrops() {
         setLoading(true);
         setErr("");
-    const run = loadRun()
-    if (!run) {
-        return;
-            }
-    console.log(run);
-    const runid = run.run_id;
-    const data = await getDrops(runid);
+  
+const run = loadRun("current_run");
+
+if (!run) {
+    console.log("❌ No current_run in localStorage");
+    return;
+}
+
+console.log("✅ Loaded run from LS:", run);
+
+const runid = run.run_id;
+console.log("➡️ Using runId:", runid);
+
+const data = await getDrops(runid);
+console.log("📦 Drops loaded:", data);
+
 
       if (cancelled) return;
 
@@ -243,7 +252,7 @@ return (
             onChangeStop={onChangeStop}
             onChangeElapsed={onChangeElapsed}
             onChangeSyncStatus={onChangeSyncStatus}
-            syncCompletedLs={syncCompletedLs}
+            savePendingDrop={savePendingDrop}
           />
         ))}
       </ul>
@@ -262,7 +271,7 @@ return (
           onChangeStop={onChangeStop}
           onChangeElapsed={onChangeElapsed}
           onChangeSyncStatus={onChangeSyncStatus}
-          syncCompletedLs={syncCompletedLs}
+          savePendingDrop={savePendingDrop}
         />
       )}
     </section>
@@ -292,7 +301,7 @@ return (
             onChangeStop={onChangeStop}
             onChangeElapsed={onChangeElapsed}
             onChangeSyncStatus={onChangeSyncStatus}
-            syncCompletedLs={syncCompletedLs}
+            savePendingDrop={savePendingDrop}
           />
         ))}
       </ul>
