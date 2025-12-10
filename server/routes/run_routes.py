@@ -98,12 +98,7 @@ def update_end_time(run_id, end_ts):
         )
         conn.commit()
 
-        return jsonify({
-    "ok": True,
-    "message": "actual end time set",
-    "end_ts": end_ts,
-    "runId": run_id
-}), 200
+        return jsonify({"ok": True, "message": "actual end time set", "end_ts": end_ts, "runId": run_id}), 200
 
     except Exception as e:
         return jsonify({"ok": False, "error": str(e)}), 400

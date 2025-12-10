@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getDrops, syncPendingDrops, endShift } from "../../lib/api/runApi.js";
 import Dropcard from "../../components/dropcard.jsx";
-import { saveDeliveries, loadDeliveries, savePendingDrop, loadPendingQueue } from "../../lib/storage/runStorage.js";
+import { saveDeliveries,loadRun, loadDeliveries, savePendingDrop, loadPendingQueue } from "../../lib/storage/runStorage.js";
 import { clearCurrentRun, resetRun, queueEndingShift, drainEndShiftQueue,loadPendingEndShift} from "../../lib/storage/endshiftStorage.js";
 import { useNavigate } from 'react-router-dom';
 import Circleprogress, { Card } from "../../components/progresscircle.jsx";
@@ -25,8 +25,13 @@ export default function RunPage() {
     async function loadDrops() {
         setLoading(true);
         setErr("");
-
-    const data = await getDrops();
+    const run = loadRun()
+    if (!run) {
+        return;
+            }
+    console.log(run);
+    const runid = run.run_id;
+    const data = await getDrops(runid);
 
       if (cancelled) return;
 
@@ -36,7 +41,7 @@ export default function RunPage() {
       } else {
         setRunId(data.run_id);
         const cache = loadDeliveries(data.run_id);
-        if (!cache) {
+        if (cache === null) {
         setDrops(data.deliveries || []); 
         saveDeliveries(data.run_id, data.deliveries);
         console.log(data.deliveries)
