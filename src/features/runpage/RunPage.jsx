@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getDrops, syncPendingDrops, endShift } from "../../lib/api/runApi.js";
 import Dropcard from "../../components/dropcard.jsx";
-import { saveDeliveries, loadDeliveries, syncCompletedLs, loadPendingQueue } from "../../lib/storage/runStorage.js";
+import { saveDeliveries, loadDeliveries, savePendingDrop, loadPendingQueue } from "../../lib/storage/runStorage.js";
 import { clearCurrentRun, resetRun, queueEndingShift, drainEndShiftQueue,loadPendingEndShift} from "../../lib/storage/endshiftStorage.js";
 import { useNavigate } from 'react-router-dom';
 import Circleprogress, { Card } from "../../components/progresscircle.jsx";
@@ -64,7 +64,7 @@ export default function RunPage() {
         );
 
         completedPending.forEach(async (drop) => {
-        syncCompletedLs(runId, drop);
+        savePendingDrop(drop);
         const result = await syncPendingDrops(runId, drop);
 
         if (result.ok) {
@@ -195,7 +195,7 @@ if (loading) {
         
         window.dispatchEvent(new Event("online")); 
     };
-            
+
 // WHERE THE CIRCLE PROGRESS AND PAGE STARTS 
 return ( 
   <div className="min-h-screen bg-gray-100 px-4 pt-6 pb-20">
