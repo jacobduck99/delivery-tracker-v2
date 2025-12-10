@@ -185,7 +185,7 @@ if (loading) {
     const remainingUpcoming = currentDrop
     ? upcomingDrops.filter(d => d.drop_idx !== currentDrop.drop_idx) : upcomingDrops;
 
-    async function handleEndShift() { 
+    function handleEndShift() { 
         console.log("runId =", runId);
         const end = Date.now();
         const endRun = { runid: runId, endShift: end, synced_status: "Pending"}
