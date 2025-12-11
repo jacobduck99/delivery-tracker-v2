@@ -14,7 +14,7 @@ export function markDropPending(prev, drop_idx, newSyncStatus) {
     : drop);
 }
 
-export function setdropTs(prev, drop_idx, startTs) {
+export function updateDropStart(prev, drop_idx, startTs) {
     return prev.map(drop => 
     drop.drop_idx === drop_idx
     ? {...drop, start_ts: startTs}
