@@ -32,6 +32,15 @@ export function updateDropAddress(prev, drop_idx, newAddress) {
 export function updateDropStop(prev, drop_idx, stopTs) {
     return prev.map(drop => 
     drop.drop_idx === drop_idx
-    ? {...drop, stop_ts: stopTs}
+    ? {...drop, end_ts: stopTs}
     : drop)
 }
+
+
+export function showElapsedTime(prev, drop_idx, ms) {
+    return prev.map(drop => 
+    drop.drop_idx === drop_idx
+    ? {...drop, elapsed: ms}
+    : drop)
+}
+
