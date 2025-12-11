@@ -1,14 +1,39 @@
 import { useState, useEffect } from "react";
-import { syncPendingDrops, endShift } from "../../lib/api/runApi.js";
+import { useNavigate } from "react-router-dom";
+// UI Components
 import Dropcard from "../../components/dropcard.jsx";
-import { saveDeliveries, loadRun, drainQueue, loadDeliveries, savePendingDrop, loadPendingQueue } from "../../lib/storage/runStorage.js";
-import { clearCurrentRun, resetRun, queueEndingShift, drainEndShiftQueue,loadPendingEndShift} from "../../lib/storage/endshiftStorage.js";
-import { useNavigate } from 'react-router-dom';
 import Circleprogress, { Card } from "../../components/progresscircle.jsx";
 import { EndshiftBtn, EndShiftModal } from "../../components/buttons.jsx";
+// API
+import { syncPendingDrops, endShift } from "../../lib/api/runApi.js";
+// Feature loader
 import { loadDrops } from "./runloader.js";
-import { updateDropStatus, showElapsedTime, markDropPending, updateDropStart, updateDropAddress, updateDropStop } from "../../lib/storage/syncStorage.js";
-
+// Storage: run + deliveries
+import { 
+  saveDeliveries, 
+  loadRun, 
+  loadDeliveries, 
+  savePendingDrop, 
+  loadPendingQueue, 
+  drainQueue 
+} from "../../lib/storage/runStorage.js";
+// Storage: end-shift
+import { 
+  clearCurrentRun, 
+  resetRun, 
+  queueEndingShift, 
+  drainEndShiftQueue,
+  loadPendingEndShift
+} from "../../lib/storage/endshiftStorage.js";
+// State update helpers
+import { 
+  updateDropStatus,
+  showElapsedTime,
+  markDropPending,
+  updateDropStart,
+  updateDropAddress,
+  updateDropStop
+} from "../../lib/storage/syncStorage.js";
 
 // haven't cached any files for pwa do that once add more things
 
@@ -94,20 +119,20 @@ if (loading) {
     console.log(drops);
 
     function onChangeStatus(drop_idx, newStatus) {
-        setDrops(prev => 
-        { const nextDrops = updateDropStatus(prev, drop_idx, newStatus);
-        saveDeliveries(runId, nextDrops);
-    return nextDrops;
-  });    
-}
+        setDrops(prev => { 
+            const nextDrops = updateDropStatus(prev, drop_idx, newStatus);
+            saveDeliveries(runId, nextDrops);
+            return nextDrops;
+        });    
+        }
 
     function onChangeSyncStatus(drop_idx, newSyncStatus) {
         setDrops(prev => { 
             const nextDrops = markDropPending(prev, drop_idx, newSyncStatus);
             saveDeliveries(runId, nextDrops);
             return nextDrops;
-    });
-}
+        });
+    }
 
     function onChangeStart(drop_idx, newStart) {
         setDrops(prev => { 
@@ -169,7 +194,6 @@ return (
         </Card>
     </div>
 
-
     <details className="mb-4">
   
 <summary className="flex items-center mt-8 gap-2 text-[1rem] font-medium cursor-pointer">
@@ -179,12 +203,10 @@ return (
     {completedDrops.length}
   </span>
 
-
   <span className="text-gray-500 text-lg leading-none transition-transform group-open:rotate-90">
     ▸
   </span>
 </summary>
-
 
       <ul className="space-y-4 mt-3">
         {completedDrops.map((drop, index) => (
@@ -253,7 +275,6 @@ return (
       </ul>
     </details>
 
-
 <div className="flex mt-11 justify-center">
 
   {!modal && (
@@ -270,7 +291,5 @@ return (
 
 </div>
 </div>
-
 );
-
 }
