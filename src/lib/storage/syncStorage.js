@@ -27,3 +27,11 @@ export function updateDropAddress(prev, drop_idx, newAddress) {
     ? {...drop, address: newAddress}
     : drop)
 }
+
+
+export function updateDropStop(prev, drop_idx, stopTs) {
+    return prev.map(drop => 
+    drop.drop_idx === drop_idx
+    ? {...drop, stop_ts: stopTs}
+    : drop)
+}

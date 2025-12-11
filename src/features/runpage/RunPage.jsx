@@ -7,7 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import Circleprogress, { Card } from "../../components/progresscircle.jsx";
 import { EndshiftBtn, EndShiftModal } from "../../components/buttons.jsx";
 import { loadDrops } from "./runloader.js";
-import { updateDropStatus, markDropPending, updateDropStart, updateDropAddress } from "../../lib/storage/syncStorage.js";
+import { updateDropStatus, markDropPending, updateDropStart, updateDropAddress, updateDropStop } from "../../lib/storage/syncStorage.js";
+
 
 // haven't cached any files for pwa do that once add more things
 
@@ -126,10 +127,7 @@ if (loading) {
 
     function onChangeStop(drop_idx, newStop) {
         setDrops(prev => {
-        const nextDrops = prev.map(drop => 
-        drop.drop_idx === drop_idx
-            ? {...drop, end_ts: newStop }
-            : drop );
+            const nextDrops = updateDropStop(prev, drop_idx, newStop);
             saveDeliveries(runId, nextDrops);
             return nextDrops;
         });
