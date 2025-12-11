@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Circleprogress, { Card } from "../../components/progresscircle.jsx";
 import { EndshiftBtn, EndShiftModal } from "../../components/buttons.jsx";
 import { loadDrops } from "./runloader.js";
+import { changeDropStatus } from "../../lib/storage/syncStorage.js";
 
 // haven't cached any files for pwa do that once add more things
 
@@ -19,7 +20,6 @@ export default function RunPage() {
     const [modal, showModal] = useState(false); 
     const [isEndShiftVisible, setIsEndShiftVisible] = useState(true);
  
-
 useEffect(() => {
     async function init() {
         const result = await loadDrops();
@@ -36,7 +36,6 @@ useEffect(() => {
 
     init();
 }, []);
-
 
     useEffect(() => {
         if (!drops || drops.length === 0) return;
@@ -94,14 +93,9 @@ if (loading) {
     console.log(drops);
 
     function onChangeStatus(drop_idx, newStatus) {
-        setDrops(prev => {
-        const nextDrops = prev.map(drop =>
-        drop.drop_idx === drop_idx
-        ? { ...drop, status: newStatus }
-        : drop
-        );
-
-    saveDeliveries(runId, nextDrops);
+        setDrops(prev => 
+        { const nextDrops = changeDropStatus(prev, drop_idx, newStatus);
+        saveDeliveries(runId, nextDrops);
     return nextDrops;
   });    
 }
