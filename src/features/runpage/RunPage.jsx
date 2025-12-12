@@ -72,14 +72,18 @@ useEffect(() => {
 
         completedPending.forEach(async (drop) => {
         savePendingDrop(drop);
-        const result = await syncPendingDrops(runId, drop);
-
+        const getState = loadDeliveries(runId);
+        const filtered = getState.filter(d => d.sync_status === "Pending");
+        if (filtered) {
+            const result = await syncPendingDrops(runId, drop); 
         if (result.ok) {
             onChangeSyncStatus(drop.drop_idx, "Synced");  
             drainQueue(drop.drop_idx);
+            const getState = loadDeliveries(runId);
+                console.log({"drop state from api": getState})
                 console.log(result);
             }
-        });
+        }});
 
     }, [drops]);
 
