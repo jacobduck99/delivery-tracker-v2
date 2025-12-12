@@ -76,6 +76,7 @@ useEffect(() => {
 
         if (result.ok) {
             onChangeSyncStatus(drop.drop_idx, "Synced");  
+            drainQueue(drop.drop_idx);
                 console.log(result);
             }
         });

@@ -41,8 +41,6 @@ useEffect(() => {
 
 }, []);
 
-
-
   return (
     <BrowserRouter>
       <Routes>
