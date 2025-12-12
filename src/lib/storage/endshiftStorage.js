@@ -1,7 +1,6 @@
 
 export function clearCurrentRun() {
     localStorage.removeItem("current_run");
-    localStorage.removeItem("Pending_queue_v1"); 
 };
 
 export function resetRun(runId) {
