@@ -8,7 +8,7 @@ import RunPage from "./features/runpage/RunPage.jsx";
 import { getUserId } from "./lib/storage/userStorage.js";
 import { loadPendingEndShift, resetRun, queueEndingShift, clearCurrentRun, drainEndShiftQueue} from "./lib/storage/endshiftStorage.js";
 import { endShift, syncPendingDrops } from "./lib/api/runApi.js";
-import { loadPendingQueue, savePendingQueue } from "./lib/storage/runStorage.js";
+import { loadPendingQueue, savePendingQueue, saveDeliveries, loadDeliveries } from "./lib/storage/runStorage.js";
 
 export default function App() {
 
@@ -59,11 +59,11 @@ useEffect(() => {
 
 let syncing = false;
 
-async function syncWorker(runId) {
+async function syncworker(runid) {
   if (syncing) return;
   syncing = true;
 
-  const queue = loadPendingQueue("Pending_queue_v1");
+  const queue = loadpendingqueue("pending_queue_v1");
         console.log(queue);
   if (!queue || queue.length === 0) {
     syncing = false;
@@ -73,24 +73,28 @@ async function syncWorker(runId) {
   const remaining = [];
 
   for (const job of queue) {
-    if (job.sync_status !== "Ready") {
+    if (job.sync_status !== "ready") {
       remaining.push(job);
       continue;
     }
 
-    const result = await syncPendingDrops(runId, job);
+    const result = await syncpendingdrops(runid, job);
     console.log(result);
 
     if (!result.ok) {
       // stop on failure, retry later
-      remaining.push(job);
+      remaining.push(job); 
       break;
     }
-
-    // success → DO NOT re-add
+    
+    const updatedrops = loaddeliveries(runid);
+    const synced = updatedrops.map(d => d.drop_idx === job.drop_idx 
+        ? {...d, sync_status: "synced"} : d);
+                savedeliveries(runid, synced);
+    // success → do not re-add
   }
-syncWorker();
-  savePendingQueue(remaining);
+  savependingqueue(remaining);
+    syncWorker(runId);
   syncing = false;
 }
 

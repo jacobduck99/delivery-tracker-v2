@@ -29,7 +29,7 @@ import {
 import { 
   updateDropStatus,
   showElapsedTime,
-  markDropPending,
+  markDropStatus,
   updateDropStart,
   updateDropAddress,
   updateDropStop
@@ -114,7 +114,7 @@ if (loading) {
 
     function onChangeSyncStatus(drop_idx, newSyncStatus) {
         setDrops(prev => { 
-            const nextDrops = markDropPending(prev, drop_idx, newSyncStatus);
+            const nextDrops = markDropStatus(prev, drop_idx, newSyncStatus);
             saveDeliveries(runId, nextDrops);
             return nextDrops;
         });
