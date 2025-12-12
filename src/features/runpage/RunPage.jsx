@@ -37,11 +37,10 @@ import {
 
 // haven't cached any files for pwa do that once add more things
 
-export default function RunPage() {
+export default function RunPage({runId, setRunId}) {
     const [drops, setDrops] = useState([]);
     const [loading, setLoading] = useState(true);
     const [err, setErr] = useState("");
-    const [runId, setRunId] = useState(null);
     const navigate = useNavigate();
     const [modal, showModal] = useState(false); 
     const [isEndShiftVisible, setIsEndShiftVisible] = useState(true);
@@ -63,41 +62,23 @@ useEffect(() => {
     init();
 }, []);
 
-    useEffect(() => {
-        if (!drops || drops.length === 0) return;
+useEffect(() => {
+  if (!runId) return;
 
-        const completedPending = drops.filter(
-        d => d.status === "Completed" && d.sync_status === "Pending"
-        );
+  const deliveries = loadDeliveries(runId);
+  if (!deliveries) return;
 
-        completedPending.forEach(async (drop) => {
-        savePendingDrop(drop);
-        const getState = loadDeliveries(runId);
-        const filtered = getState.filter(d => d.sync_status === "Pending");
-        if (filtered) {
-            const result = await syncPendingDrops(runId, drop); 
-        if (result.ok) {
-            onChangeSyncStatus(drop.drop_idx, "Synced");  
-            drainQueue(drop.drop_idx);
-            const getState = loadDeliveries(runId);
-                console.log({"drop state from api": getState})
-                console.log(result);
-            }
-        }});
+  const completedPending = deliveries.filter(
+    d => d.status === "Completed" && d.sync_status === "Pending"
+  );
 
-    }, [drops]);
-
-    useEffect(() => {
-        if (!drops || drops.length === 0) return;
-
-        const syncedDrop = drops.filter(
-            d => d.sync_status === "Synced"
-        );
-
-        syncedDrop.forEach(drop => {
-           drainQueue(drop.drop_idx, runId); 
-        })
-    }, [drops]);
+  completedPending.forEach(drop => {
+    savePendingDrop({
+      ...drop,
+      sync_status: "Ready"
+    });
+  });
+}, [drops, runId]);
 
 if (err) {
   return (

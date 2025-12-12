@@ -43,11 +43,13 @@ export async function syncPendingDrops(runId, drop) {
     const body = ct.includes("application/json") ? await res.json().catch(() => null)
                                                : await res.text().catch(() => "");
 
-    if (!res.ok) {
-        const msg = body?.error || (typeof body === "string" ? body : "");
-        console.error("Server error:", res.status, body);
-        throw new Error(msg || `Server ${res.status}`);
-    }
+
+if (!res.ok) {
+  const msg = body?.error || (typeof body === "string" ? body : "");
+  console.error("Server error:", res.status, body);
+  return { ok: false, error: msg || `Server ${res.status}` };
+}
+
 
     return body || { ok: true };
     }

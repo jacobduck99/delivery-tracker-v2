@@ -53,6 +53,9 @@ export function drainQueue(dropidx) {
     localStorage.setItem("Pending_queue_v1", JSON.stringify(filtered));
 }
 
+export function savePendingQueue(queue) {
+  localStorage.setItem("Pending_queue_v1", JSON.stringify(queue));
+}
 
 
 

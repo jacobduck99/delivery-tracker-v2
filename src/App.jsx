@@ -7,12 +7,28 @@ import ConfigPage from "./features/config/ConfigPage.jsx";
 import RunPage from "./features/runpage/RunPage.jsx";
 import { getUserId } from "./lib/storage/userStorage.js";
 import { loadPendingEndShift, resetRun, queueEndingShift, clearCurrentRun, drainEndShiftQueue} from "./lib/storage/endshiftStorage.js";
-import { endShift } from "./lib/api/runApi.js";
+import { endShift, syncPendingDrops } from "./lib/api/runApi.js";
+import { loadPendingQueue, savePendingQueue } from "./lib/storage/runStorage.js";
 
 export default function App() {
+
+console.log("APP RENDER");
   // React controlled auth state
     const [runId, setRunId] = useState(null);
     const [loggedIn, setLoggedIn] = useState(() => !!getUserId("user_id"));
+
+useEffect(() => {
+  if (!runId) return;
+
+  console.log("SYNC WORKER START", { runId });
+
+  syncWorker(runId);
+
+  const handleOnline = () => syncWorker(runId);
+  window.addEventListener("online", handleOnline);
+
+  return () => window.removeEventListener("online", handleOnline);
+}, [runId]);
 
 useEffect(() => {
     async function syncEndShift() {
@@ -40,6 +56,43 @@ useEffect(() => {
     return () => window.removeEventListener("online", syncEndShift);
 
 }, []);
+
+let syncing = false;
+
+async function syncWorker(runId) {
+  if (syncing) return;
+  syncing = true;
+
+  const queue = loadPendingQueue("Pending_queue_v1");
+        console.log(queue);
+  if (!queue || queue.length === 0) {
+    syncing = false;
+    return;
+  }
+
+  const remaining = [];
+
+  for (const job of queue) {
+    if (job.sync_status !== "Ready") {
+      remaining.push(job);
+      continue;
+    }
+
+    const result = await syncPendingDrops(runId, job);
+    console.log(result);
+
+    if (!result.ok) {
+      // stop on failure, retry later
+      remaining.push(job);
+      break;
+    }
+
+    // success → DO NOT re-add
+  }
+syncWorker();
+  savePendingQueue(remaining);
+  syncing = false;
+}
 
   return (
     <BrowserRouter>
