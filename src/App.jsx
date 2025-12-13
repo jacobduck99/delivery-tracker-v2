@@ -12,6 +12,7 @@ import { endShift } from "./lib/api/runApi.js";
 
 export default function App() {
   // React controlled auth state
+    const [runId, setRunId] = useState(null);
     const [loggedIn, setLoggedIn] = useState(() => !!getUserId("user_id"));
     useEffect(() => {
     async function syncEndShift() {
@@ -61,7 +62,7 @@ export default function App() {
 
         {/* Private routes */}
         <Route path="/config" element={<ConfigPage />} />
-        <Route path="/run" element={<RunPage />} />
+        <Route path="/run" element={<RunPage runId={runId} setRunId={setRunId}/>} />
 
         {/* Fallback */}
         <Route path="*" element={<Navigate to="/" />} />
