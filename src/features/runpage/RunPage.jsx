@@ -63,37 +63,6 @@ useEffect(() => {
     init();
 }, []);
 
-    useEffect(() => {
-        if (!drops || drops.length === 0) return;
-
-        const completedPending = drops.filter(
-        d => d.status === "Completed" && d.sync_status === "Pending"
-        );
-
-        completedPending.forEach(async (drop) => {
-        savePendingDrop(drop);
-        const result = await syncPendingDrops(runId, drop);
-
-        if (result.ok) {
-            onChangeSyncStatus(drop.drop_idx, "Synced");  
-                console.log(result);
-            }
-        });
-
-    }, [drops]);
-
-    useEffect(() => {
-        if (!drops || drops.length === 0) return;
-
-        const syncedDrop = drops.filter(
-            d => d.sync_status === "Synced"
-        );
-
-        syncedDrop.forEach(drop => {
-           drainQueue(drop.drop_idx, runId); 
-        })
-    }, [drops]);
-
 if (err) {
   return (
     <div className="container">
