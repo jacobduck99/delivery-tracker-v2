@@ -35,15 +35,14 @@ import {
   updateDropStop
 } from "../../lib/storage/syncStorage.js";
 
-import { syncDrops } from "../../../public/syncMachine.js";
+import { syncDrops } from "./syncMachine.js";
 
 // haven't cached any files for pwa do that once add more things
 
-export default function RunPage() {
+export default function RunPage({ runId, setRunId }) {
     const [drops, setDrops] = useState([]);
     const [loading, setLoading] = useState(true);
     const [err, setErr] = useState("");
-    const [runId, setRunId] = useState(null);
     const navigate = useNavigate();
     const [modal, showModal] = useState(false); 
     const [isEndShiftVisible, setIsEndShiftVisible] = useState(true);
@@ -98,31 +97,30 @@ if (loading) {
         });    
         }
 
-function onChangeSyncStatus(drop_idx, newStatus) {
-  setDrops(prev => {
-    const next = markDropSyncStatus(prev, drop_idx, newStatus);
-    saveDeliveries(runId, next);
+    function onChangeSyncStatus(drop_idx, newStatus) {
+        setDrops(prev => {
+        const next = markDropSyncStatus(prev, drop_idx, newStatus);
+        saveDeliveries(runId, next);
 
-    if (newStatus === "Ready") {
-      const drop = next.find(d => d.drop_idx === drop_idx);
+        if (newStatus === "Ready") {
+            const drop = next.find(d => d.drop_idx === drop_idx);
 
-      savePendingDrop({
-        job_id: `drop-${drop_idx}`,
-        type: "SYNC_DROP",
-        runId,
-        drop_idx,
-        payload: drop,
-        status: "Ready",
-        created_at: Date.now(),
-      });
+        savePendingDrop({
+            job_id: `drop-${drop_idx}`,
+            type: "SYNC_DROP",
+            runId,
+            drop_idx,
+            payload: drop,
+            status: "Ready",
+            created_at: Date.now(),
+        });
 
-      syncDrops(runId);
-    }
+        syncDrops(runId);
+        }
 
     return next;
-  });
-}
-
+    });
+    }
 
     function onChangeStart(drop_idx, newStart) {
         setDrops(prev => { 

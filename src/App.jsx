@@ -9,6 +9,7 @@ import { getUserId } from "./lib/storage/userStorage.js";
 import { loadPendingEndShift, queueEndingShift, clearCurrentRun, drainEndShiftQueue} from "./lib/storage/endshiftStorage.js";
 import { loadPendingQueue } from "./lib/storage/runStorage.js";
 import { endShift } from "./lib/api/runApi.js";
+import { syncDrops } from "././features/runpage/syncMachine.js";
 
 export default function App() {
   // React controlled auth state
@@ -33,11 +34,15 @@ export default function App() {
 
     // run at startup
     syncEndShift();
+    syncDrops(runId);
+
     console.log("SYNC STARTED", Date.now());
+    console.log("SYNC DROPS STARTED", Date.now());
 
     // run when online
     window.addEventListener("online", syncEndShift);
     return () => window.removeEventListener("online", syncEndShift);
+    window.addEventListener("online", syncDrops(runId));
 
 }, []);
 

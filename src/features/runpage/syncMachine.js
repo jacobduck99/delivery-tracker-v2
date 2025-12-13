@@ -21,13 +21,12 @@ export async function syncDrops(runId) {
 
     // THIS is your fresh data
     const payload = {
-          drop_idx: drop.drop_idx, 
-          address: drop.address,
-          start_ts: drop.start_ts,
-          end_ts: drop.end_ts,
-          elapsed: drop.elapsed,
-          expected_minutes: drop.expected_minutes,
-          status: drop.status,
+      drop_idx: drop.drop_idx, address: drop.address,
+      start_ts: drop.start_ts,
+      end_ts: drop.end_ts,
+      elapsed: drop.elapsed,
+      expected_minutes: drop.expected_minutes,
+      status: drop.status,
 };
     const result = await syncPendingDrops(runId, payload);
 
