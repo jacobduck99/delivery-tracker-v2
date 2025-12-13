@@ -3,7 +3,6 @@ import Gps from "./gps.jsx";
 import { startGps } from "./nav.js";
 import Startbtn, { Stopbtn } from "./buttons.jsx";
 import { savePendingDrop } from "../lib/storage/runStorage.js";
-import { syncDrops } from "../../public/syncMachine.js";
 
 export default function Dropcard({
     drop,
