@@ -43,6 +43,7 @@ export default function App() {
     // run when online
     window.addEventListener("online", syncEndShift);
     return () => window.removeEventListener("online", syncEndShift);
+    // NEED TO COME BACK HERE AND FIND OUT WHY THIS ISN'T FIRING WHEN BACK ONLINE
     window.addEventListener("online", syncDrops(runId));
 
 }, []);
