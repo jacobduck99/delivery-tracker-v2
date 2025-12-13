@@ -215,7 +215,7 @@ return (
     </details>
 
     {/* Current Drop */}
-    <section id="current-drop-slot" className="drops mt-6 mb-6">
+    <section className="drops mt-6 mb-6">
       {currentDrop && (
         <Dropcard
           key={currentDrop.drop_idx}

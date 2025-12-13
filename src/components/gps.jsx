@@ -12,7 +12,7 @@ export default function Gps({ address, setAddress, onStart }) {
         type="text"
         placeholder="Enter address"
         value={address}
-        onChange={(e) => setAddress(e.target.value)}
+        onChange={(address) => setAddress(address.target.value)}
         className="border border-gray-300 rounded-lg p-2"
       />
     </div>

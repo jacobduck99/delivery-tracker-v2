@@ -2,7 +2,7 @@ import { useState } from "react";
 import Gps from "./gps.jsx";
 import { startGps } from "./nav.js";
 import Startbtn, { Stopbtn } from "./buttons.jsx";
-import { savePendingDrop } from "../lib/storage/runStorage.js";
+import Card from "./card.jsx";
 
 export default function Dropcard({
     drop,
@@ -54,13 +54,6 @@ export default function Dropcard({
         return `${minutes}:${seconds}`;
         }
     
-const Card = ({ children }) => (
-  <div className="bg-white rounded-2xl shadow-md p-6 w-full max-w-md mx-auto mt-6 min-h-[220px] flex flex-col">
-    {children}
-  </div>
-);
-
-
 if (drop.status === "Not-started") {
   return (
     <Card>
