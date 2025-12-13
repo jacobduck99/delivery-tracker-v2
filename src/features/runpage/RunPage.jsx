@@ -35,6 +35,10 @@ import {
   updateDropStop
 } from "../../lib/storage/syncStorage.js";
 
+import {
+syncWorker
+} from "../../../public/syncMachine.js";
+
 // haven't cached any files for pwa do that once add more things
 
 export default function RunPage({runId, setRunId}) {
@@ -124,6 +128,7 @@ if (loading) {
         setDrops(prev => { 
         const nextDrops = updateDropStart(prev, drop_idx, newStart);
         saveDeliveries(runId, nextDrops);
+        syncWorker(runId);
         return nextDrops;
     });
     }

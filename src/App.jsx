@@ -1,18 +1,16 @@
 import { useState, useEffect, useCallback } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
+import { syncWorker } from "../public/syncMachine.js";
 import LoginPage from "./features/auth/LoginPage.jsx";
 import SignupPage from "./features/auth/SignupPage.jsx";
 import ConfigPage from "./features/config/ConfigPage.jsx";
 import RunPage from "./features/runpage/RunPage.jsx";
 import { getUserId } from "./lib/storage/userStorage.js";
 import { loadPendingEndShift, resetRun, queueEndingShift, clearCurrentRun, drainEndShiftQueue} from "./lib/storage/endshiftStorage.js";
-import { endShift, syncPendingDrops } from "./lib/api/runApi.js";
-import { loadPendingQueue, savePendingQueue, saveDeliveries, loadDeliveries } from "./lib/storage/runStorage.js";
+import { endShift } from "./lib/api/runApi.js";
 
 export default function App() {
 
-console.log("APP RENDER");
   // React controlled auth state
     const [runId, setRunId] = useState(null);
     const [loggedIn, setLoggedIn] = useState(() => !!getUserId("user_id"));
@@ -56,47 +54,6 @@ useEffect(() => {
     return () => window.removeEventListener("online", syncEndShift);
 
 }, []);
-
-let syncing = false;
-
-async function syncworker(runid) {
-  if (syncing) return;
-  syncing = true;
-
-  const queue = loadpendingqueue("pending_queue_v1");
-        console.log(queue);
-  if (!queue || queue.length === 0) {
-    syncing = false;
-    return;
-  }
-
-  const remaining = [];
-
-  for (const job of queue) {
-    if (job.sync_status !== "ready") {
-      remaining.push(job);
-      continue;
-    }
-
-    const result = await syncpendingdrops(runid, job);
-    console.log(result);
-
-    if (!result.ok) {
-      // stop on failure, retry later
-      remaining.push(job); 
-      break;
-    }
-    
-    const updatedrops = loaddeliveries(runid);
-    const synced = updatedrops.map(d => d.drop_idx === job.drop_idx 
-        ? {...d, sync_status: "synced"} : d);
-                savedeliveries(runid, synced);
-    // success → do not re-add
-  }
-  savependingqueue(remaining);
-    syncWorker(runId);
-  syncing = false;
-}
 
   return (
     <BrowserRouter>
