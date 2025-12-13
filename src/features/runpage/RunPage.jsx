@@ -29,11 +29,13 @@ import {
 import { 
   updateDropStatus,
   showElapsedTime,
-  markDropPending,
+  markDropSyncStatus,
   updateDropStart,
   updateDropAddress,
   updateDropStop
 } from "../../lib/storage/syncStorage.js";
+
+import { syncDrops } from "../../../public/syncMachine.js";
 
 // haven't cached any files for pwa do that once add more things
 
@@ -96,13 +98,31 @@ if (loading) {
         });    
         }
 
-    function onChangeSyncStatus(drop_idx, newSyncStatus) {
-        setDrops(prev => { 
-            const nextDrops = markDropPending(prev, drop_idx, newSyncStatus);
-            saveDeliveries(runId, nextDrops);
-            return nextDrops;
-        });
+function onChangeSyncStatus(drop_idx, newStatus) {
+  setDrops(prev => {
+    const next = markDropSyncStatus(prev, drop_idx, newStatus);
+    saveDeliveries(runId, next);
+
+    if (newStatus === "Ready") {
+      const drop = next.find(d => d.drop_idx === drop_idx);
+
+      savePendingDrop({
+        job_id: `drop-${drop_idx}`,
+        type: "SYNC_DROP",
+        runId,
+        drop_idx,
+        payload: drop,
+        status: "Ready",
+        created_at: Date.now(),
+      });
+
+      syncDrops(runId);
     }
+
+    return next;
+  });
+}
+
 
     function onChangeStart(drop_idx, newStart) {
         setDrops(prev => { 

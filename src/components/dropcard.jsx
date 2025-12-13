@@ -3,6 +3,7 @@ import Gps from "./gps.jsx";
 import { startGps } from "./nav.js";
 import Startbtn, { Stopbtn } from "./buttons.jsx";
 import { savePendingDrop } from "../lib/storage/runStorage.js";
+import { syncDrops } from "../../public/syncMachine.js";
 
 export default function Dropcard({
     drop,
@@ -45,22 +46,7 @@ export default function Dropcard({
 
         onChangeStatus(drop.drop_idx, "Completed");
         onChangeSyncStatus(drop.drop_idx, "Ready");
-
-        const job = {
-        job_id: `drop-${drop.drop_idx}`,   // stable, unique
-        drop_idx: drop.drop_idx,
-
-        status: "ready",                   // ready | syncing | synced | failed
-
-        payload: {
-        end_time: end,
-        elapsed_ms: ms,
-        },
-
-  created_at: Date.now(),
-};
-        savePendingDrop(job); 
-        }
+}
 
     function onCompleted(ms) {
         const totalSeconds = Math.floor(ms / 1000);

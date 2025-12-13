@@ -7,7 +7,7 @@ export function updateDropStatus(prev, drop_idx, newStatus) {
     );
 }
 
-export function markDropPending(prev, drop_idx, newSyncStatus) {
+export function markDropSyncStatus(prev, drop_idx, newSyncStatus) {
     return prev.map(drop => 
     drop.drop_idx === drop_idx
     ? {...drop, sync_status: newSyncStatus}
@@ -43,4 +43,5 @@ export function showElapsedTime(prev, drop_idx, ms) {
     ? {...drop, elapsed: ms}
     : drop)
 }
+
 
