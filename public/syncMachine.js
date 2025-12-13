@@ -1,4 +1,4 @@
-import { loadPendingQueue, loadDeliveries } from "../src/lib/storage/runStorage.js";
+import { loadPendingQueue, loadDeliveries, savePendingDrop } from "../src/lib/storage/runStorage.js";
 import { syncPendingDrops } from "../src/lib/api/runApi.js";
 
 export async function syncDrops(runId) {
@@ -31,8 +31,10 @@ const payload = {
 
     if (result.ok) {
             console.log(result);
-            const synced = { ...drop, sync_status: "Synced"}; 
+            const synced = { ...drop, sync_status: "Synced"};
+            const queue = savePendingDrop(synced); 
             console.log({"this is ur sync drop": synced});
+            
         }
 
         
