@@ -1,5 +1,5 @@
-import { loadPendingQueue, loadDeliveries, savePendingDrop, saveDeliveries, drainQueue } from "../src/lib/storage/runStorage.js";
-import { syncPendingDrops } from "../src/lib/api/runApi.js";
+import { loadPendingQueue, loadDeliveries, savePendingDrop, saveDeliveries, drainQueue } from "../../lib/storage/runStorage.js";
+import { syncPendingDrops } from "../../lib/api/runApi.js";
 
 // leaving this how it is took me two days to come up with this is for future jacob to look at 11 months into my coding progress :)
 
