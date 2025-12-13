@@ -45,10 +45,10 @@ export function savePendingDrop(drop) {
     localStorage.setItem("Pending_queue_v1", JSON.stringify(queue));
 }
 
-export function drainQueue(dropidx, runId) {
+export function drainQueue() {
     const queue = loadPendingQueue("Pending_queue_v1");
 
-    const filtered = queue.filter(item => item.drop_idx !== dropidx);
+    const filtered = queue.filter(item => item.sync_status !== "Synced");
 
     localStorage.setItem("Pending_queue_v1", JSON.stringify(filtered));
 }

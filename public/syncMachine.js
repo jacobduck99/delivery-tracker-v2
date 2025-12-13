@@ -1,4 +1,4 @@
-import { loadPendingQueue, loadDeliveries, savePendingDrop, saveDeliveries } from "../src/lib/storage/runStorage.js";
+import { loadPendingQueue, loadDeliveries, savePendingDrop, saveDeliveries, drainQueue } from "../src/lib/storage/runStorage.js";
 import { syncPendingDrops } from "../src/lib/api/runApi.js";
 
 export async function syncDrops(runId) {
@@ -37,6 +37,7 @@ const payload = {
             const updateDrops = deliveries.map(d => d.drop_idx === drop.drop_idx ? {...d, sync_status: "Synced"}: d);
             console.log({"this is ur deliveries list": updateDrops})
             saveDeliveries(runId, updateDrops);
+            drainQueue(drop)
             
         }
 
