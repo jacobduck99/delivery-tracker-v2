@@ -31,6 +31,8 @@ const payload = {
 
     if (result.ok) {
             console.log(result);
+            const synced = { ...drop, sync_status: "Synced"}; 
+            console.log({"this is ur sync drop": synced});
         }
 
         
