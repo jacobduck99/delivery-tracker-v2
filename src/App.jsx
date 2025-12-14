@@ -10,6 +10,7 @@ import { loadPendingEndShift, resetRun, queueEndingShift, clearCurrentRun, drain
 import { loadPendingQueue } from "./lib/storage/runStorage.js";
 import { endShift } from "./lib/api/runApi.js";
 import { syncDrops } from "././features/runpage/syncMachine.js";
+import Navbar from "./components/navbar.jsx";
 
 export default function App() {
   // React controlled auth state
@@ -50,6 +51,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
+    <Navbar />
       <Routes>
 
         {/* Boot route */}
