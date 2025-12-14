@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
+import StatsPage from "./features/statspage/StatsPage.jsx";
 import LoginPage from "./features/auth/LoginPage.jsx";
 import SignupPage from "./features/auth/SignupPage.jsx";
 import ConfigPage from "./features/config/ConfigPage.jsx";
@@ -72,6 +73,7 @@ export default function App() {
         {/* Private routes */}
         <Route path="/config" element={<ConfigPage />} />
         <Route path="/run" element={<RunPage runId={runId} setRunId={setRunId}/>} />
+        <Route path="/stats" element={<StatsPage /> } />
 
         {/* Fallback */}
         <Route path="*" element={<Navigate to="/" />} />
