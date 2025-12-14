@@ -41,7 +41,7 @@ export function EndShiftModal({ showModal, handleEndShift, setIsEndShiftVisible 
 
 
         <button
-            className="w-35 bg-blue-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700" 
+            className="w-35 bg-blue-600 text-white py-2.5 rounded-full font-semibold hover:bg-blue-700" 
             onClick={() => handleEndShift()}>
                 Yes
         </button>
