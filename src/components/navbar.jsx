@@ -1,21 +1,43 @@
-import React from 'react';
+import React from "react";
 import { Link } from "react-router-dom";
-// these are mostly dummy values for the links because pages haven't been built yet. 
+import { Navigation2, ChartNoAxesColumn, CircleUser } from "lucide-react";
+
 export default function Navbar() {
   return (
-  <nav className="fixed h-15 bg-red-600 bottom-0 w-full z-10">
-    <ul className="flex flex-row justify-center space-x-8">
-    <li>
-      <Link to="/">Live</Link>
-    </li>
-    <li>
-      <Link to="/config">Stats</Link>
-    </li>
-    <li>
-      <Link to="/login">Account</Link>
-    </li>
-    </ul>
-  </nav>
+    <nav className="fixed bottom-2 w-full bg-white z-10">
+
+      <ul className="flex justify-around py-2">
+        <li>
+          <Link
+            to="/run"
+            className="flex flex-col items-center text-[0.9rem] font-semibold text-gray-700"
+          >
+            <Navigation2 size={22} />
+            <span>Live</span>
+          </Link>
+        </li>
+
+        <li>
+          <Link
+            to="/config"
+            className="flex flex-col items-center text-[0.9rem] font-semibold text-gray-700"
+          >
+            <ChartNoAxesColumn size={22} />
+            <span>Stats</span>
+          </Link>
+        </li>
+
+        <li>
+          <Link
+            to="/login"
+            className="flex flex-col items-center text-[0.9rem] font-semibold text-gray-700"
+          >
+            <CircleUser size={22} />
+            <span>Account</span>
+          </Link>
+        </li>
+      </ul>
+    </nav>
   );
 }
-;
+
