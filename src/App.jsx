@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 
 import StatsPage from "./features/statspage/StatsPage.jsx";
 import LoginPage from "./features/auth/LoginPage.jsx";
@@ -16,7 +16,8 @@ import Navbar from "./components/navbar.jsx";
 export default function App() {
   // React controlled auth state
     const [runId, setRunId] = useState(null);
-    const [loggedIn, setLoggedIn] = useState(() => !!getUserId("user_id"));
+    const [loggedIn, setLoggedIn] = useState(() => !!getUserId("user_id")); 
+
     useEffect(() => {
     async function syncEndShift() {
         const pending = loadPendingEndShift();
@@ -54,7 +55,19 @@ export default function App() {
     return ( 
 
         <BrowserRouter>
-          {loggedIn && <Navbar />}
+            <AppLayout />
+        </BrowserRouter>
+
+    );
+
+
+    function AppLayout() {
+      const location = useLocation();
+      const hideNavbar = location.pathname === "/config";
+
+      return (
+        <>
+          {loggedIn && !hideNavbar && <Navbar />}
 
           <Routes>
             <Route
@@ -75,9 +88,11 @@ export default function App() {
 
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
-        </BrowserRouter>
+        </>
+      );
+    }
 
-    );
+
 
 }
 
