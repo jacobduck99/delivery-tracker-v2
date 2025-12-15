@@ -5,6 +5,7 @@
   --text-med:      #374151;
   --primary:       #1877f2;
   --primary-hover: #166fe5;
+    --bg-page: #f3f4f6
 }
 
 /* Page background + font (no forced centering here) */
@@ -13,7 +14,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-  min-height: 92vh;
+  min-height: 100vh;
   background: var(--bg-page);
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
@@ -22,7 +23,7 @@
 .container {
     width: 90%;
     max-width: 800px;         /* ← old size */
-    margin: 0 auto;      /* ← centered like before */
+    margin: 0 auto 55px;      /* ← centered like before */
     padding: 0.8rem;
     background: var(--bg-card);
     border: 1px solid var(--border-color);
