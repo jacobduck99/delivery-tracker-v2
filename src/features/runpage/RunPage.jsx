@@ -182,7 +182,7 @@ return (
         </Card>
     </div>
 
-    <details className="mb-4">
+    <details className="mb-4 md:flex md:justify-center">
   
 <summary className="flex items-center mt-8 gap-2 text-[1rem] font-medium cursor-pointer">
   <span>Completed</span>
@@ -233,7 +233,8 @@ return (
     </section>
 
     {/* Upcoming Drops */}
-    <details className="mb-4">
+     <details className="mb-4 md:flex md:justify-center">
+
       <summary className="flex items-center gap-2 text-[1rem] font-medium cursor-pointer">
         <span>Remaining</span>
         <span className="bg-green-200 text-green-700 text-xs px-2 py-0.5 rounded-full">
