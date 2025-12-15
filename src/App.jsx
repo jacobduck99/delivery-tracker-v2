@@ -50,36 +50,35 @@ export default function App() {
 
 }, []);
 
-  return (
-    <BrowserRouter>
-    <Navbar />
-      <Routes>
 
-        {/* Boot route */}
-        <Route
-          path="/"
-          element={
-            loggedIn
-              ? <Navigate to="/run" replace />
-              : <Navigate to="/login" replace />
-          }
+    return ( 
 
-        />
+        <BrowserRouter>
+          {loggedIn && <Navbar />}
 
-        {/* Public routes */}
-        <Route path="/login" element={<LoginPage setLoggedIn={setLoggedIn} />} />
-        <Route path="/signup" element={<SignupPage />} />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                loggedIn
+                  ? <Navigate to="/run" replace />
+                  : <Navigate to="/login" replace />
+              }
+            />
 
-        {/* Private routes */}
-        <Route path="/config" element={<ConfigPage />} />
-        <Route path="/run" element={<RunPage runId={runId} setRunId={setRunId}/>} />
-        <Route path="/stats" element={<StatsPage /> } />
+            <Route path="/login" element={<LoginPage setLoggedIn={setLoggedIn} />} />
+            <Route path="/signup" element={<SignupPage />} />
 
-        {/* Fallback */}
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-    </BrowserRouter>
-  );
+            <Route path="/config" element={<ConfigPage />} />
+            <Route path="/run" element={<RunPage runId={runId} setRunId={setRunId} />} />
+            <Route path="/stats" element={<StatsPage />} />
+
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </BrowserRouter>
+
+    );
+
 }
 
 
