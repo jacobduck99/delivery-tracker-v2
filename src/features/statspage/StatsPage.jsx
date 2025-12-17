@@ -1,7 +1,15 @@
-
+import { getRunStats } from "../../lib/api/statsApi.js";
+import { useQuery } from '@tanstack/react-query'
 // dummy data just to get the feel of how everything should look.
-export default function StatsPage() {
-  const shifts = [
+export default function StatsPage({ runId }) {
+
+    const { isLoading, isError, data } = useQuery({ queryKey: ['stats', runId], queryFn: getRunStats })     
+
+    if (isLoading) {
+        return <span>Loading...</span>
+    }
+
+    const shifts = [
     {
       id: 1,
       date: "2025-01-10",
@@ -16,24 +24,24 @@ export default function StatsPage() {
       durationHours: 6.0,
       avgMinutesPerDrop: 16.4,
     },
-  ];
+    ];
 
-  return (
+    return (
     <div style={{ padding: "16px" }}>
       <h2 className="flex justify-center font-bold mt-10 mb-5">Shifts</h2>
 
 
-<table className="w-full border-collapse border border-gray-300">
-  <thead className="bg-gray-100">
+    <table className="w-full border-collapse border border-gray-300">
+    <thead className="bg-gray-100">
     <tr>
       <th className="border border-gray-300 px-3 py-2 text-left">Date</th>
       <th className="border border-gray-300 px-3 py-2 text-right">Drops</th>
       <th className="border border-gray-300 px-3 py-2 text-right">Duration (hrs)</th>
       <th className="border border-gray-300 px-3 py-2 text-right">Avg Min / Drop</th>
     </tr>
-  </thead>
+    </thead>
 
-  <tbody>
+    <tbody>
     {shifts.map(shift => (
       <tr key={shift.id} className="odd:bg-white even:bg-gray-50 hover:bg-gray-100">
         <td className="border border-gray-300 px-3 py-2">{shift.date}</td>
@@ -42,11 +50,11 @@ export default function StatsPage() {
         <td className="border border-gray-300 px-3 py-2 text-right">{shift.avgMinutesPerDrop}</td>
       </tr>
     ))}
-  </tbody>
-</table>
+    </tbody>
+    </table>
 
     </div>
-  );
-}
+    );
+    }
 
 

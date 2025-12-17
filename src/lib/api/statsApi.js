@@ -1,6 +1,6 @@
 const API_BASE = import.meta.env.VITE_API_URL;
 
-export async function getDropStats(run_id) {
+export async function getRunStats(run_id) {
     const url = `${API_BASE}/api/stats/${run_id}`; // TEMP: bypass Vite proxy & correct run id
 
     try {
