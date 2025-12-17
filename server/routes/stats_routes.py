@@ -1,4 +1,4 @@
-
+from datetime import datetime, timezone
 from flask import Blueprint, request, jsonify, session
 from flask_login import login_user, logout_user, login_required, current_user
 from sqlite3 import IntegrityError
@@ -36,7 +36,7 @@ def get_stats(run_id):
            actual_end_time,
            truck_damage
            FROM config
-           WHERE run_id = ?
+           WHERE id = ?
         """,
         (run_id,),
     )
@@ -44,26 +44,37 @@ def get_stats(run_id):
 
     deliveries = [dict(row) for row in rows]
     
+ 
+   
+    start_time = datetime.fromisoformat(
+        config_row["start_time"].replace("Z", "+00:00")
+    )
+    end_time = datetime.fromisoformat(
+        config_row["end_time"].replace("Z", "+00:00")
+    )
+
+    shift_duration_seconds = (end_time - start_time).total_seconds()
+    shift_duration_hours = shift_duration_seconds / 3600
+
     drops = len(deliveries)
 
     total_elapsed = 0
-    for time in deliveries:
-        if time["elapsed"] == 0:
-            continue
-        total_elapsed += time["elapsed"]
-    avg_drop = total_elapsed / drops
-   
-    shift_duration = config_row["end_time"] - config_row["start_time"] 
+    for d in deliveries:
+        if d["elapsed"]:
+            total_elapsed += d["elapsed"]
 
-    truck_damage = config_row["truck_damage"] 
+    avg_drop = total_elapsed / drops if drops else 0
+
+
 
     stats = {
         "Drops": drops,
-        "Duration": shift_duration,
-        "Average_time": avg_drop
+        "DurationHours": round(shift_duration_hours, 2),
+        "AverageTimeSeconds": round(avg_drop, 1)
     }
+
     
-    return jsonify({"ok": True, "data": stats}), 200
+    return jsonify({"ok": True, "Data": stats}), 200
     
     
 

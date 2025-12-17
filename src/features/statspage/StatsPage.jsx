@@ -20,6 +20,8 @@ export default function StatsPage({ runId }) {
 
     const shifts = data.Runs;
 
+    const run = statsQuery;
+
     return (
     <div style={{ padding: "16px" }}>
       <h2 className="flex justify-center font-bold mt-10 mb-5">Shifts</h2>
@@ -50,10 +52,10 @@ export default function StatsPage({ runId }) {
     <tbody>
     {shifts.map(shift => (
       <tr key={shift.id} className="odd:bg-white even:bg-gray-50 hover:bg-gray-100">
-        <td className="border border-gray-300 px-3 py-2">{shift.date}</td>
-        <td className="border border-gray-300 px-3 py-2 text-right">{shift.drops}</td>
-        <td className="border border-gray-300 px-3 py-2 text-right">{shift.durationHours}</td>
-        <td className="border border-gray-300 px-3 py-2 text-right">{shift.avgMinutesPerDrop}</td>
+        <td className="border border-gray-300 px-3 py-2">{run.date}</td>
+        <td className="border border-gray-300 px-3 py-2 text-right">{run.drops}</td>
+        <td className="border border-gray-300 px-3 py-2 text-right">{run.durationHours}</td>
+        <td className="border border-gray-300 px-3 py-2 text-right">{run.avgMinutesPerDrop}</td>
       </tr>
     ))}
     </tbody>
