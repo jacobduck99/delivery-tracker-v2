@@ -43,9 +43,7 @@ def get_stats(run_id):
     config_row = cur.fetchone()
 
     deliveries = [dict(row) for row in rows]
-    
- 
-   
+     
     start_time = datetime.fromisoformat(
         config_row["start_time"].replace("Z", "+00:00")
     )
@@ -65,8 +63,6 @@ def get_stats(run_id):
 
     avg_drop = total_elapsed / drops if drops else 0
 
-
-
     stats = {
         "Drops": drops,
         "DurationHours": round(shift_duration_hours, 2),
@@ -74,7 +70,7 @@ def get_stats(run_id):
     }
 
     
-    return jsonify({"ok": True, "Data": stats}), 200
+    return jsonify({"ok": True, "data": stats}), 200
     
     
 

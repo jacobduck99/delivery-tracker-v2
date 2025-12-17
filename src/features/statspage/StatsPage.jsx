@@ -3,66 +3,84 @@ import { getAllRuns } from "../../lib/api/runApi.js";
 import { useQuery } from '@tanstack/react-query';
 import { useState } from "react";
 // dummy data just to get the feel of how everything should look.
-export default function StatsPage({ runId }) {
-    const [selectRunId, setSelectRunId] = useState(0);
+export default function StatsPage() {
+  const [selectedRunId, setSelectedRunId] = useState(0);
 
-    const { isLoading, isError, data } = useQuery({ queryKey: ['runs'], queryFn: getAllRuns })
-    
-    console.log(selectRunId);
-    const statsQuery = useQuery({ queryKey: ['stats', selectRunId],
-  queryFn: () => getRunStats(selectRunId),
-  enabled: !!selectRunId
-})    
+  // 1️⃣ Load all runs for the dropdown
+  const {
+    isLoading: runsLoading,
+    isError: runsError,
+    data: runsData
+  } = useQuery({
+    queryKey: ["runs"],
+    queryFn: getAllRuns
+  });
 
-    if (isLoading) {
-        return <span>Loading...</span>
-    }
+  // 2️⃣ Load stats for the selected run
+  const {
+    data: statsData,
+    isLoading: statsLoading,
+    isError: statsError
+  } = useQuery({
+    queryKey: ["stats", selectedRunId],
+    queryFn: () => getRunStats(selectedRunId),
+    enabled: !!selectedRunId
+  });
 
-    const shifts = data.Runs;
+  if (runsLoading) return <span>Loading runs...</span>;
+  if (runsError) return <span>Error loading runs</span>;
 
-    const run = statsQuery;
+  const runs = runsData.Runs;
 
-    return (
+  return (
     <div style={{ padding: "16px" }}>
       <h2 className="flex justify-center font-bold mt-10 mb-5">Shifts</h2>
-    
-    <label htmlFor="Runs">Choose a Run: </label>
-   
-    <select
-      value={selectRunId}
-      onChange={(e) => setSelectRunId(Number(e.target.value))}
-    >
-      {shifts.map(run => (
-        <option key={run.id} value={run.id}>
-          {run.start_time}
-        </option>
-      ))}
-    </select>
 
-    <table className="w-full border-collapse border border-gray-300">
-    <thead className="bg-gray-100">
-    <tr>
-      <th className="border border-gray-300 px-3 py-2 text-left">Date</th>
-      <th className="border border-gray-300 px-3 py-2 text-right">Drops</th>
-      <th className="border border-gray-300 px-3 py-2 text-right">Duration (hrs)</th>
-      <th className="border border-gray-300 px-3 py-2 text-right">Avg Min / Drop</th>
-    </tr>
-    </thead>
+      {/* Dropdown */}
+      <label htmlFor="runs">Choose a Run: </label>
+      <select
+        value={selectedRunId}
+        onChange={(e) => setSelectedRunId(Number(e.target.value))}
+      >
+        <option value={0}>Select a run</option>
+        {runs.map(run => (
+          <option key={run.id} value={run.id}>
+            {run.start_time}
+          </option>
+        ))}
+      </select>
 
-    <tbody>
-    {shifts.map(shift => (
-      <tr key={shift.id} className="odd:bg-white even:bg-gray-50 hover:bg-gray-100">
-        <td className="border border-gray-300 px-3 py-2">{run.date}</td>
-        <td className="border border-gray-300 px-3 py-2 text-right">{run.drops}</td>
-        <td className="border border-gray-300 px-3 py-2 text-right">{run.durationHours}</td>
-        <td className="border border-gray-300 px-3 py-2 text-right">{run.avgMinutesPerDrop}</td>
-      </tr>
-    ))}
-    </tbody>
-    </table>
+      {/* Table */}
+      {statsLoading && <p>Loading stats...</p>}
+      {statsError && <p>Error loading stats</p>}
 
+      {statsData && (
+        <table className="w-full border-collapse border border-gray-300 mt-4">
+          <thead className="bg-gray-100">
+            <tr>
+              <th className="border px-3 py-2 text-left">Drops</th>
+              <th className="border px-3 py-2 text-right">Duration (hrs)</th>
+              <th className="border px-3 py-2 text-right">Avg Min / Drop</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="odd:bg-white even:bg-gray-50">
+              <td className="border px-3 py-2">
+                {statsData.data.Drops}
+              </td>
+              <td className="border px-3 py-2 text-right">
+                {statsData.data.DurationHours}
+              </td>
+              <td className="border px-3 py-2 text-right">
+                {(statsData.data.AverageTimeSeconds / 60).toFixed(1)}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      )}
     </div>
-    );
-    }
+  );
+}
+
 
 
