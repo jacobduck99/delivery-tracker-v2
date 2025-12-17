@@ -55,5 +55,14 @@ def get_stats(run_id):
    
     shift_duration = config_row["end_time"] - config_row["start_time"] 
 
+    truck_damage = config_row["truck_damage"] 
+
+    stats = {
+        "Drops": drops,
+        "Duration": shift_duration,
+        "Average_time": avg_drop
+    }
+    
+    return jsonify({"ok": True, "stats": stats}), 200
     
 
