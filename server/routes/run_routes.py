@@ -104,7 +104,7 @@ def update_end_time(run_id, end_ts):
         return jsonify({"ok": False, "error": str(e)}), 400
 
 
-@run_bp.get("/runs")
+@run_bp.get("/run/runs")
 def get_all_runs():
     conn = get_db()
     cur = conn.execute(
