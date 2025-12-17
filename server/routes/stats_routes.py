@@ -63,6 +63,9 @@ def get_stats(run_id):
         "Average_time": avg_drop
     }
     
-    return jsonify({"ok": True, "stats": stats}), 200
+    return jsonify({"ok": True, "data": stats}), 200
     
+    
+
+
 
