@@ -18,7 +18,6 @@ export async function getDrops(run_id) {
     } 
  
 }
-
 export async function syncPendingDrops(runId, drop) {
     const run_id = runId; 
     const singleDrop = drop
