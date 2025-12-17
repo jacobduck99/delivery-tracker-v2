@@ -4,40 +4,38 @@ import { useQuery } from '@tanstack/react-query';
 import { useState } from "react";
 // dummy data just to get the feel of how everything should look.
 export default function StatsPage({ runId }) {
-    const [selectRunId, setSelectRunId] = useState([]);
+    const [selectRunId, setSelectRunId] = useState(0);
 
     const { isLoading, isError, data } = useQuery({ queryKey: ['runs'], queryFn: getAllRuns })
     
-
-
-//    const { isLoading, isError, data } = useQuery({ queryKey: ['stats', runId], queryFn: getRunStats })     
+    console.log(selectRunId);
+    const statsQuery = useQuery({ queryKey: ['stats', selectRunId],
+  queryFn: () => getRunStats(selectRunId),
+  enabled: !!selectRunId
+})    
 
     if (isLoading) {
         return <span>Loading...</span>
     }
 
-    const shifts = [
-    {
-      id: 1,
-      date: "2025-01-10",
-      drops: 25,
-      durationHours: 6.5,
-      avgMinutesPerDrop: 15.6,
-    },
-    {
-      id: 2,
-      date: "2025-01-11",
-      drops: 22,
-      durationHours: 6.0,
-      avgMinutesPerDrop: 16.4,
-    },
-    ];
+    const shifts = data.Runs;
 
     return (
     <div style={{ padding: "16px" }}>
       <h2 className="flex justify-center font-bold mt-10 mb-5">Shifts</h2>
     
-    <select name="select" onChange={setSelectRunId}></select>
+    <label htmlFor="Runs">Choose a Run: </label>
+   
+    <select
+      value={selectRunId}
+      onChange={(e) => setSelectRunId(Number(e.target.value))}
+    >
+      {shifts.map(run => (
+        <option key={run.id} value={run.id}>
+          {run.start_time}
+        </option>
+      ))}
+    </select>
 
     <table className="w-full border-collapse border border-gray-300">
     <thead className="bg-gray-100">
