@@ -18,6 +18,7 @@ export async function getDrops(run_id) {
     } 
  
 }
+
 export async function syncPendingDrops(runId, drop) {
     const run_id = runId; 
     const singleDrop = drop
@@ -79,6 +80,23 @@ export async function endShift(run_id, end) {
 
     return body || { ok: true };
 
+}
+
+export async function getAllRuns() {
+    const url = `${API_BASE}/api/run/runs`; // TEMP: bypass Vite proxy & correct run id
+    try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const data = await response.json();
+        return data;
+
+    } catch (error) {
+        console.error(error.message);
+        return null;
+    } 
 }
 
 

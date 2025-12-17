@@ -104,3 +104,23 @@ def update_end_time(run_id, end_ts):
         return jsonify({"ok": False, "error": str(e)}), 400
 
 
+@run_bp.get("/runs")
+def get_all_runs():
+    conn = get_db()
+    cur = conn.execute(
+        """
+        SELECT
+            id,
+            start_time
+        FROM config
+        """,
+        (),
+    )
+    rows = cur.fetchall()
+
+    runs = [dict(row) for row in rows]
+
+    return jsonify({"ok": True, "Runs": runs}), 200
+
+
+
