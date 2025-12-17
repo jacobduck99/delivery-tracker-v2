@@ -6,6 +6,7 @@ from data.database import ensure_db, close_db, get_db
 from routes.config_routes import config_bp
 from routes.auth_routes import auth_bp
 from routes.run_routes import run_bp
+from routes.stats_routes import stats_bp
 from auth.user_model import User
 
 def create_app():
@@ -57,6 +58,7 @@ def create_app():
     app.register_blueprint(auth_bp,  url_prefix="/api/auth")
     app.register_blueprint(config_bp, url_prefix="/api")
     app.register_blueprint(run_bp, url_prefix="/api")
+    app.register_blueprint(stats_bp, url_prefix="/api")
 
     # Ensure DB connection closes after each request
     app.teardown_appcontext(close_db)
