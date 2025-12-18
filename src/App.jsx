@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 
+import AccountPage from "./features/accountpage/AccountPage.jsx";
 import StatsPage from "./features/statspage/StatsPage.jsx";
 import LoginPage from "./features/auth/LoginPage.jsx";
 import SignupPage from "./features/auth/SignupPage.jsx";
@@ -19,19 +20,8 @@ export default function App() {
   // React controlled auth state
     const [runId, setRunId] = useState(null);
     const [loggedIn, setLoggedIn] = useState(() => !!getUserId("user_id"));
-    const navigate = useNavigate();
 
-    export function logoutUser() {
-            const result = await logout();
-
-            if (result.ok) {
-                clearAccount();
-                setLoggedIn(false);
-                navigate("/login"); 
-            }
-        } 
-    
-    useEffect(() => {
+  useEffect(() => {
     async function syncEndShift() {
         const pending = loadPendingEndShift();
         if (!pending) return;
@@ -74,8 +64,19 @@ export default function App() {
 
     function AppLayout() {
 
+      const navigate = useNavigate();
       const location = useLocation();
       const hideNavbar = location.pathname === "/config";
+
+    async function logoutUser() {
+            const result = await logout();
+
+            if (result.ok) {
+                clearAccount();
+                setLoggedIn(false);
+                navigate("/login"); 
+            }
+        } 
 
       return (
         <>
@@ -97,6 +98,7 @@ export default function App() {
             <Route path="/config" element={<ConfigPage />} />
             <Route path="/run" element={<RunPage runId={runId} setRunId={setRunId} />} />
             <Route path="/stats" element={<StatsPage />} />
+            <Route path="/account" element={<AccountPage logoutUser={logoutUser} />} />
 
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
