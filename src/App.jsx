@@ -21,8 +21,7 @@ export default function App() {
     const [loggedIn, setLoggedIn] = useState(() => !!getUserId("user_id"));
     const navigate = useNavigate();
 
-    useEffect(() => {
-        async function logoutUser() {
+    export function logoutUser() {
             const result = await logout();
 
             if (result.ok) {
@@ -30,9 +29,7 @@ export default function App() {
                 setLoggedIn(false);
                 navigate("/login"); 
             }
-        }
-    }) 
-
+        } 
     
     useEffect(() => {
     async function syncEndShift() {
