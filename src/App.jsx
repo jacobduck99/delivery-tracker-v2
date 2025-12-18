@@ -51,7 +51,6 @@ export default function App() {
 
 }, []);
 
-
     return ( 
 
         <BrowserRouter>
@@ -60,8 +59,8 @@ export default function App() {
 
     );
 
-
     function AppLayout() {
+
       const location = useLocation();
       const hideNavbar = location.pathname === "/config";
 
@@ -80,7 +79,7 @@ export default function App() {
             />
 
             <Route path="/login" element={<LoginPage setLoggedIn={setLoggedIn} />} />
-            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/signup" element={<SignupPage setLoggedIn={setLoggedIn}/>} />
 
             <Route path="/config" element={<ConfigPage />} />
             <Route path="/run" element={<RunPage runId={runId} setRunId={setRunId} />} />
@@ -91,8 +90,6 @@ export default function App() {
         </>
       );
     }
-
-
 
 }
 

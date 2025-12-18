@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { saveUserId } from "../../lib/storage/userStorage.js";
 
 
-export default function LoginPage() {
+export default function LoginPage( {setLoggedIn }) {
     const [form, setForm] = useState({ email: "", password: "" });
     const [err, setErr] = useState(""); 
     const navigate = useNavigate();
@@ -19,6 +19,7 @@ export default function LoginPage() {
     try {
             const data = await login(form); 
             saveUserId(data.user);
+            setLoggedIn(true); 
             navigate("/config");
         } catch (e) {
             setErr(e.message || "Login failed")

@@ -4,7 +4,7 @@ import { signup } from "../../lib/api/signupApi.js";
 import { useNavigate } from 'react-router-dom';
 import { saveUserId } from "../../lib/storage/userStorage.js"
 
-export default function SignupPage() {
+export default function SignupPage({ setLoggedIn }) {
     const [form, setForm] = useState({ email: "", password: "" });
     const [err, setErr] = useState(""); 
     const navigate = useNavigate();
@@ -19,6 +19,7 @@ export default function SignupPage() {
     try {
         const data = await signup(form);
         saveUserId(data.user);
+        setLoggedIn(true);
         navigate("/config");
         } catch (e) {
         setErr(e.message || "Signup failed");
