@@ -78,8 +78,7 @@ def login():
 
     return jsonify({"ok": True, "user": {"id": row["id"], "email": row["email"]}}), 200
 
-@auth_bp.post("/logout")
-@login_required
+@auth_bp.route("/logout", methods=["GET", "POST"])
 def logout():
     logout_user()
     return jsonify({"ok": True}), 200

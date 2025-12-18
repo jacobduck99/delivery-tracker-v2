@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 
 import StatsPage from "./features/statspage/StatsPage.jsx";
 import LoginPage from "./features/auth/LoginPage.jsx";
@@ -12,12 +12,28 @@ import { loadPendingQueue } from "./lib/storage/runStorage.js";
 import { endShift } from "./lib/api/runApi.js";
 import { syncDrops } from "././features/runpage/syncMachine.js";
 import Navbar from "./components/navbar.jsx";
+import { logout } from "./lib/api/logoutApi.js";
+import { clearAccount } from "./lib/storage/logoutStorage.js";
 
 export default function App() {
   // React controlled auth state
     const [runId, setRunId] = useState(null);
-    const [loggedIn, setLoggedIn] = useState(() => !!getUserId("user_id")); 
+    const [loggedIn, setLoggedIn] = useState(() => !!getUserId("user_id"));
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        async function logoutUser() {
+            const result = await logout();
+
+            if (result.ok) {
+                clearAccount();
+                setLoggedIn(false);
+                navigate("/login"); 
+            }
+        }
+    }) 
+
+    
     useEffect(() => {
     async function syncEndShift() {
         const pending = loadPendingEndShift();
