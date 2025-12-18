@@ -29,7 +29,7 @@ export default function Navbar() {
 
         <li>
           <Link
-            to="/config"
+            to="/account"
             className="flex flex-col items-center text-[0.9rem] font-semibold text-gray-700"
           >
             <CircleUser size={22} />
