@@ -82,8 +82,8 @@ export async function endShift(run_id, end) {
 
 }
 
-export async function getAllRuns() {
-    const url = `${API_BASE}/api/run/runs`; // TEMP: bypass Vite proxy & correct run id
+export async function getAllRuns(userId) {
+    const url = `${API_BASE}/api/run/runs/${userId}`; // TEMP: bypass Vite proxy & correct run id
     try {
         const response = await fetch(url);
 

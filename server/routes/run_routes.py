@@ -104,8 +104,8 @@ def update_end_time(run_id, end_ts):
         return jsonify({"ok": False, "error": str(e)}), 400
 
 
-@run_bp.get("/run/runs")
-def get_all_runs():
+@run_bp.get("/run/runs/<int:userId>")
+def get_all_runs(userId):
     conn = get_db()
     cur = conn.execute(
         """
@@ -113,8 +113,9 @@ def get_all_runs():
             id,
             start_time
         FROM config
+        WHERE user_id = ?
         """,
-        (),
+        (userId,),
     )
     rows = cur.fetchall()
 

@@ -2,18 +2,21 @@ import { getRunStats } from "../../lib/api/statsApi.js";
 import { getAllRuns } from "../../lib/api/runApi.js";
 import { useQuery } from '@tanstack/react-query';
 import { useState } from "react";
+import { getUserId } from "../../lib/storage/userStorage.js";
+import Calendar01 from "../../components/calendar-01.jsx";
 // dummy data just to get the feel of how everything should look.
 export default function StatsPage() {
-  const [selectedRunId, setSelectedRunId] = useState(0);
 
+    const [selectedRunId, setSelectedRunId] = useState(0);
+    const getUser = getUserId();
   // 1️⃣ Load all runs for the dropdown
-  const {
+    const {
     isLoading: runsLoading,
     isError: runsError,
     data: runsData
   } = useQuery({
-    queryKey: ["runs"],
-    queryFn: getAllRuns
+    queryKey: ["runs", getUser],
+    queryFn: () => getAllRuns(getUser)
   });
 
   // 2️⃣ Load stats for the selected run
