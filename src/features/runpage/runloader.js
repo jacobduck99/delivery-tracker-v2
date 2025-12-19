@@ -19,14 +19,24 @@ import { getDrops } from "../../lib/api/runApi.js";
 
 //}
 
-export function loadDrops() {
+export async function loadDrops() {
     const run = loadRun("current_run");
     if (!run) return { ok: false, error: "NO_RUN" };
 
     const runid = run.run_id;
     const cache = loadDeliveries(runid);
+    if (cache !== null) {
+        saveDeliveries(runid, cache)
+        return { ok: true, runId: runid, deliveries: cache} 
+    }
 
-    return { ok: true, runId: runid, deliveries: cache }
+    const data = await getDrops(runid);
+    if (!data) return { ok: false, error: "SERVER_FAIL"}
+    
+    let deliveries = data.deliveries ?? cache; 
+    saveDeliveries(runid, deliveries);
+
+    return { ok: true, runId: runid, deliveries: deliveries }
 }
 
 
