@@ -53,6 +53,7 @@ useEffect(() => {
 
         if (!result.ok) {
             setErr(result.error);
+            setLoading(false); // ← THIS LINE
             return;
         }
 
@@ -63,7 +64,6 @@ useEffect(() => {
 
     init();
 }, []);
-
 
 if (err) {
   return (

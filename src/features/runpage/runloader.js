@@ -7,8 +7,8 @@ export async function loadDrops() {
     
     const runid = run.run_id;
     const cache = loadDeliveries(runid) 
-    const data = await getDrops(runid);
     if (!cache) saveDeliveries(runid, data.deliveries);
+    const data = await getDrops(runid);
     let deliveries = data?.deliveries ?? cache;
 
     if (deliveries === null ) {
