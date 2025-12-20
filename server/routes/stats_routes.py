@@ -47,6 +47,7 @@ def get_stats(run_id):
     deliveries = [dict(row) for row in rows]
 
     van_number = config_row["van_number"]
+    print("this is ur van_number", van_number)
     van_name = config_row["van_name"]
      
     start_time = datetime.fromisoformat(
