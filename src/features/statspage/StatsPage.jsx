@@ -6,7 +6,7 @@ import { getUserId } from "../../lib/storage/userStorage.js";
 import Calendar01 from "../../components/calendar-01.jsx";
 // dummy data just to get the feel of how everything should look.
 export default function StatsPage() {
-    const [selectedRunId, setSelectedRunId] = useState(0);
+    const [selectedRunId, setSelectedRunId] = useState(null);
     const getUser = getUserId();
     // 1️⃣ Load all runs for the dropdown
     const {
@@ -52,24 +52,28 @@ export default function StatsPage() {
         readable = `${minutes}m ${seconds}s`;
     }
 
-if (!selectedRunId) {
+if (selectedRunId === null && previousRunData?.data) {
     return (
     <div style={{ padding: "16px" }}>
       <h2 className="flex justify-center font-bold mt-10 mb-5">Shifts</h2>
 
       {/* Dropdown */}
-      <label htmlFor="runs">Choose a Run: </label>
-      <select
-        value={selectedRunId}
-        onChange={(e) => setSelectedRunId(Number(e.target.value))}>
-    <option value={0}>Select a run</option>
 
-      {reversedRuns.map(run => (
-        <option key={run.id} value={run.id}> 
-          {new Date(run.start_time).toLocaleDateString("en-AU")}
-        </option>
-      ))}
-    </select>
+<label htmlFor="runs">Choose a Run: </label>
+<select
+  value={selectedRunId ?? ""}
+  onChange={(e) =>
+    setSelectedRunId(e.target.value === "" ? null : Number(e.target.value))
+  }
+>
+  <option value="">Select a run</option>
+
+  {reversedRuns.map(run => (
+    <option key={run.id} value={run.id}>
+      {new Date(run.start_time).toLocaleDateString("en-AU")}
+    </option>
+  ))}
+</select>
 
       {previousRunData && (
         <table className="w-full border-collapse border border-gray-300 mt-4">
@@ -109,9 +113,9 @@ if (!selectedRunId) {
       {/* Dropdown */}
       <label htmlFor="runs">Choose a Run: </label>
       <select
-        value={selectedRunId}
-        onChange={(e) => setSelectedRunId(Number(e.target.value))}>
-    <option value={0}>Select a run</option>
+        value={selectedRunId ?? ""}
+        onChange={(e) => setSelectedRunId(e.target.value === "" ? null : Number(e.target.value))}>
+    <option value="">Select a run</option>
 
       {reversedRuns.map(run => (
         <option key={run.id} value={run.id}> 

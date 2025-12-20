@@ -90,13 +90,14 @@ def get_previous_run(userId):
         FROM config
         WHERE user_id = ?
           AND end_time IS NOT NULL
-        ORDER BY end_time DESC
+        ORDER BY actual_end_time DESC
         LIMIT 1
         """,
         (userId,),
     )
 
     row = cur.fetchone()
+    print("this is ur row", row)
 
     if row is None:
         return jsonify({"ok": True, "data": None}), 200
