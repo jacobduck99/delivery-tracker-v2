@@ -51,7 +51,57 @@ export default function StatsPage() {
         const seconds = Math.round(totalSeconds % 60);
         readable = `${minutes}m ${seconds}s`;
     }
-      
+
+if (!selectedRunId) {
+    return (
+    <div style={{ padding: "16px" }}>
+      <h2 className="flex justify-center font-bold mt-10 mb-5">Shifts</h2>
+
+      {/* Dropdown */}
+      <label htmlFor="runs">Choose a Run: </label>
+      <select
+        value={selectedRunId}
+        onChange={(e) => setSelectedRunId(Number(e.target.value))}>
+    <option value={0}>Select a run</option>
+
+      {reversedRuns.map(run => (
+        <option key={run.id} value={run.id}> 
+          {new Date(run.start_time).toLocaleDateString("en-AU")}
+        </option>
+      ))}
+    </select>
+
+      {previousRunData && (
+        <table className="w-full border-collapse border border-gray-300 mt-4">
+          <thead className="bg-gray-100">
+            <tr>
+              <th className="border px-3 py-2 text-left">Van Number</th>
+            <th className="border px-3 py-2 text-left">Van Name</th>
+            <th className="border px-3 py-2 text-left">Drops</th>
+              <th className="border px-3 py-2 text-right">Duration (hrs)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="odd:bg-white even:bg-gray-50">
+              <td className="border px-3 py-2">
+                {previousRunData.data.VanNumber}
+              </td>
+              <td className="border px-3 py-2">
+                {previousRunData.data.VanName}
+              </td>
+                <td className="border px-3 py-2">
+                {previousRunData.data.Drops}
+              </td>
+              <td className="border px-3 py-2 text-right">
+                {previousRunData.data.DurationHours}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
+}
   return (
     <div style={{ padding: "16px" }}>
       <h2 className="flex justify-center font-bold mt-10 mb-5">Shifts</h2>

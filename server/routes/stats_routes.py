@@ -99,9 +99,9 @@ def get_previous_run(userId):
     row = cur.fetchone()
 
     if row is None:
-        return jsonify({"ok": True, "previous_run": None}), 200
+        return jsonify({"ok": True, "data": None}), 200
 
-    return jsonify({"ok": True, "previous_run": dict(row)}), 200
+    return jsonify({"ok": True, "data": dict(row)}), 200
 
 
     
