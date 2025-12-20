@@ -81,25 +81,27 @@ def get_stats(run_id):
     
     return jsonify({"ok": True, "data": stats}), 200
 
-@stats_bp.get("/stats/latest/<int:userId>")
-def get_last_run(userId):
+@stats_bp.get("/stats/previous/<int:userId>")
+def get_previous_run(userId):
     conn = get_db()
     cur = conn.execute(
         """
-        SELECT * FROM config 
+        SELECT *
+        FROM config
         WHERE user_id = ?
-        ORDER BY start_time 
-        DESC LIMIT 1 
-        """, 
+          AND end_time IS NOT NULL
+        ORDER BY end_time DESC
+        LIMIT 1
+        """,
         (userId,),
     )
 
     row = cur.fetchone()
+
     if row is None:
-        return jsonify({"ok": True, "latest_run": None}), 200
+        return jsonify({"ok": True, "previous_run": None}), 200
 
-    latest_run = dict(row)
+    return jsonify({"ok": True, "previous_run": dict(row)}), 200
 
-    return jsonify({"ok": True, "latest_run": latest_run}), 200
 
     
