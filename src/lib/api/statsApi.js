@@ -15,7 +15,23 @@ export async function getRunStats(run_id) {
     } catch (error) {
         console.error(error.message);
         return null;
-    } 
- 
+    }  
 }
 
+export async function getPreviousRun(userId) {
+    const url = `${API_BASE}/api/stats/${userId}`; // TEMP: bypass Vite proxy & correct run id
+
+    try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const data = await response.json();
+        return data;
+
+    } catch (error) {
+        console.error(error.message);
+        return null;
+    }  
+}
