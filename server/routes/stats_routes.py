@@ -90,7 +90,7 @@ def get_previous_run(userId):
         FROM config
         WHERE user_id = ?
           AND end_time IS NOT NULL
-        ORDER BY actual_end_time DESC
+        ORDER BY id DESC
         LIMIT 1
         """,
         (userId,),
