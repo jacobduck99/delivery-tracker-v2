@@ -20,29 +20,29 @@ export default function StatsPage() {
   });
 
   // 2️⃣ Load stats for the selected run
-  const {
-    data: statsData,
-    isLoading: statsLoading,
-    isError: statsError
-  } = useQuery({
-    queryKey: ["stats", selectedRunId],
-    queryFn: () => getRunStats(selectedRunId),
-    enabled: !!selectedRunId
-  });
+    const {
+        data: statsData,
+        isLoading: statsLoading,
+        isError: statsError
+        } = useQuery({
+        queryKey: ["stats", selectedRunId],
+        queryFn: () => getRunStats(selectedRunId),
+        enabled: !!selectedRunId
+});
 
-  if (runsLoading) return <span>Loading runs...</span>;
-  if (runsError) return <span>Error loading runs</span>;
+    if (runsLoading) return <span>Loading runs...</span>;
+    if (runsError) return <span>Error loading runs</span>;
 
-  const runs = runsData.Runs;
+    const runs = runsData.Runs;
 
-  let readable = "";
-  if (statsData) {
-    const totalSeconds = statsData.data.AverageTimeSeconds;
-    const minutes = Math.floor(totalSeconds / 60);
-    const seconds = Math.round(totalSeconds % 60);
-    readable = `${minutes}m ${seconds}s`;
-  }
-
+    let readable = "";
+    if (statsData) {
+        const totalSeconds = statsData.data.AverageTimeSeconds;
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = Math.round(totalSeconds % 60);
+        readable = `${minutes}m ${seconds}s`;
+    }
+      
   return (
     <div style={{ padding: "16px" }}>
       <h2 className="flex justify-center font-bold mt-10 mb-5">Shifts</h2>
@@ -51,15 +51,15 @@ export default function StatsPage() {
       <label htmlFor="runs">Choose a Run: </label>
       <select
         value={selectedRunId}
-        onChange={(e) => setSelectedRunId(Number(e.target.value))}
-      >
-        <option value={0}>Select a run</option>
-        {runs.map(run => (
-          <option key={run.id} value={run.id}>
-            {run.start_time}
-          </option>
-        ))}
-      </select>
+        onChange={(e) => setSelectedRunId(Number(e.target.value))}>
+    <option value={0}>Select a run</option>
+
+      {runs.map(run => (
+        <option key={run.id} value={run.id}>
+          {new Date(run.start_time).toLocaleDateString("en-AU")}
+        </option>
+      ))}
+    </select>
 
       {/* Table */}
       {statsLoading && <p>Loading stats...</p>}
@@ -92,6 +92,3 @@ export default function StatsPage() {
     </div>
   );
 }
-
-
-
