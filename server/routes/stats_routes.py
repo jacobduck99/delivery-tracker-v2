@@ -60,19 +60,15 @@ def get_stats(run_id):
     for d in deliveries:
         if d["elapsed"]:
             total_elapsed += d["elapsed"]
+ 
+    avg_drop_seconds = (total_elapsed / drops) / 1000 if drops else 0
 
-    avg_drop = total_elapsed / drops if drops else 0
+    print("this is your average", avg_drop_seconds)
 
     stats = {
         "Drops": drops,
         "DurationHours": round(shift_duration_hours, 2),
-        "AverageTimeSeconds": round(avg_drop, 1)
+        "AverageTimeSeconds": round(avg_drop_seconds, 1)
     }
-
     
     return jsonify({"ok": True, "data": stats}), 200
-    
-    
-
-
-

@@ -35,6 +35,14 @@ export default function StatsPage() {
 
   const runs = runsData.Runs;
 
+  let readable = "";
+  if (statsData) {
+    const totalSeconds = statsData.data.AverageTimeSeconds;
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = Math.round(totalSeconds % 60);
+    readable = `${minutes}m ${seconds}s`;
+  }
+
   return (
     <div style={{ padding: "16px" }}>
       <h2 className="flex justify-center font-bold mt-10 mb-5">Shifts</h2>
@@ -75,7 +83,7 @@ export default function StatsPage() {
                 {statsData.data.DurationHours}
               </td>
               <td className="border px-3 py-2 text-right">
-                {(statsData.data.AverageTimeSeconds / 60).toFixed(1)}
+                {readable}
               </td>
             </tr>
           </tbody>
