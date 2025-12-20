@@ -31,18 +31,23 @@ def get_stats(run_id):
     cur = conn.execute(
         """
         SELECT 
-           start_time,
-           end_time,
-           actual_end_time,
-           truck_damage
-           FROM config
-           WHERE id = ?
+            van_number,
+            van_name,
+            start_time,
+            end_time,
+            actual_end_time,
+            truck_damage
+            FROM config
+            WHERE id = ?
         """,
         (run_id,),
     )
     config_row = cur.fetchone()
 
     deliveries = [dict(row) for row in rows]
+
+    van_number = config_row["van_number"]
+    van_name = config_row["van_name"]
      
     start_time = datetime.fromisoformat(
         config_row["start_time"].replace("Z", "+00:00")
@@ -67,6 +72,8 @@ def get_stats(run_id):
 
     stats = {
         "Drops": drops,
+        "VanNumber": van_number,
+        "VanName": van_name,
         "DurationHours": round(shift_duration_hours, 2),
         "AverageTimeSeconds": round(avg_drop_seconds, 1)
     }
