@@ -34,6 +34,8 @@ export default function StatsPage() {
     if (runsError) return <span>Error loading runs</span>;
 
     const runs = runsData.Runs;
+    const reversedRuns = [...runs].reverse()
+    console.log("these runs are reversed", reversedRuns)
 
     let readable = "";
     if (statsData) {
@@ -54,8 +56,8 @@ export default function StatsPage() {
         onChange={(e) => setSelectedRunId(Number(e.target.value))}>
     <option value={0}>Select a run</option>
 
-      {runs.map(run => (
-        <option key={run.id} value={run.id}>
+      {reversedRuns.map(run => (
+        <option key={run.id} value={run.id}> 
           {new Date(run.start_time).toLocaleDateString("en-AU")}
         </option>
       ))}
