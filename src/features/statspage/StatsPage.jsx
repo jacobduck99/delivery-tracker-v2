@@ -35,7 +35,6 @@ export default function StatsPage() {
 
     const runs = runsData.Runs;
     const reversedRuns = [...runs].reverse()
-    console.log("these runs are reversed", reversedRuns)
 
     let readable = "";
     if (statsData) {
@@ -71,10 +70,9 @@ export default function StatsPage() {
         <table className="w-full border-collapse border border-gray-300 mt-4">
           <thead className="bg-gray-100">
             <tr>
-              <th className="border px-3 py-2 text-left">Drops</th>
-
               <th className="border px-3 py-2 text-left">Van Number</th>
             <th className="border px-3 py-2 text-left">Van Name</th>
+            <th className="border px-3 py-2 text-left">Drops</th>
               <th className="border px-3 py-2 text-right">Duration (hrs)</th>
               <th className="border px-3 py-2 text-right">Avg Min / Drop</th>
             </tr>
@@ -82,13 +80,13 @@ export default function StatsPage() {
           <tbody>
             <tr className="odd:bg-white even:bg-gray-50">
               <td className="border px-3 py-2">
-                {statsData.data.Drops}
-              </td>
-              <td className="border px-3 py-2">
                 {statsData.data.VanNumber}
               </td>
               <td className="border px-3 py-2">
                 {statsData.data.VanName}
+              </td>
+                <td className="border px-3 py-2">
+                {statsData.data.Drops}
               </td>
               <td className="border px-3 py-2 text-right">
                 {statsData.data.DurationHours}
