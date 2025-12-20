@@ -81,20 +81,25 @@ def get_stats(run_id):
     
     return jsonify({"ok": True, "data": stats}), 200
 
-@stats_bp.get("/stats")
-def get_last_active_run():
+@stats_bp.get("/stats/latest/<int:userId>")
+def get_last_run(userId):
     conn = get_db()
     cur = conn.execute(
         """
-        SELECT 
-            * FROM deliveries ORDER BY rowid desc LIMIT 1            
-        """,
-        (),
+        SELECT * FROM config 
+        WHERE user_id = ?
+        ORDER BY start_time 
+        DESC LIMIT 1 
+        """, 
+        (userId,),
     )
-    rows = cur.fetchall()
-    cur = conn.execute(
-        """
-        SELECT * FROM config ORDER BY rowid desc LIMIT 1
-        """,
-        (),
-    )
+
+    row = cur.fetchone()
+    if row is None:
+        return jsonify({"ok": True, "latest_run": None}), 200
+
+    latest_run = dict(row)
+
+    return jsonify({"ok": True, "latest_run": latest_run}), 200
+
+    
