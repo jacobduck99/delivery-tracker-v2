@@ -10,7 +10,7 @@ stats_bp = Blueprint("stats", __name__)
 
 @stats_bp.get("/stats/<int:run_id>")
 def get_stats(run_id):
-    conn = get_db()
+    conn = get_db() 
     cur = conn.execute(
         """
         SELECT
@@ -80,3 +80,21 @@ def get_stats(run_id):
     }
     
     return jsonify({"ok": True, "data": stats}), 200
+
+@stats_bp.get("/stats")
+def get_last_active_run():
+    conn = get_db()
+    cur = conn.execute(
+        """
+        SELECT 
+            * FROM deliveries ORDER BY rowid desc LIMIT 1            
+        """,
+        (),
+    )
+    rows = cur.fetchall()
+    cur = conn.execute(
+        """
+        SELECT * FROM config ORDER BY rowid desc LIMIT 1
+        """,
+        (),
+    )
