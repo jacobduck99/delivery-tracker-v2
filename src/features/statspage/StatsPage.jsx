@@ -1,4 +1,4 @@
-import { getRunStats } from "../../lib/api/statsApi.js";
+import { getRunStats, getPreviousRun } from "../../lib/api/statsApi.js";
 import { getAllRuns } from "../../lib/api/runApi.js";
 import { useQuery } from '@tanstack/react-query';
 import { useState } from "react";
@@ -6,10 +6,9 @@ import { getUserId } from "../../lib/storage/userStorage.js";
 import Calendar01 from "../../components/calendar-01.jsx";
 // dummy data just to get the feel of how everything should look.
 export default function StatsPage() {
-
     const [selectedRunId, setSelectedRunId] = useState(0);
     const getUser = getUserId();
-  // 1️⃣ Load all runs for the dropdown
+    // 1️⃣ Load all runs for the dropdown
     const {
     isLoading: runsLoading,
     isError: runsError,
@@ -29,6 +28,15 @@ export default function StatsPage() {
         queryFn: () => getRunStats(selectedRunId),
         enabled: !!selectedRunId
 });
+
+    const {
+        data: previousRunData,
+        isLoading: previousRunLoading,
+        isError: previousRunError
+        } = useQuery({
+        queryKey: ["previousRun", getUser],
+        queryFn: () => getPreviousRun(getUser)
+    });
 
     if (runsLoading) return <span>Loading runs...</span>;
     if (runsError) return <span>Error loading runs</span>;
