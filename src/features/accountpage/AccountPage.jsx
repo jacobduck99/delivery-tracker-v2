@@ -6,8 +6,9 @@ export default function AccountPage({ logoutUser }) {
     }
 
     return (
-    <div className="flex justify-center mt-19">
-    <button className="w-50 bg-red-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700" onClick={handleOnClick}>logout</button>
+    <div className="border border-red-400 p-4 h-screen w-screen"> hi
+    <div className="border border-gray-400 h-[40rem] w-[30rem] ml-60 mt-60"> profile name
+    </div>
     </div>
     )
 }
