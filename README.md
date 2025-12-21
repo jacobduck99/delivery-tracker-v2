@@ -35,7 +35,7 @@ Some of the improvements include:
 - Modern React UI  
 - Proper, organized API routes  
 - Clean state management  
-- A structure built for future features like OCR, GPS logging, and historical analytics  
+- A structure built for future features
 
 This project is more than an app.  
 It’s a tool that gives workers something they never had before:
