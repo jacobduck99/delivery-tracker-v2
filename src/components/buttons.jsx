@@ -21,7 +21,7 @@ export function EndshiftBtn({ showModal, setIsEndShiftVisible }) {
   return (
     <div>
       <button
-        className="w-70 bg-red-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700"
+        className="w-50 bg-red-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700"
         onClick={() => { showModal(true); setIsEndShiftVisible(true);}}
       >
         End shift
@@ -47,6 +47,19 @@ export function EndShiftModal({ showModal, handleEndShift, setIsEndShiftVisible 
         </button>
         </div>
 
-
     ) 
 } 
+
+export function LogoutBtn({ handleOnClick }) {
+  return (
+    <div className="flex justify-center mt-10">
+      <button
+        onClick={handleOnClick}
+        className="w-[8rem] bg-orange-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700"
+      >
+        Logout
+      </button>
+    </div>
+  );
+}
+
