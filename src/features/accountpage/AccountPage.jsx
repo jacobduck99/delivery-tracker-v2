@@ -1,3 +1,4 @@
+import { logoutBtn } from "../../components/buttons.jsx";
 
 export default function AccountPage({ logoutUser }) {
 
@@ -15,7 +16,7 @@ return (
     <div className="w-full max-w-[100rem] flex flex-col p-4">
       
       {/* TOP BAR */}
-      <div className="h-[10rem] border border-blue-600 flex items-center justify-center">
+      <div className="h-[10rem] border border-blue-600 flex items-center justify-center" >
       </div>
 
       {/* MAIN CONTENT ROW */}
