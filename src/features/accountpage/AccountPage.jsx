@@ -10,14 +10,17 @@ export default function AccountPage({ logoutUser }) {
 
 
 return (
-  <div className="account-page min-h-screen w-screen flex justify-center border border-red-400 mt-20">
+  <div className="account-page min-h-screen w-screen flex justify-center mt-20">
     
     {/* CONTENT CONTAINER */}
-    <div className="w-full max-w-[100rem] flex flex-col p-4">
+    <div className="w-full max-w-[80rem] flex flex-col p-4">
       
       {/* TOP BAR */}
-      <div className="h-[10rem] border border-blue-600 flex items-center justify-end pb-9 px-10">  <LogoutBtn handleOnClick={handleLogout} />
-      </div>
+    <div className="h-[8rem] border border-gray-200 shadow-sm rounded-md flex items-center justify-between px-10 pb-9">
+      <h1 className="text-xl font-semibold mt-9">Your Account</h1>
+      <LogoutBtn handleOnClick={handleLogout} />
+    </div>
+
 
       {/* MAIN CONTENT ROW */}
       <div className="flex gap-10 mt-4">
@@ -33,12 +36,17 @@ return (
         </div>
 
         {/* MAIN PANEL */}
-        <div className="account-main flex flex-col flex-1 border border-orange-400">
-          <div className="account-header h-[10rem] border border-pink-400" />
+        <div className="account-main flex flex-col flex-1">
+          <div className="account-header h-[10rem]">
+            <h1 className="text-[1.5rem] font-semibold mt-10 ml-3 ml-3">Personal information</h1> 
+            <p className="ml-3 mt-4 font-light">Manage your personal information such as Name and password</p>
+                        </div>
 
           <div className="account-body flex justify-left gap-10 flex-1 items-left border border-red-400 ml-10">
-            <div className="border border-pink-500 h-[10rem] w-[20rem] p-6">name</div>
-            <div className="border border-pink-500 h-[10rem] w-[20rem] p-6">pick</div>
+            <div className="border border-gray-200 shadow-sm rounded-md font-semibold h-[10rem] w-[22rem] p-6">Name
+            <p className="font-normal mt-2">Jacob duckworth</p>
+            </div>
+            <div className="border border-gray-200 shadow-sm rounded-md font-semibold h-[10rem] w-[22rem] p-6">pick</div>
           </div>
         </div>
 
