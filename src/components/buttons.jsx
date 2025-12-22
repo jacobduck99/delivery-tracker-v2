@@ -55,7 +55,7 @@ export function LogoutBtn({ handleOnClick }) {
     <div className="flex justify-center mt-10">
       <button
         onClick={handleOnClick}
-        className="w-[10rem] bg-orange-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700"
+        className="w-[8rem] bg-orange-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700"
       >
         Logout
       </button>
