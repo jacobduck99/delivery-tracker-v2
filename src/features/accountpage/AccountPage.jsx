@@ -1,8 +1,8 @@
-import { logoutBtn } from "../../components/buttons.jsx";
+import { LogoutBtn } from "../../components/buttons.jsx";
 
 export default function AccountPage({ logoutUser }) {
 
-    function handleOnClick() {
+    function handleLogout() {
         logoutUser()
     }
 
@@ -16,7 +16,7 @@ return (
     <div className="w-full max-w-[100rem] flex flex-col p-4">
       
       {/* TOP BAR */}
-      <div className="h-[10rem] border border-blue-600 flex items-center justify-center" >
+      <div className="h-[10rem] border border-blue-600 flex items-center justify-end pb-9 px-10">  <LogoutBtn handleOnClick={handleLogout} />
       </div>
 
       {/* MAIN CONTENT ROW */}
