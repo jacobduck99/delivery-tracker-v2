@@ -42,11 +42,13 @@ return (
             <p className="ml-3 mt-4 font-light">Manage your personal information such as Name and password</p>
                         </div>
 
-          <div className="account-body flex justify-left gap-10 flex-1 items-left border border-red-400 ml-10">
+          <div className="account-body flex justify-left gap-10 flex-1 items-left ml-10">
             <div className="border border-gray-200 shadow-sm rounded-md font-semibold h-[10rem] w-[22rem] p-6">Name
             <p className="font-normal mt-2">Jacob duckworth</p>
             </div>
-            <div className="border border-gray-200 shadow-sm rounded-md font-semibold h-[10rem] w-[22rem] p-6">pick</div>
+            <div className="border border-gray-200 shadow-sm rounded-md font-semibold h-[10rem] w-[22rem] p-6">Appearance Settings
+            <p className="font-light mt-2">Theme settings</p>
+            </div>
           </div>
         </div>
 
