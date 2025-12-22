@@ -9,7 +9,8 @@ export default function AccountPage({ logoutUser }) {
 return (
   <div className="account-page min-h-screen w-screen flex justify-center bg-gray-50 px-4 py-6">
     {/* CONTENT CONTAINER */}
-    <div className="w-full max-w-[80rem] flex flex-col gap-6 mt-5">
+
+    <div className="w-full max-w-[80rem] xl:max-w-[90rem] flex flex-col gap-6 mt-10 xl:mt-14">
 
       {/* TOP BAR */}
       <div className="h-[5rem] md:h-[8rem] bg-white border border-gray-200 shadow-sm rounded-md flex items-center justify-between px-4 pb-10 md:px-10">
@@ -20,7 +21,7 @@ return (
       </div>
 
       {/* MAIN CONTENT */}
-      <div className="flex flex-col md:flex-row gap-6 md:gap-10">
+      <div className="flex flex-col md:flex-row gap-6 md:gap-10 h-[35rem]">
 
         {/* SIDEBAR */}
         <div className="account-sidebar flex flex-col justify-between bg-white border border-gray-200 rounded-md shadow-sm p-4 md:p-6 w-full md:w-[30rem]">
@@ -76,11 +77,6 @@ return (
 </div>
 </div>
 );
-
-
-
-
-
 }
 
 
