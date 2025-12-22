@@ -9,7 +9,7 @@ export default function AccountPage({ logoutUser }) {
 return (
   <div className="account-page min-h-screen w-screen flex justify-center bg-gray-50 px-4 py-6">
     {/* CONTENT CONTAINER */}
-    <div className="w-full max-w-[80rem] flex flex-col gap-6 mt-10">
+    <div className="w-full max-w-[80rem] flex flex-col gap-6 mt-5">
 
       {/* TOP BAR */}
       <div className="h-[5rem] md:h-[8rem] bg-white border border-gray-200 shadow-sm rounded-md flex items-center justify-between px-4 pb-10 md:px-10">

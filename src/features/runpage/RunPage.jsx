@@ -172,8 +172,7 @@ if (loading) {
 // WHERE THE CIRCLE PROGRESS AND PAGE STARTS 
 return ( 
   <div className="min-h-screen bg-gray-100 px-4 pt-6 pb-20 md:flex md:flex-col md:justify-center">
-    <h1 className="flex justify-center text-[1.3rem] font-semibold">Your run for today Good luck!</h1>
-    <div>
+        <div>
         <Card>
         <Circleprogress
         completed={completedDrops.length}
