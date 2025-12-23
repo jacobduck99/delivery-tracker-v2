@@ -52,114 +52,92 @@ export default function StatsPage() {
         readable = `${minutes}m ${seconds}s`;
     }
 
-if (selectedRunId === null && previousRunData?.data) {
-    return (
-    <div style={{ padding: "16px" }}>
-      <h2 className="flex justify-center font-bold mt-10 mb-5">Shifts</h2>
+const runData = selectedRunId === null
+  ? previousRunData?.data
+  : statsData?.data;
 
-      {/* Dropdown */}
+if (!runData) return null;
 
-<label htmlFor="runs">Choose a Run: </label>
-<select
-  value={selectedRunId ?? ""}
-  onChange={(e) =>
-    setSelectedRunId(e.target.value === "" ? null : Number(e.target.value))
-  }
->
-  <option value="">Select a run</option>
+return (
+  <div className="px-4 py-6 max-w-5xl mx-auto">
+    <h2 className="text-center font-bold text-lg md:text-xl mt-6 mb-6">
+      Shifts
+    </h2>
 
-  {reversedRuns.map(run => (
-    <option key={run.id} value={run.id}>
-      {new Date(run.start_time).toLocaleDateString("en-AU")}
-    </option>
-  ))}
-</select>
+    {/* Dropdown */}
+    <div className="mb-4 flex flex-col md:flex-row md:items-center gap-2">
+      <label htmlFor="runs" className="font-medium">
+        Choose a Run:
+      </label>
 
-      {previousRunData && (
-        <table className="w-full border-collapse border border-gray-300 mt-4">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="border px-3 py-2 text-left">Van Number</th>
-            <th className="border px-3 py-2 text-left">Van Name</th>
-            <th className="border px-3 py-2 text-left">Drops</th>
-              <th className="border px-3 py-2 text-right">Duration (hrs)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="odd:bg-white even:bg-gray-50">
-              <td className="border px-3 py-2">
-                {previousRunData.data.VanNumber}
-              </td>
-              <td className="border px-3 py-2">
-                {previousRunData.data.VanName}
-              </td>
-                <td className="border px-3 py-2">
-                {previousRunData.data.Drops}
-              </td>
-              <td className="border px-3 py-2 text-right">
-                {previousRunData.data.DurationHours}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      )}
-    </div>
-  );
-}
-  return (
-    <div style={{ padding: "16px" }}>
-      <h2 className="flex justify-center font-bold mt-10 mb-5">Shifts</h2>
-
-      {/* Dropdown */}
-      <label htmlFor="runs">Choose a Run: </label>
       <select
+        id="runs"
+        className="border rounded-md px-3 py-2 w-full md:w-64"
         value={selectedRunId ?? ""}
-        onChange={(e) => setSelectedRunId(e.target.value === "" ? null : Number(e.target.value))}>
-    <option value="">Select a run</option>
+        onChange={(e) =>
+          setSelectedRunId(
+            e.target.value === "" ? null : Number(e.target.value)
+          )
+        }
+      >
+        <option value="">Select a run</option>
+        {reversedRuns.map((run) => (
+          <option key={run.id} value={run.id}>
+            {new Date(run.start_time).toLocaleDateString("en-AU")}
+          </option>
+        ))}
+      </select>
+    </div>
 
-      {reversedRuns.map(run => (
-        <option key={run.id} value={run.id}> 
-          {new Date(run.start_time).toLocaleDateString("en-AU")}
-        </option>
-      ))}
-    </select>
+    {/* Loading / Error */}
+    {statsLoading && <p className="text-sm">Loading stats…</p>}
+    {statsError && (
+      <p className="text-sm text-red-600">Error loading stats</p>
+    )}
 
-      {/* Table */}
-      {statsLoading && <p>Loading stats...</p>}
-      {statsError && <p>Error loading stats</p>}
-
-      {statsData && (
-        <table className="w-full border-collapse border border-gray-300 mt-4">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="border px-3 py-2 text-left">Van Number</th>
+    {/* Table */}
+    <div className="overflow-x-auto">
+      <table className="w-full border border-gray-300 text-sm md:text-base">
+        <thead className="bg-gray-100">
+          <tr>
+            <th className="border px-3 py-2 text-left">Van #</th>
             <th className="border px-3 py-2 text-left">Van Name</th>
             <th className="border px-3 py-2 text-left">Drops</th>
-              <th className="border px-3 py-2 text-right">Duration (hrs)</th>
-              <th className="border px-3 py-2 text-right">Avg Min / Drop</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="odd:bg-white even:bg-gray-50">
-              <td className="border px-3 py-2">
-                {statsData.data.VanNumber}
-              </td>
-              <td className="border px-3 py-2">
-                {statsData.data.VanName}
-              </td>
-                <td className="border px-3 py-2">
-                {statsData.data.Drops}
-              </td>
-              <td className="border px-3 py-2 text-right">
-                {statsData.data.DurationHours}
-              </td>
+            <th className="border px-3 py-2 text-right">
+              Duration (hrs)
+            </th>
+            {selectedRunId !== null && (
+              <th className="border px-3 py-2 text-right">
+                Avg Min / Drop
+              </th>
+            )}
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr className="bg-white">
+            <td className="border px-3 py-2">
+              {runData.VanNumber}
+            </td>
+            <td className="border px-3 py-2">
+              {runData.VanName}
+            </td>
+            <td className="border px-3 py-2">
+              {runData.Drops}
+            </td>
+            <td className="border px-3 py-2 text-right">
+              {runData.DurationHours}
+            </td>
+            {selectedRunId !== null && (
               <td className="border px-3 py-2 text-right">
                 {readable}
               </td>
-            </tr>
-          </tbody>
-        </table>
-      )}
+            )}
+          </tr>
+        </tbody>
+      </table>
     </div>
-  );
+  </div>
+);
+
 }
