@@ -25,7 +25,7 @@ export async function syncDrops(runId) {
           address: drop.address,
           start_ts: drop.start_ts,
           end_ts: drop.end_ts,
-          elapsed: drop.elapsed,
+          elapsed: drop.end_ts - drop.start_ts,
           expected_minutes: drop.expected_minutes,
           status: drop.status,
 };

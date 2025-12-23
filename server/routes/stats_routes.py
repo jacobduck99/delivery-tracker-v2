@@ -53,19 +53,26 @@ def get_stats(run_id):
     start_time = datetime.fromisoformat(
         config_row["start_time"].replace("Z", "+00:00")
     )
+
+    print("hhere is start time of config row", start_time)
+
     end_time = datetime.fromisoformat(
         config_row["end_time"].replace("Z", "+00:00")
     )
+ 
+    print("hhere is end time of config row", end_time)
 
     shift_duration_seconds = (end_time - start_time).total_seconds()
+    print("shift duration in seconds", shift_duration_seconds)
     shift_duration_hours = shift_duration_seconds / 3600
+    print("shift duration in hours", shift_duration_hours)
 
     drops = len(deliveries)
 
     total_elapsed = 0
     for d in deliveries:
-        if d["elapsed"]:
-            total_elapsed += d["elapsed"]
+        print("elapsed raw:", d["elapsed"])
+        total_elapsed += d["elapsed"]
  
     avg_drop_seconds = (total_elapsed / drops) / 1000 if drops else 0
 

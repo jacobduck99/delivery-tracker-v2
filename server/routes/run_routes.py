@@ -52,7 +52,7 @@ def update_drop(run_id, drop_idx):
         address = data["address"]
         start_ts = data["start_ts"]
         end_ts = data["end_ts"]
-        elapsed = data["elapsed"]
+        elapsed = end_ts - start_ts
         expected_minutes = data["expected_minutes"]
         status = data["status"]
         sync_status = "Synced"
