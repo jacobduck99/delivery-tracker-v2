@@ -46,37 +46,37 @@ def get_stats(run_id):
 
     deliveries = [dict(row) for row in rows]
 
-    van_number = config_row["van_number"]
-    print("this is ur van_number", van_number)
+    van_number = config_row["van_number"] 
     van_name = config_row["van_name"]
      
     start_time = datetime.fromisoformat(
         config_row["start_time"].replace("Z", "+00:00")
     )
 
-    print("hhere is start time of config row", start_time)
-
     end_time = datetime.fromisoformat(
         config_row["end_time"].replace("Z", "+00:00")
-    )
- 
-    print("hhere is end time of config row", end_time)
+    ) 
 
     shift_duration_seconds = (end_time - start_time).total_seconds()
-    print("shift duration in seconds", shift_duration_seconds)
     shift_duration_hours = shift_duration_seconds / 3600
-    print("shift duration in hours", shift_duration_hours)
 
     drops = len(deliveries)
 
+    completed_drops = 0
     total_elapsed = 0
-    for d in deliveries:
-        print("elapsed raw:", d["elapsed"])
-        total_elapsed += d["elapsed"]
- 
-    avg_drop_seconds = (total_elapsed / drops) / 1000 if drops else 0
 
-    print("this is your average", avg_drop_seconds)
+    for drop in deliveries:
+        elapsed = drop.get("elapsed")
+
+        if elapsed is not None and elapsed > 0:
+            completed_drops += 1
+            total_elapsed += elapsed
+
+    avg_drop_seconds = (
+        (total_elapsed / completed_drops) / 1000
+        if completed_drops > 0
+        else 0
+    )
 
     stats = {
         "Drops": drops,
