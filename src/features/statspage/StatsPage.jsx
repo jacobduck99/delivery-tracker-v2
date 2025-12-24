@@ -59,21 +59,21 @@ export default function StatsPage() {
     if (!runData) return null;
 
 return (
-  <div className="min-h-screen bg-gray-100">
+  <div className="min-h-screen bg-gray-100 mb-10">
     <div className="px-4 py-6 max-w-5xl mx-auto">
-      <h2 className="text-center font-bold text-lg md:text-xl mt-6 mb-6">
+      <h2 className="text-center font-bold text-lg md:text-xl lg:mt-15">
         Overview
       </h2>
 
       {/* Dropdown */}
       <div className="mb-4 flex flex-col md:flex-row md:items-center gap-2">
-        <label htmlFor="runs" className="font-medium">
+        <label htmlFor="runs" className="font-medium mt-5">
           Choose a Run:
         </label>
 
         <select
           id="runs"
-          className="border rounded-md px-3 py-2 w-40 md:w-64"
+          className="border rounded-md px-3 py-2 w-full mt-1 h-10 md:w-64 bg-white"
           value={selectedRunId ?? ""}
           onChange={(e) =>
             setSelectedRunId(
