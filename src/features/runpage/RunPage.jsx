@@ -53,7 +53,7 @@ useEffect(() => {
 
         if (!result.ok) {
             setErr(result.error);
-            setLoading(false); // ← THIS LINE
+            setLoading(false); 
             return;
         }
 
@@ -265,7 +265,7 @@ return (
       </ul>
     </details>
 
-<div className="flex mt-11 justify-center">
+<div className="flex mt-16 justify-center">
 
   {!modal && (
     <EndshiftBtn showModal={showModal} setIsEndShiftVisible={setIsEndShiftVisible} />
