@@ -173,16 +173,26 @@ if (loading) {
 
 // WHERE THE CIRCLE PROGRESS AND PAGE STARTS 
 return ( 
-  <div className="min-h-screen bg-gray-100 px-4 pt-3 pb-20 md:flex md:flex-col md:justify-center">
-    <div className="text-[1.6rem] font-medium">Hello, Jacob</div>
-        <div className="font-extralight">Here's todays run</div>
-        <div>
+  <div className="min-h-screen bg-gray-100 px-4 pt-3 pb-20">
+    <div className="md:flex md:justify-center">
+      <div className="w-full max-w-2xl md:flex md:flex-col md:items-center">
+        
+        <div className="text-[1.6rem] font-medium">
+          Hello, Jacob
+        </div>
+
+        <div className="font-extralight mb-4">
+          Here's todays run
+        </div>
+
         <Card>
-        <Circleprogress
-        completed={completedDrops.length}
-        total={drops.length}
-        />
+          <Circleprogress
+            completed={completedDrops.length}
+            total={drops.length}
+          />
         </Card>
+
+      </div>
     </div>
 
     <details className="mb-4 md:flex md:justify-center">
