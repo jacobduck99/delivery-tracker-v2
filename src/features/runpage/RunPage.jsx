@@ -173,7 +173,7 @@ if (loading) {
 
 // WHERE THE CIRCLE PROGRESS AND PAGE STARTS 
 return ( 
-  <div className="min-h-screen bg-gray-100 px-4 pt-3 pb-20">
+  <div className="min-h-screen bg-gray-100 px-4 pt-1 pb-20">
     <div className="md:flex md:justify-center">
       <div className="w-full max-w-2xl md:flex md:flex-col md:items-center">
         
@@ -181,7 +181,7 @@ return (
           Hello, Jacob
         </div>
 
-        <div className="font-extralight mb-4">
+        <div className="font-extralight mb-2">
           Here's todays run
         </div>
 
@@ -197,7 +197,7 @@ return (
 
     <details className="mb-4 md:flex md:justify-center">
   
-<summary className="flex items-center mt-8 gap-2 text-[1rem] font-medium cursor-pointer">
+<summary className="flex items-center mt-5 gap-2 text-[1rem] font-medium cursor-pointer">
   <span>Completed</span>
 
   <span className="bg-green-200 text-green-700 text-xs px-2 py-0.5 rounded-full">
@@ -279,7 +279,7 @@ return (
       </ul>
     </details>
 
-<div className="flex mt-13 justify-center">
+<div className="flex mt-14 justify-center">
 
   {!modal && (
     <EndshiftBtn showModal={showModal} setIsEndShiftVisible={setIsEndShiftVisible} />
