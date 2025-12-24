@@ -269,7 +269,7 @@ return (
       </ul>
     </details>
 
-<div className="flex mt-16 justify-center">
+<div className="flex mt-13 justify-center">
 
   {!modal && (
     <EndshiftBtn showModal={showModal} setIsEndShiftVisible={setIsEndShiftVisible} />

@@ -4,7 +4,7 @@ import { Navigation2, ChartNoAxesColumn, CircleUser } from "lucide-react";
 
 export default function Navbar() {
   return (
-    <nav className="fixed bottom-2 w-full z-10">
+    <nav className="fixed bottom-3 w-full z-10">
 
       <ul className="flex justify-around py-2">
         <li>
