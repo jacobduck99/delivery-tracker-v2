@@ -37,6 +37,8 @@ import {
 
 import { syncDrops } from "./syncMachine.js";
 
+import { Camera } from 'lucide-react';
+
 // haven't cached any files for pwa do that once add more things
 
 export default function RunPage({ runId, setRunId }) {
@@ -175,23 +177,21 @@ if (loading) {
 return ( 
   <div className="min-h-screen bg-gray-100 px-4 pt-1 pb-20">
     <div className="md:flex md:justify-center">
-      <div className="w-full max-w-2xl md:flex md:flex-col md:items-center">
+      <div className="w-full lg:mt-50 max-w-2xl md:flex md:flex-col md:items-center">
         
         <div className="text-[1.6rem] font-medium">
           Hello, Jacob
         </div>
 
-        <div className="font-extralight mb-2">
+        <div className="font-extralight">
           Here's todays run
         </div>
-
-        <Card>
+        <Card> 
           <Circleprogress
             completed={completedDrops.length}
             total={drops.length}
           />
         </Card>
-
       </div>
     </div>
 
@@ -292,7 +292,6 @@ return (
       handleEndShift={handleEndShift}
     />
   )}
-
 </div>
 </div>
 );
