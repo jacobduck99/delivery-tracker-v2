@@ -21,7 +21,7 @@ export function EndshiftBtn({ showModal, setIsEndShiftVisible }) {
   return (
     <div>
       <button
-        className="w-50 bg-red-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700"
+        className="w-40 bg-red-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700"
         onClick={() => { showModal(true); setIsEndShiftVisible(true);}}
       >
         End shift
@@ -32,7 +32,7 @@ export function EndshiftBtn({ showModal, setIsEndShiftVisible }) {
 
 export function EndShiftModal({ showModal, handleEndShift, setIsEndShiftVisible }) {
     return (
-    <div className="flex space-x-8">
+    <div className="flex space-x-6">
         <button
             className="w-35 bg-red-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700" 
             onClick={() => { showModal(false); setIsEndShiftVisible(false);}}>
@@ -41,7 +41,7 @@ export function EndShiftModal({ showModal, handleEndShift, setIsEndShiftVisible 
 
 
         <button
-            className="w-35 bg-blue-600 text-white py-2.5 rounded-full font-semibold hover:bg-blue-700" 
+            className="w-35 bg-green-600 text-white py-2.5 rounded-full font-semibold hover:bg-blue-700" 
             onClick={() => handleEndShift()}>
                 Yes
         </button>
