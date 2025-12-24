@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 // UI Components
 import Dropcard from "../../components/dropcard.jsx";
 import Circleprogress, { Card } from "../../components/progresscircle.jsx";
-import { EndshiftBtn, EndShiftModal } from "../../components/buttons.jsx";
+import { EndshiftBtn, EndShiftModal, ConfigBtn } from "../../components/buttons.jsx";
 // API
 import { syncPendingDrops, endShift } from "../../lib/api/runApi.js";
 // Feature loader
@@ -40,6 +40,7 @@ import { syncDrops } from "./syncMachine.js";
 // haven't cached any files for pwa do that once add more things
 
 export default function RunPage({ runId, setRunId }) {
+    const [hasError, setHasError] = useState(false)
     const [drops, setDrops] = useState([]);
     const [loading, setLoading] = useState(true);
     const [err, setErr] = useState("");
@@ -52,6 +53,7 @@ useEffect(() => {
         const result = await loadDrops();
 
         if (!result.ok) {
+            setHasError(true)
             setErr(result.error);
             setLoading(false); 
             return;
@@ -65,21 +67,21 @@ useEffect(() => {
     init();
 }, []);
 
-if (err) {
+if (loading) {
   return (
     <div className="container">
-      <p style={{ color: "red" }}>{err}</p>
+      <p>Loading run…</p>
     </div>
   );
 }
 
-if (loading) {
-    return (
-        <div className="container">
-            <p>Loading run…</p>
-        </div>
-        );
-        }
+    function navigateToConfig() {
+      navigate("/config");
+    }
+
+    if (err) {
+      return <ConfigBtn handleOnClick={navigateToConfig} />;
+    }
 
     const upcomingDrops = drops.filter( (drop) => drop.status === "Not-started" ); 
 

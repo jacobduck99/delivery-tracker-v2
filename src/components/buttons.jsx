@@ -63,3 +63,18 @@ export function LogoutBtn({ handleOnClick }) {
   );
 }
 
+export function ConfigBtn({ handleOnClick }) {
+  return (
+    <div className="flex justify-center mt-10">
+      <button
+        onClick={handleOnClick}
+        className="w-[15rem] bg-blue-600 text-white py-2.5 rounded-full font-medium hover:bg-blue-700"
+      >
+        Config shift
+      </button>
+    </div>
+  );
+}
+
+
+
