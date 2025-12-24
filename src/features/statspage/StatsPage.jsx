@@ -72,33 +72,34 @@ return (
     </div>
 
     {/* Controls */}
-    <div className="flex justify-center">
-      <div className="flex flex-col">
-        <label
-          htmlFor="runs"
-          className="text-xs uppercase tracking-wide text-gray-500 mb-1"
-        >
-          Selected Run
-        </label>
-        <select
-          id="runs"
-          className="h-11 w-64 rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
-          value={selectedRunId ?? ""}
-          onChange={(e) =>
-            setSelectedRunId(
-              e.target.value === "" ? null : Number(e.target.value)
-            )
-          }
-        >
-          <option value="">Most recent</option>
-          {reversedRuns.map((run) => (
-            <option key={run.id} value={run.id}>
-              {new Date(run.start_time).toLocaleDateString("en-AU")}
-            </option>
-          ))}
-        </select>
-      </div>
-    </div>
+<div className="flex justify-center">
+  <div className="w-full max-w-md">
+    <label
+      htmlFor="runs"
+      className="text-xs uppercase tracking-wide text-gray-500 mb-1 block"
+    >
+      Selected Run
+    </label>
+
+    <select
+      id="runs"
+      className="h-12 w-full rounded-xl border border-gray-300 bg-white px-4 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
+      value={selectedRunId ?? ""}
+      onChange={(e) =>
+        setSelectedRunId(
+          e.target.value === "" ? null : Number(e.target.value)
+        )
+      }
+    >
+      <option value="">Most recent</option>
+      {reversedRuns.map((run) => (
+        <option key={run.id} value={run.id}>
+          {new Date(run.start_time).toLocaleDateString("en-AU")}
+        </option>
+      ))}
+    </select>
+  </div>
+</div>
 
     {/* States */}
     {statsLoading && (
@@ -113,31 +114,27 @@ return (
     )}
 
     {/* Summary Card */}
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-200">
-      <div className="px-6 py-4 border-b border-gray-100">
-        <h3 className="text-sm font-medium text-gray-700">
-          Summary
-        </h3>
-      </div>
+<div className="bg-white rounded-2xl border border-gray-300 shadow-md">
+  <div className="px-6 py-4 border-b border-gray-200">
+    <h3 className="text-sm font-semibold text-gray-800">
+      Summary
+    </h3>
+  </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-y-6 gap-x-4 px-6 py-6">
-        <Metric label="Van #" value={runData.VanNumber} />
-        <Metric label="Van Name" value={runData.VanName} />
-        <Metric label="Drops" value={runData.Drops} />
-        <Metric
-          label="Duration"
-          value={`${runData.DurationHours} hrs`}
-        />
-        {selectedRunId !== null && (
-          <Metric label="Avg / Drop" value={readable} highlight />
-        )}
-      </div>
-    </div>
+  <div className="grid grid-cols-2 gap-x-6 gap-y-8 px-6 py-7">
+    <Metric label="Van #" value={runData.VanNumber} />
+    <Metric label="Van Name" value={runData.VanName} />
+    <Metric label="Drops" value={runData.Drops} />
+    <Metric label="Duration" value={`${runData.DurationHours} hrs`} />
+    <Metric
+      label="Avg / Drop"
+      value={readable}
+      full
+      highlight
+    />
   </div>
 </div>
-
-
+  </div>
+</div>
 );
-
-
 }

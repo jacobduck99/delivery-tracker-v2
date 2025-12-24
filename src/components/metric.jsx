@@ -1,19 +1,19 @@
 
-export default function Metric({ label, value, highlight = false }) {
+export default function Metric({ label, value, highlight, full = false }) {
   return (
-    <div className="flex flex-col">
-      <span className="text-xs uppercase tracking-wide text-gray-500">
+    <div className={full ? "col-span-2" : ""}>
+      <p className="text-[0.7rem] uppercase tracking-wider text-gray-400">
         {label}
-      </span>
-      <span
-        className={`mt-1 text-lg font-semibold ${
+      </p>
+      <p
+        className={`mt-1 ${
           highlight
-            ? "text-gray-900"
-            : "text-gray-800"
+            ? "text-2xl font-medium text-gray-900"
+            : "text-lg font-medium text-gray-800"
         }`}
       >
         {value}
-      </span>
+      </p>
     </div>
   );
 }
