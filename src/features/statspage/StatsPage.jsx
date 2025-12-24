@@ -3,6 +3,7 @@ import { getAllRuns } from "../../lib/api/runApi.js";
 import { useQuery } from '@tanstack/react-query';
 import { useState } from "react";
 import { getUserId } from "../../lib/storage/userStorage.js";
+import Metric from "../../components/metric.jsx";
 import Calendar01 from "../../components/calendar-01.jsx";
 // dummy data just to get the feel of how everything should look.
 export default function StatsPage() {
@@ -59,21 +60,29 @@ export default function StatsPage() {
     if (!runData) return null;
 
 return (
-  <div className="min-h-screen bg-gray-100 mb-10">
-    <div className="px-4 py-6 max-w-5xl mx-auto">
-      <h2 className="text-center font-bold text-lg md:text-xl lg:mt-15">
-        Overview
+
+<div className="min-h-screen bg-gray-100 pb-12">
+  <div className="px-4 py-8 max-w-5xl mx-auto space-y-8">
+
+    {/* Header */}
+    <div className="flex flex-col items-center gap-1">
+      <h2 className="text-lg md:text-xl font-semibold tracking-tight text-gray-900">
+        Run Overview
       </h2>
+    </div>
 
-      {/* Dropdown */}
-      <div className="mb-4 flex flex-col md:flex-row md:items-center gap-2">
-        <label htmlFor="runs" className="font-medium mt-5">
-          Choose a Run:
+    {/* Controls */}
+    <div className="flex justify-center">
+      <div className="flex flex-col">
+        <label
+          htmlFor="runs"
+          className="text-xs uppercase tracking-wide text-gray-500 mb-1"
+        >
+          Selected Run
         </label>
-
         <select
           id="runs"
-          className="border rounded-md px-3 py-2 w-full mt-1 h-10 md:w-64 bg-white"
+          className="h-11 w-64 rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
           value={selectedRunId ?? ""}
           onChange={(e) =>
             setSelectedRunId(
@@ -81,7 +90,7 @@ return (
             )
           }
         >
-          <option value="">Select a run</option>
+          <option value="">Most recent</option>
           {reversedRuns.map((run) => (
             <option key={run.id} value={run.id}>
               {new Date(run.start_time).toLocaleDateString("en-AU")}
@@ -89,57 +98,45 @@ return (
           ))}
         </select>
       </div>
+    </div>
 
-      {/* Loading / Error */}
-      {statsLoading && <p className="text-sm">Loading stats…</p>}
-      {statsError && (
-        <p className="text-sm text-red-600">Error loading stats</p>
-      )}
+    {/* States */}
+    {statsLoading && (
+      <p className="text-center text-sm text-gray-500">
+        Loading stats…
+      </p>
+    )}
+    {statsError && (
+      <p className="text-center text-sm text-red-600">
+        Error loading stats
+      </p>
+    )}
 
-      {/* Table */}
-      <div className="overflow-x-auto">
-        <table className="w-full border border-gray-300 text-sm md:text-base">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="border px-3 py-2 text-left">Van #</th>
-              <th className="border px-3 py-2 text-left">Van Name</th>
-              <th className="border px-3 py-2 text-left">Drops</th>
-              <th className="border px-3 py-2 text-right">
-                Duration (hrs)
-              </th>
-              {selectedRunId !== null && (
-                <th className="border px-3 py-2 text-right">
-                  Avg Min / Drop
-                </th>
-              )}
-            </tr>
-          </thead>
+    {/* Summary Card */}
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-200">
+      <div className="px-6 py-4 border-b border-gray-100">
+        <h3 className="text-sm font-medium text-gray-700">
+          Summary
+        </h3>
+      </div>
 
-          <tbody>
-            <tr className="bg-white">
-              <td className="border px-3 py-2">
-                {runData.VanNumber}
-              </td>
-              <td className="border px-3 py-2">
-                {runData.VanName}
-              </td>
-              <td className="border px-3 py-2">
-                {runData.Drops}
-              </td>
-              <td className="border px-3 py-2 text-right">
-                {runData.DurationHours}
-              </td>
-              {selectedRunId !== null && (
-                <td className="border px-3 py-2 text-right">
-                  {readable}
-                </td>
-              )}
-            </tr>
-          </tbody>
-        </table>
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-y-6 gap-x-4 px-6 py-6">
+        <Metric label="Van #" value={runData.VanNumber} />
+        <Metric label="Van Name" value={runData.VanName} />
+        <Metric label="Drops" value={runData.Drops} />
+        <Metric
+          label="Duration"
+          value={`${runData.DurationHours} hrs`}
+        />
+        {selectedRunId !== null && (
+          <Metric label="Avg / Drop" value={readable} highlight />
+        )}
       </div>
     </div>
   </div>
+</div>
+
+
 );
 
 

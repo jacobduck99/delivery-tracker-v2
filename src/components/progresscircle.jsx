@@ -9,8 +9,8 @@ export const Card = ({ children }) => (
 export default function CircleProgress({
   completed,
   total,
-  size = 140,        // 👈 smaller overall size
-  strokeWidth = 15  // 👈 thinner ring
+  size = 140,        // smaller overall size
+  strokeWidth = 15  // thinner ring
 }) {
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
