@@ -52,16 +52,16 @@ export default function StatsPage() {
         readable = `${minutes}m ${seconds}s`;
     }
 
-const runData = selectedRunId === null
-  ? previousRunData?.data
-  : statsData?.data;
+    const runData = selectedRunId === null
+      ? previousRunData?.data
+      : statsData?.data;
 
-if (!runData) return null;
+    if (!runData) return null;
 
 return (
   <div className="px-4 py-6 max-w-5xl mx-auto">
     <h2 className="text-center font-bold text-lg md:text-xl mt-6 mb-6">
-      Shifts
+      Overview
     </h2>
 
     {/* Dropdown */}
@@ -72,7 +72,7 @@ return (
 
       <select
         id="runs"
-        className="border rounded-md px-3 py-2 w-full md:w-64"
+        className="border rounded-md px-3 py-2 w-40 md:w-64"
         value={selectedRunId ?? ""}
         onChange={(e) =>
           setSelectedRunId(
