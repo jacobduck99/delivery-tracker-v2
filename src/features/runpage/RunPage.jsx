@@ -173,7 +173,9 @@ if (loading) {
 
 // WHERE THE CIRCLE PROGRESS AND PAGE STARTS 
 return ( 
-  <div className="min-h-screen bg-gray-100 px-4 pt-6 pb-20 md:flex md:flex-col md:justify-center">
+  <div className="min-h-screen bg-gray-100 px-4 pt-3 pb-20 md:flex md:flex-col md:justify-center">
+    <div className="text-[1.6rem] font-medium">Hello, Jacob</div>
+        <div className="font-extralight">Here's todays run</div>
         <div>
         <Card>
         <Circleprogress
