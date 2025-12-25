@@ -48,6 +48,8 @@ def get_stats(run_id):
 
     van_number = config_row["van_number"] 
     van_name = config_row["van_name"]
+
+    truck_damage = config_row["truck_damage"]
      
     start_time = datetime.fromisoformat(
         config_row["start_time"].replace("Z", "+00:00")
@@ -82,6 +84,8 @@ def get_stats(run_id):
         "Drops": drops,
         "VanNumber": van_number,
         "VanName": van_name,
+        "StartTime": start_time,
+        "TruckDamage": truck_damage,
         "DurationHours": round(shift_duration_hours, 2),
         "AverageTimeSeconds": round(avg_drop_seconds, 1)
     }
