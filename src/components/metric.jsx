@@ -8,7 +8,7 @@ export default function Metric({ label, value, highlight, full = false }) {
       <p
         className={`mt-1 ${
           highlight
-            ? "text-2xl font-medium text-gray-900"
+            ? "text-[1.2rem] font-medium text-gray-900"
             : "text-lg font-medium text-gray-800"
         }`}
       >
