@@ -59,6 +59,10 @@ export default function StatsPage() {
 
     if (!runData) return null;
 
+    const date = runData.StartTime;
+    const auDate = new Date(date).toLocaleTimeString("en-AU")
+    console.log("this is ur time", auDate)
+
 return (
 
 <div className="min-h-screen bg-gray-100 pb-12">
@@ -126,6 +130,7 @@ return (
     <Metric label="Van Name" value={runData.VanName} />
     <Metric label="Drops" value={runData.Drops} />
     <Metric label="Duration" value={`${runData.DurationHours} hrs`} />
+    <Metric label="Start Time" value={auDate} />
     <Metric
       label="Avg / Drop"
       value={readable}
