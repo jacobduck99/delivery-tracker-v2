@@ -131,6 +131,7 @@ return (
     <Metric label="Drops" value={runData.Drops} />
     <Metric label="Duration" value={`${runData.DurationHours} hrs`} />
     <Metric label="Start Time" value={auDate} />
+    <Metric label="Truck Damage" value={runData.TruckDamage ? runData.TruckDamage : "None"} />
     <Metric
       label="Avg / Drop"
       value={readable}
