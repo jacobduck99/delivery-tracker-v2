@@ -116,12 +116,12 @@ return (
     {/* Summary Card */}
 <div className="bg-white rounded-2xl border border-gray-300 shadow-md">
   <div className="px-6 py-4 border-b border-gray-200">
-    <h3 className="text-sm font-semibold text-gray-800">
+    <h3 className="text-m font-semibold text-gray-800">
       Summary
     </h3>
   </div>
 
-  <div className="grid grid-cols-2 gap-x-6 gap-y-8 px-6 py-7">
+  <div className="grid grid-cols-2 gap-x-6 gap-y-3 px-6 py-7">
     <Metric label="Van #" value={runData.VanNumber} />
     <Metric label="Van Name" value={runData.VanName} />
     <Metric label="Drops" value={runData.Drops} />
