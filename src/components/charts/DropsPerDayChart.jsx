@@ -93,8 +93,8 @@ export default function DropsPerDayChart() {
 
             <YAxis
               tickLine={false}
-              axisLine={false}
-              width={28}
+              axisLine={true}
+              width={15}
               className="text-[10px] text-gray-400"
             />
 
@@ -107,7 +107,7 @@ export default function DropsPerDayChart() {
               dataKey="drops"
               fill="var(--color-drops)"
               radius={0}
-              barSize={8}
+              barSize={9}
             />
           </BarChart>
         </ChartContainer>
