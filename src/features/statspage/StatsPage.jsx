@@ -5,6 +5,7 @@ import { useState } from "react";
 import { getUserId } from "../../lib/storage/userStorage.js";
 import Metric from "../../components/metric.jsx";
 import Calendar01 from "../../components/calendar-01.jsx";
+import DropsPerDayChart from "../../components/charts/DropsPerDayChart.jsx";
 // dummy data just to get the feel of how everything should look.
 export default function StatsPage() {
     const [selectedRunId, setSelectedRunId] = useState(null);
@@ -118,7 +119,9 @@ return (
     )}
 
     {/* Summary Card */}
+
 <div className="bg-white rounded-2xl border border-gray-300 shadow-md">
+    <DropsPerDayChart />
   <div className="px-6 py-4 border-b border-gray-200">
     <h3 className="text-m font-semibold text-gray-800">
       Summary

@@ -1,5 +1,9 @@
-import { ChartConfig } from "../.ui/chart.jsx";
 import { Bar, BarChart, CartesianGrid, XAxis} from "recharts"
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "../ui/chart.jsx";
 
 const chartData = [
   { day: "Aug 26", drops: 18 },
@@ -34,7 +38,7 @@ const chartData = [
   { day: "Sep 24", drops: 24 },
 ]
 
-const chartConfig = {
+export const chartConfig = {
   desktop: {
     label: "Desktop",
     color: "#2563eb",
@@ -45,13 +49,18 @@ const chartConfig = {
   },
 }
 
-export default chartConfig
-
-export function Component() {
+export default function DropsPerDayChart() {
   return (
-    <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+    <ChartContainer config={chartConfig} className="min-h-[100px] w-full">
       <BarChart accessibilityLayer data={chartData}>
         <CartesianGrid vertical={false} />
+        <XAxis
+          dataKey="day"
+          tickLine={false}
+          tickMargin={10}
+          axisLine={false}
+          tickFormatter={(value) => value.slice(0, 3)}
+        />
         <Bar dataKey="drops" fill="var(--color-desktop)" radius={4} />
       </BarChart>
     </ChartContainer>
