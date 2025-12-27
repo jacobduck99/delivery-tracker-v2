@@ -93,31 +93,101 @@ def get_stats(run_id):
     return jsonify({"ok": True, "data": stats}), 200
 
 @stats_bp.get("/stats/previous/<int:userId>")
-def get_previous_run(userId):
+def get_previous_stats(userId):
     conn = get_db()
+
+    # 1️⃣ Find latest run_id
     cur = conn.execute(
         """
-    SELECT *
-    FROM config
-    WHERE user_id = ?
-      AND start_time IS NOT NULL
-    ORDER BY datetime(start_time) DESC
-
-    LIMIT 1;
+        SELECT id
+        FROM config
+        WHERE user_id = ?
+          AND start_time IS NOT NULL
+        ORDER BY datetime(start_time) DESC
+        LIMIT 1
         """,
         (userId,),
     )
-
     row = cur.fetchone()
-    print("this is ur row", row)
-
-    print("HIT previous run endpoint")
-    print("start_time returned:", row["start_time"])
 
     if row is None:
         return jsonify({"ok": True, "data": None}), 200
 
-    return jsonify({"ok": True, "data": dict(row)}), 200
+    run_id = row["id"]
+
+    # 2️⃣ Reuse the SAME logic as /stats/<run_id>
+    cur = conn.execute(
+        """
+        SELECT
+            drop_idx,
+            address,
+            start_ts,
+            end_ts,
+            elapsed,
+            expected_minutes
+        FROM deliveries
+        WHERE run_id = ?
+        ORDER BY drop_idx
+        """,
+        (run_id,),
+    )
+    deliveries = [dict(r) for r in cur.fetchall()]
+
+    cur = conn.execute(
+        """
+        SELECT 
+            van_number,
+            van_name,
+            start_time,
+            end_time,
+            actual_end_time,
+            truck_damage
+        FROM config
+        WHERE id = ?
+        """,
+        (run_id,),
+    )
+    config_row = cur.fetchone()
+
+    start_time = datetime.fromisoformat(
+        config_row["start_time"].replace("Z", "+00:00")
+    )
+    end_time = datetime.fromisoformat(
+        config_row["end_time"].replace("Z", "+00:00")
+    )
+
+    shift_duration_seconds = (end_time - start_time).total_seconds()
+    shift_duration_hours = shift_duration_seconds / 3600
+
+    drops = len(deliveries)
+
+    completed_drops = 0
+    total_elapsed = 0
+
+    for drop in deliveries:
+        elapsed = drop.get("elapsed")
+        if elapsed is not None and elapsed > 0:
+            completed_drops += 1
+            total_elapsed += elapsed
+
+    avg_drop_seconds = (
+        (total_elapsed / completed_drops) / 1000
+        if completed_drops > 0
+        else 0
+    )
+
+    stats = {
+        "Drops": drops,
+        "VanNumber": config_row["van_number"],
+        "VanName": config_row["van_name"],
+        "StartTime": config_row["start_time"],
+        "TruckDamage": config_row["truck_damage"],
+        "DurationHours": round(shift_duration_hours, 2),
+        "AverageTimeSeconds": round(avg_drop_seconds, 1),
+    }
+
+    return jsonify({"ok": True, "data": stats}), 200
+
 
 @stats_bp.get("/stats/last30days/<int:userId>")
 def get_last_30_days(userId):
