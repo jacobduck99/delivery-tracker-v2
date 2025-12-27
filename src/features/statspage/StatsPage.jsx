@@ -119,9 +119,9 @@ return (
     )}
 
     {/* Summary Card */}
-
-<div className="bg-white rounded-2xl border border-gray-300 shadow-md">
     <DropsPerDayChart />
+<div className="bg-white rounded-2xl border border-gray-300 shadow-md">
+
   <div className="px-6 py-4 border-b border-gray-200">
     <h3 className="text-m font-semibold text-gray-800">
       Summary
