@@ -19,7 +19,7 @@ export async function getRunStats(run_id) {
 }
 
 export async function getPreviousRun(userId) {
-    const url = `${API_BASE}/api/stats/${userId}`; // TEMP: bypass Vite proxy & correct run id
+    const url = `${API_BASE}/api/stats/previous/${userId}`; // TEMP: bypass Vite proxy & correct run id
 
     try {
         const response = await fetch(url);

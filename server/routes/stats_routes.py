@@ -97,18 +97,22 @@ def get_previous_run(userId):
     conn = get_db()
     cur = conn.execute(
         """
-        SELECT *
-        FROM config
-        WHERE user_id = ?
-          AND end_time IS NOT NULL
-        ORDER BY id DESC
-        LIMIT 1
+    SELECT *
+    FROM config
+    WHERE user_id = ?
+      AND start_time IS NOT NULL
+    ORDER BY datetime(start_time) DESC
+
+    LIMIT 1;
         """,
         (userId,),
     )
 
     row = cur.fetchone()
     print("this is ur row", row)
+
+    print("HIT previous run endpoint")
+    print("start_time returned:", row["start_time"])
 
     if row is None:
         return jsonify({"ok": True, "data": None}), 200
