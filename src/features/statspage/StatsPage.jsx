@@ -63,9 +63,13 @@ export default function StatsPage() {
         readable = `${minutes}m ${seconds}s`;
     }
 
-    const runData = selectedRunId === null
-      ? previousRunData?.data
-      : statsData?.data;
+    const previousRun = previousRunData?.data
+    const selectedRun = statsData?.data
+
+    const runData =
+        selectedRunId === null
+        ? previousRun
+        : selectedRun
 
     if (!runData) return null;
 
