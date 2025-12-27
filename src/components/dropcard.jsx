@@ -57,10 +57,12 @@ export default function Dropcard({
 if (drop.status === "Not-started") {
   return (
     <Card>
-      <h2 className="text-[0.9rem] font-bold ">Drop {index}</h2>
+      <h2 className="text-[0.9rem] font-bold">Drop {index}</h2>
 
-      <div className="flex-1 flex flex-col justify-center">
-        <Gps address={address} setAddress={setAddress} onStart={onStart} />
+      <div className="flex justify-center">
+        <div className="w-full max-w-[20rem] flex flex-col justify-center">
+          <Gps address={address} setAddress={setAddress} onStart={onStart} />
+        </div>
       </div>
     </Card>
   );
