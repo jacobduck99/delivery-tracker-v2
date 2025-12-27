@@ -12,6 +12,10 @@ import {
   ChartTooltipContent,
 } from "../ui/chart.jsx"
 
+// =======================
+// DATA
+// =======================
+
 const chartData = [
   { day: "Aug 26", drops: 18 },
   { day: "Aug 27", drops: 22 },
@@ -45,6 +49,10 @@ const chartData = [
   { day: "Sep 24", drops: 24 },
 ]
 
+// =======================
+// CHART CONFIG
+// =======================
+
 const chartConfig = {
   drops: {
     label: "Drops",
@@ -52,52 +60,105 @@ const chartConfig = {
   },
 }
 
+// =======================
+// COMPONENT
+// =======================
+
 export default function DropsPerDayChart() {
   return (
-    <ChartContainer
-      config={chartConfig}
-      className="h-[200px] sm:h-[280px] w-full"
-    >
-      <BarChart
-        data={chartData}
-        margin={{ top: 8, right: 12, left: 0, bottom: 0 }}
-      >
-        <CartesianGrid
-          vertical={false}
-          strokeDasharray="3 3"
-          className="opacity-25 sm:opacity-40"
-        />
+    <>
+      {/* =======================
+          MOBILE CHART
+          ======================= */}
+      <div className="block sm:hidden">
+        <ChartContainer
+          config={chartConfig}
+          className="h-[200px] w-full"
+        >
+          <BarChart data={chartData}>
+            <CartesianGrid
+              vertical={false}
+              strokeDasharray="3 3"
+              className="opacity-25"
+            />
 
-        <XAxis
-          dataKey="day"
-          tickLine={false}
-          axisLine={false}
-          tickMargin={8}
-          interval={5}
-          tickFormatter={(value) => value.slice(0, 6)}
-          className="text-[10px] text-gray-500 sm:text-xs"
-        />
+            <XAxis
+              dataKey="day"
+              tickLine={false}
+              axisLine={false}
+              interval={5}
+              tickFormatter={(v) => v.slice(0, 6)}
+              className="text-[10px] text-gray-500"
+            />
 
-        <YAxis
-          tickLine={false}
-          axisLine={false}
-          tickMargin={6}
-          width={28}
-          className="text-[10px] text-gray-400 sm:text-xs sm:text-gray-500"
-        />
+            <YAxis
+              tickLine={false}
+              axisLine={false}
+              width={28}
+              className="text-[10px] text-gray-400"
+            />
 
-        <ChartTooltip
-          cursor={{ fill: "rgba(0,0,0,0.04)" }}
-          content={<ChartTooltipContent />}
-        />
+            <ChartTooltip
+              cursor={{ fill: "rgba(0,0,0,0.04)" }}
+              content={<ChartTooltipContent />}
+            />
 
-        <Bar
-          dataKey="drops"
-          fill="var(--color-drops)"
-          radius={0}
-          barSize={8}
-        />
-      </BarChart>
-    </ChartContainer>
+            <Bar
+              dataKey="drops"
+              fill="var(--color-drops)"
+              radius={0}
+              barSize={8}
+            />
+          </BarChart>
+        </ChartContainer>
+      </div>
+
+      {/* =======================
+          DESKTOP CHART
+          ======================= */}
+      <div className="hidden sm:block">
+        <ChartContainer
+          config={chartConfig}
+          className="h-[280px] w-full"
+        >
+          <BarChart data={chartData}>
+            <CartesianGrid
+              vertical={false}
+              strokeDasharray="3 3"
+              className="opacity-40"
+            />
+
+            <XAxis
+              dataKey="day"
+              tickLine={false}
+              axisLine={false}
+              interval={2}
+              tickFormatter={(v) => v.slice(0, 6)}
+              className="text-xs text-gray-500"
+            />
+
+            <YAxis
+              tickLine={false}
+              axisLine={false}
+              width={32}
+              className="text-xs text-gray-500"
+            />
+
+            <ChartTooltip
+              cursor={{ fill: "rgba(0,0,0,0.04)" }}
+              content={<ChartTooltipContent />}
+            />
+
+            <Bar
+              dataKey="drops"
+              fill="var(--color-drops)"
+              radius={0}
+              barSize={14}
+            />
+          </BarChart>
+        </ChartContainer>
+      </div>
+    </>
   )
 }
+
