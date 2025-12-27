@@ -120,21 +120,30 @@ def get_last_30_days(userId):
     conn = get_db()
     cur = conn.execute(
         """
-        SELECT * 
+        SELECT
+            DATE(start_time) AS day,
+            SUM(number_of_drops) AS drop_count
         FROM config
         WHERE user_id = ?
-        and start_time IS NOT NULL 
-        """, 
+          AND start_time IS NOT NULL
+          AND DATE(start_time) >= DATE('now', '-30 days')
+        GROUP BY day
+        ORDER BY day ASC
+        """,
         (userId,),
     )
 
     rows = cur.fetchall()
-    print("here is your rows", rows)
-    if row is None:
-        return jsonify({"ok", True, "data": dict(rows)}), 200
 
-    return jsonify({"ok": True, "data": dict(row)}), 200
+    data = [
+        {
+            "date": row["day"],
+            "drop_count": row["drop_count"],
+        }
+        for row in rows
+    ]
 
+    return jsonify({"ok": True, "data": data}), 200
 
 
     

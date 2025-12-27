@@ -1,4 +1,4 @@
-import { getRunStats, getPreviousRun } from "../../lib/api/statsApi.js";
+import { getRunStats, getPreviousRun, getLast30Days } from "../../lib/api/statsApi.js";
 import { getAllRuns } from "../../lib/api/runApi.js";
 import { useQuery } from '@tanstack/react-query';
 import { useState } from "react";
@@ -30,6 +30,15 @@ export default function StatsPage() {
         queryFn: () => getRunStats(selectedRunId),
         enabled: !!selectedRunId
 });
+
+    const { 
+        data: chartData,
+        isLoading: chartDataLoading,
+        isError: chartError
+        } = useQuery({
+        queryKey: ["30days", getUser],
+        queryFn:  () => getLast30Days(getUser)
+    });
 
     const {
         data: previousRunData,
@@ -63,6 +72,16 @@ export default function StatsPage() {
     const date = runData.StartTime;
     const auDate = new Date(date).toLocaleTimeString("en-AU")
     console.log("this is ur time", auDate)
+
+
+    const dropsChartData = 
+        chartData?.data?.map(row => ({
+        day: new Date(row.date).toLocaleDateString("en-AU", {
+          month: "short",
+          day: "numeric",
+        }),
+        drops: row.drop_count,
+      })) ?? []
 
 return (
 
@@ -119,7 +138,7 @@ return (
     )}
 
     {/* Summary Card */}
-   <DropsChartCard data={runData}/> 
+   <DropsChartCard data={dropsChartData}/> 
 <div className="bg-white rounded-2xl border border-gray-300 shadow-md">
 
   <div className="px-6 py-4 border-b border-gray-200">
