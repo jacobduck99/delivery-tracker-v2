@@ -5,7 +5,7 @@ import { useState } from "react";
 import { getUserId } from "../../lib/storage/userStorage.js";
 import Metric from "../../components/metric.jsx";
 import Calendar01 from "../../components/calendar-01.jsx";
-import DropsPerDayChart from "../../components/charts/DropsPerDayChart.jsx";
+import DropsChartCard from "../../components/charts/DropsChartCard.jsx"
 // dummy data just to get the feel of how everything should look.
 export default function StatsPage() {
     const [selectedRunId, setSelectedRunId] = useState(null);
@@ -67,7 +67,7 @@ export default function StatsPage() {
 return (
 
 <div className="min-h-screen bg-gray-100 pb-12">
-  <div className="px-4 py-8 max-w-5xl mx-auto space-y-8">
+  <div className="px-4 py-3 max-w-5xl mx-auto space-y-5">
 
     {/* Header */}
     <div className="flex flex-col items-center gap-1">
@@ -119,7 +119,7 @@ return (
     )}
 
     {/* Summary Card */}
-    <DropsPerDayChart />
+   <DropsChartCard /> 
 <div className="bg-white rounded-2xl border border-gray-300 shadow-md">
 
   <div className="px-6 py-4 border-b border-gray-200">
