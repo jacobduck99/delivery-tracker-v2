@@ -115,5 +115,26 @@ def get_previous_run(userId):
 
     return jsonify({"ok": True, "data": dict(row)}), 200
 
+@stats_bp.get("/stats/last30days/<int:userId>")
+def get_last_30_days(userId):
+    conn = get_db()
+    cur = conn.execute(
+        """
+        SELECT * 
+        FROM config
+        WHERE user_id = ?
+        and start_time IS NOT NULL 
+        """, 
+        (userId,),
+    )
+
+    rows = cur.fetchall()
+    print("here is your rows", rows)
+    if row is None:
+        return jsonify({"ok", True, "data": dict(rows)}), 200
+
+    return jsonify({"ok": True, "data": dict(row)}), 200
+
+
 
     

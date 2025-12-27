@@ -119,7 +119,7 @@ return (
     )}
 
     {/* Summary Card */}
-   <DropsChartCard /> 
+   <DropsChartCard data={runData}/> 
 <div className="bg-white rounded-2xl border border-gray-300 shadow-md">
 
   <div className="px-6 py-4 border-b border-gray-200">

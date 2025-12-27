@@ -8,7 +8,7 @@ import {
 
 import DropsPerDayChart from "@/components/charts/DropsPerDayChart"
 
-export default function DropsChartCard() {
+export default function DropsChartCard({ data }) {
   return (
     <Card>
       <CardHeader>
@@ -19,7 +19,7 @@ export default function DropsChartCard() {
       </CardHeader>
 
       <CardContent>
-        <DropsPerDayChart />
+        <DropsPerDayChart data={data}/>
       </CardContent>
     </Card>
   )

@@ -64,7 +64,7 @@ const chartConfig = {
 // COMPONENT
 // =======================
 
-export default function DropsPerDayChart() {
+export default function DropsPerDayChart({ data }) {
   return (
     <>
       {/* =======================
@@ -75,7 +75,7 @@ export default function DropsPerDayChart() {
           config={chartConfig}
           className="h-[200px] w-full"
         >
-          <BarChart data={chartData}>
+          <BarChart data={data}>
             <CartesianGrid
               vertical={false}
               strokeDasharray="3 3"
@@ -121,7 +121,7 @@ export default function DropsPerDayChart() {
           config={chartConfig}
           className="h-[280px] w-full"
         >
-          <BarChart data={chartData}>
+          <BarChart data={data}>
             <CartesianGrid
               vertical={false}
               strokeDasharray="3 3"
