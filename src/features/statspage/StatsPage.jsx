@@ -74,9 +74,22 @@ export default function StatsPage() {
     if (!runData) {
       return <p>No stats available</p>;
     }
-
+    
     if (!navigator.onLine) {
-      return <h1>You are offline currently. Please reconnect to the internet to see stats</h1>;
+      return (
+        <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
+          <div className="max-w-md w-full text-center bg-white border border-gray-200 rounded-lg shadow-sm p-6 mb-15">
+            <h2 className="text-lg font-semibold text-gray-900 mb-2">
+              You’re currently offline
+            </h2>
+
+            <p className="text-sm text-gray-600">
+              Stats require an internet connection.
+              Please reconnect to view your reports.
+            </p>
+          </div>
+        </div>
+      );
     }
 
     const date = runData.StartTime;
