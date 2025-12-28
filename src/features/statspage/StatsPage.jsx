@@ -37,7 +37,7 @@ export default function StatsPage() {
         isError: chartError
         } = useQuery({
         queryKey: ["30days", getUser],
-        queryFn:  () => getLast30Days(getUser)
+        queryFn: () => getLast30Days(getUser)
     });
 
     const {
@@ -55,12 +55,15 @@ export default function StatsPage() {
     const runs = runsData.Runs;
     const reversedRuns = [...runs].reverse()
 
+    const sourceSeconds = statsData?.data?.AverageTimeSeconds ?? 
+            previousRunData?.data?.AverageTimeSeconds;
+
     let readable = "";
-    if (statsData) {
-        const totalSeconds = statsData.data.AverageTimeSeconds;
-        const minutes = Math.floor(totalSeconds / 60);
-        const seconds = Math.round(totalSeconds % 60);
-        readable = `${minutes}m ${seconds}s`;
+
+    if (sourceSeconds != null) {
+      const minutes = Math.floor(sourceSeconds / 60);
+      const seconds = Math.round(sourceSeconds % 60);
+      readable = `${minutes}m ${seconds}s`;
     }
 
     const previousRun = previousRunData?.data
