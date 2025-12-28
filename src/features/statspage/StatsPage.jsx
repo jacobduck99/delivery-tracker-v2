@@ -71,17 +71,10 @@ export default function StatsPage() {
         ? previousRun
         : selectedRun
 
-    const runStats =
-      selectedRunId === null
-        ? previousRunData?.data
-        : statsData?.data
-
     if (!runData) return null;
 
     const date = runData.StartTime;
     const auDate = new Date(date).toLocaleTimeString("en-AU")
-    console.log("this is ur time", auDate)
-
 
     const dropsChartData = 
         chartData?.data?.map(row => ({
