@@ -69,9 +69,15 @@ export default function StatsPage() {
     const runData =
         selectedRunId === null
         ? previousRun
-        : selectedRun
+        : selectedRun    
+    
+    if (!runData) {
+      return <p>No stats available</p>;
+    }
 
-    if (!runData) return null;
+    if (!navigator.onLine) {
+      return <h1>You are offline currently. Please reconnect to the internet to see stats</h1>;
+    }
 
     const date = runData.StartTime;
     const auDate = new Date(date).toLocaleTimeString("en-AU")
