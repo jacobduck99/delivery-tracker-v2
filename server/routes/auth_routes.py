@@ -11,7 +11,7 @@ from auth.user_model import User
 
 auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
 
-@auth_bp.post("/signup")
+@auth_bp.route("/signup", methods=["POST", "OPTIONS"])
 def signup():
     if not request.is_json:
         return jsonify({"ok": False, "error": "Expected JSON"}), 400
@@ -51,7 +51,7 @@ def signup():
         traceback.print_exc()
         return jsonify({"ok": False, "error": str(e)}), 500
 
-@auth_bp.post("/login")
+@auth_bp.route("/login", methods=["POST", "OPTIONS"])
 def login():
     if not request.is_json:
         return jsonify({"ok": False, "error": "Expected JSON"}), 400

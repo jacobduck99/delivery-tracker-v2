@@ -30,7 +30,7 @@ def create_app():
     # Cookie settings (dev-safe; tighten for prod/HTTPS)
     app.config.update(
         SESSION_COOKIE_HTTPONLY=True,
-        SESSION_COOKIE_SAMESITE="Lax",  # use "None" (and HTTPS) if cross-site
+        SESSION_COOKIE_SAMESITE="None",  # use "None" (and HTTPS) if cross-site
         SESSION_COOKIE_SECURE=False,    # True in production with HTTPS
     )
 
