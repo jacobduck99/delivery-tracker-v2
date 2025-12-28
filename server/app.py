@@ -22,6 +22,7 @@ def create_app():
         origins=[
         "http://localhost:5173",
         "http://192.168.1.104:5173",
+        "https://love-coles-ab8itnbtm-jacob-duckworths-projects.vercel.app",
         ],
         supports_credentials=True,
         )
