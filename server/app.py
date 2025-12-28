@@ -19,14 +19,13 @@ def create_app():
     
     CORS(
         app,
-        origins=[
-        "http://localhost:5173",
-        "http://192.168.1.104:5173",
-        "https://love-coles.vercel.app",
-        ],
+        resources={r"/api/*": {"origins": [
+            "http://localhost:5173",
+            "http://192.168.1.104:5173",
+            "https://love-coles.vercel.app",
+        ]}},
         supports_credentials=True,
-        )
-
+    )
 
     # Cookie settings (dev-safe; tighten for prod/HTTPS)
     app.config.update(
