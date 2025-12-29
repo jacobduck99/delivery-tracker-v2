@@ -24,7 +24,7 @@ primary_region = 'syd'
 [env]
   FLASK_APP = "app:app"           # adjust if your module name isn't app.py
   DATABASE  = "/data/database.db"
-  SCHEMA    = "/code/schema.sql"
+  SCHEMA    = "/code/data/schema.sql"
 
 [[mounts]]
   source = "data"
