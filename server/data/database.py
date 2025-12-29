@@ -2,11 +2,13 @@ import os, sqlite3
 from pathlib import Path
 from flask import g
 
-# Resolve to the repo root (folder that contains app.py, schema.sql, etc.)
-PROJECT_ROOT = Path(__file__).resolve().parent
+# Defaults for local dev (your repo layout)
+_DEFAULT_DB = Path(__file__).resolve().parent.parent / "data" / "database.db"
+_DEFAULT_SCHEMA = Path(__file__).resolve().parent.parent / "data" / "schema.sql"
 
-DATABASE = Path(__file__).resolve().parent.parent / "data" / "database.db"
-SCHEMA   = Path(__file__).resolve().parent.parent / "data" / "schema.sql"
+# Use Fly env vars if present (e.g. /data/database.db and /code/schema.sql)
+DATABASE = Path(os.environ.get("DATABASE", str(_DEFAULT_DB)))
+SCHEMA   = Path(os.environ.get("SCHEMA",   str(_DEFAULT_SCHEMA)))
 
 def _ensure_dir():
     DATABASE.parent.mkdir(parents=True, exist_ok=True)
@@ -38,3 +40,4 @@ def close_db(error=None):
     db = g.pop("db", None)
     if db is not None:
         db.close()
+
