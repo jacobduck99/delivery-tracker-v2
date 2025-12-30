@@ -4,9 +4,8 @@ import { useQuery } from '@tanstack/react-query';
 import { useState } from "react";
 import { getUserId } from "../../lib/storage/userStorage.js";
 import Metric from "../../components/metric.jsx";
-import Calendar01 from "../../components/calendar-01.jsx";
 import DropsChartCard from "../../components/charts/DropsChartCard.jsx"
-// dummy data just to get the feel of how everything should look.
+
 export default function StatsPage() {
     const [selectedRunId, setSelectedRunId] = useState(null);
     const getUser = getUserId();
@@ -115,10 +114,49 @@ export default function StatsPage() {
         drops: row.drop_count,
       })) ?? []
 
+
+const dropsChartDataMock = [
+  { day: "01 Dec", drops: 14 },
+  { day: "02 Dec", drops: 18 },
+  { day: "03 Dec", drops: 12 },
+  { day: "04 Dec", drops: 20 },
+  { day: "05 Dec", drops: 16 },
+  { day: "06 Dec", drops: 9 },
+  { day: "07 Dec", drops: 0 },
+
+  { day: "08 Dec", drops: 15 },
+  { day: "09 Dec", drops: 17 },
+  { day: "10 Dec", drops: 22 },
+  { day: "11 Dec", drops: 19 },
+  { day: "12 Dec", drops: 21 },
+  { day: "13 Dec", drops: 10 },
+  { day: "14 Dec", drops: 0 },
+
+  { day: "15 Dec", drops: 16 },
+  { day: "16 Dec", drops: 20 },
+  { day: "17 Dec", drops: 24 },
+  { day: "18 Dec", drops: 18 },
+  { day: "19 Dec", drops: 23 },
+  { day: "20 Dec", drops: 11 },
+  { day: "21 Dec", drops: 0 },
+
+  { day: "22 Dec", drops: 17 },
+  { day: "23 Dec", drops: 26 },
+  { day: "24 Dec", drops: 28 },
+  { day: "25 Dec", drops: 0 },
+  { day: "26 Dec", drops: 22 },
+  { day: "27 Dec", drops: 13 },
+  { day: "28 Dec", drops: 0 },
+
+  { day: "29 Dec", drops: 19 },
+  { day: "30 Dec", drops: 21 },
+];
+
 return (
 
-<div className="min-h-screen bg-gray-100 pb-12">
-  <div className="px-4 py-3 max-w-5xl mx-auto space-y-5">
+<div className="min-h-[100svh] bg-gray-100 pb-6 sm:pb-10 lg:pb-12">
+
+  <div className="px-4 py-3 max-w-5xl mx-auto space-y-3 sm:space-y-5">
 
     {/* Header */}
     <div className="flex flex-col items-center gap-1">
@@ -170,7 +208,7 @@ return (
     )}
 
     {/* Summary Card */}
-   <DropsChartCard data={dropsChartData}/> 
+   <DropsChartCard data={dropsChartDataMock}/> 
 <div className="bg-white rounded-2xl border border-gray-300 shadow-md">
 
   <div className="px-6 py-4 border-b border-gray-200">

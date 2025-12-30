@@ -16,8 +16,8 @@ export default function DropsChartCard({ data }) {
         <CardDescription>Last 30 days workload</CardDescription>
       </CardHeader>
 
-      <CardContent className="flex-1 min-w-0">
-        <div className="w-full">
+      <CardContent className="min-w-0">
+        <div className="w-full h-56 sm:h-64 lg:h-72">
           <DropsPerDayChart data={data} />
         </div>
       </CardContent>

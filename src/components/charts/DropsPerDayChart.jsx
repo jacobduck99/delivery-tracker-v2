@@ -26,9 +26,9 @@ export default function DropsPerDayChart({ data }) {
       <div className="block sm:hidden">
         <ChartContainer
           config={chartConfig}
-          className="h-[200px] w-full"
+          className="h-[220px] w-full"
         >
-          <BarChart data={data}>
+          <BarChart data={data} margin={{ left: 0, right: 0, top: 10, bottom: -10 }} >
             <CartesianGrid
               vertical={false}
               strokeDasharray="3 3"
@@ -49,7 +49,7 @@ export default function DropsPerDayChart({ data }) {
               ticks={[0, 5, 10, 15, 20, 25, 30]}
               allowDataOverflow
               tickLine={false}
-              axisLine={true}
+              axisLine={false}
               width={20}
               className="text-[10px] text-gray-400"
             />
