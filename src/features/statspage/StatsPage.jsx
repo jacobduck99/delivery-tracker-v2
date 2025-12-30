@@ -98,6 +98,14 @@ export default function StatsPage() {
     const date = runData.StartTime;
     const auDate = new Date(date).toLocaleTimeString("en-AU")
 
+    const parts = auDate.split(":");
+    const left = parts.slice(0, 2);
+    const right = parts.slice(2);
+
+    const ampm = right[0].split(" ")[1]; // "pm"
+    const time = left.join(":");         // "10:30"
+    const formattedTime = `${time} ${ampm}`; // "10:30 pm"
+
     const dropsChartData = 
         chartData?.data?.map(row => ({
         day: new Date(row.date).toLocaleDateString("en-AU", {
@@ -171,12 +179,12 @@ return (
     </h3>
   </div>
 
-  <div className="grid grid-cols-2 gap-x-6 gap-y-3 px-6 py-7">
+  <div className="grid grid-cols-2 gap-x-3 gap-y-3 px-6 py-3">
     <Metric label="Van #" value={runData.VanNumber} />
     <Metric label="Van Name" value={runData.VanName} />
     <Metric label="Drops" value={runData.Drops} />
     <Metric label="Duration" value={`${runData.DurationHours} hrs`} />
-    <Metric label="Start Time" value={auDate} />
+    <Metric label="Start Time" value={formattedTime} />
     <Metric label="Truck Damage" value={runData.TruckDamage ? runData.TruckDamage : "None"} />
     <Metric
       label="Avg / Drop"
