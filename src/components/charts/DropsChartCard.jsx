@@ -10,8 +10,8 @@ import DropsPerDayChart from "@/components/charts/DropsPerDayChart"
 
 export default function DropsChartCard({ data }) {
   return (
-    <Card className="flex flex-col gap-4 md:flex-row md:items-start">
-      <CardHeader className="md:w-72 md:shrink-0">
+    <Card>
+      <CardHeader>
         <CardTitle>Drops per Day</CardTitle>
         <CardDescription>Last 30 days workload</CardDescription>
       </CardHeader>
