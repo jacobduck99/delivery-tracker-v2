@@ -79,7 +79,7 @@ export default function StatsPage() {
     
     if (!navigator.onLine) {
       return (
-        <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
+        <div className="bg-gray-100 flex items-center justify-center px-4">
           <div className="max-w-md w-full text-center bg-white border border-gray-200 rounded-lg shadow-sm p-6 mb-15">
             <h2 className="text-lg font-semibold text-gray-900 mb-2">
               You’re currently offline
@@ -116,7 +116,7 @@ export default function StatsPage() {
 
 return (
 
-<div className="min-h-[100svh] bg-gray-100 pb-6 sm:pb-10 lg:pb-12">
+<div className=" bg-gray-100 pb-6 sm:pb-10 lg:pb-12">
 
   <div className="px-4 py-3 max-w-5xl mx-auto space-y-3 sm:space-y-5">
 

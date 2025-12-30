@@ -144,3 +144,17 @@
   }
 }
 
+@media (max-height: 700px) {
+  [data-slot="card"] {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    gap: 0.25rem;
+  }
+
+  [data-slot="card-header"],
+  [data-slot="card-content"],
+  [data-slot="card-footer"] {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
