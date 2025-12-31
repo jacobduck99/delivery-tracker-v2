@@ -50,16 +50,22 @@ export function EndShiftModal({ showModal, handleEndShift, setIsEndShiftVisible 
     ) 
 } 
 
-export function LogoutBtn({ handleOnClick }) {
+export function LogoutBtn({ handleOnClick, className = "" }) {
   return (
-    <div className="flex justify-center mt-10">
-      <button
-        onClick={handleOnClick}
-        className="w-[6rem] bg-orange-600 text-white py-2.5 rounded-full font-medium hover:bg-orange-700"
-      >
-        Logout
-      </button>
-    </div>
+    <button
+      type="button"
+      onClick={handleOnClick}
+      className={[
+        "h-10 px-4",
+        "bg-orange-600 text-white",
+        "rounded-full font-medium",
+        "text-sm leading-none",
+        "hover:bg-orange-700",
+        className,
+      ].join(" ")}
+    >
+      Logout
+    </button>
   );
 }
 
