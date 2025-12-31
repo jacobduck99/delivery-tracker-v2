@@ -14,14 +14,14 @@ export default function AccountPage({ logoutUser }) {
     }
 
 return (
-  <div className="h-[100dvh] bg-gray-50 px-4 pt-4 min-[390px]:px-5 min-[430px]:px-6 overflow-hidden">
+  <div className="h-[100dvh] bg-gray-100 px-4 pt-4 min-[390px]:px-5 min-[430px]:px-6 overflow-hidden">
 
     <div className="mx-auto w-full min-[430px]:max-w-[28rem] md:max-w-[90rem] h-full overflow-y-auto space-y-4 min-[390px]:space-y-3">
 
 
 {/* TOP BAR */}
-<div className="px-4 py-4 min-[390px]:px-5 min-[390px]:py-3">
-  <div className="grid grid-cols-3 items-center">
+<div className="px-4 py-4 min-[390px]:px-1 min-[390px]:py-1">
+  <div className="grid grid-cols-[40px_1fr_40px] items-center">
     {/* LEFT: Back */}
     <button
       type="button"
@@ -33,7 +33,7 @@ return (
     </button>
 
     {/* CENTER: Title */}
-    <h2 className="justify-self-center text-lg min-[390px]:text-xl min-[430px]:text-2xl font-semibold text-gray-900">
+    <h2 className="justify-self-center text-lg min-[390px]:text-lg min-[430px]:text-2xl font-semibold text-gray-900">
       Settings and activity
     </h2>
 
