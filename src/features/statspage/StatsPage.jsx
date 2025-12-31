@@ -3,7 +3,7 @@ import { getAllRuns } from "../../lib/api/runApi.js";
 import { useQuery } from '@tanstack/react-query';
 import { useState } from "react";
 import { getUserId } from "../../lib/storage/userStorage.js";
-import { formatTime, formatMinutesAndSeconds } from "../../lib/utils/formatters.js";
+import { formatTime, formatMinutesAndSeconds, formatChartDate, formatDate } from "../../lib/utils/formatters.js";
 import Metric from "../../components/metric.jsx";
 import DropsChartCard from "../../components/charts/DropsChartCard.jsx"
 
@@ -33,12 +33,12 @@ export default function StatsPage() {
     isLoading: runsLoading,
     isError: runsError,
     data: runsData
-  } = useQuery({
+    } = useQuery({
     queryKey: ["runs", userId],
     queryFn: () => getAllRuns(userId)
-  });
+    });
 
-  // 2️⃣ Load stats for the selected run
+    // 2️⃣ Load stats for the selected run
     const {
         data: statsData,
         isLoading: statsLoading,
@@ -47,7 +47,7 @@ export default function StatsPage() {
         queryKey: ["stats", selectedRunId],
         queryFn: () => getRunStats(selectedRunId),
         enabled: !!selectedRunId
-});
+        });
 
     const { 
         data: chartData,
@@ -93,13 +93,9 @@ export default function StatsPage() {
     const date = runData.StartTime;
     const formattedTime = formatTime(date); 
 
-    const dropsChartData = 
-        chartData?.data?.map(row => ({
-        day: new Date(row.date).toLocaleDateString("en-AU", {
-          month: "short",
-          day: "numeric",
-        }),
-        drops: row.drop_count,
+    const dropsChartData = chartData?.data?.map(row => ({
+    day: formatChartDate(row.date),  
+    drops: row.drop_count,
       })) ?? []
 
 return (
@@ -138,7 +134,7 @@ return (
       <option value="">Most recent</option>
       {reversedRuns.map((run) => (
         <option key={run.id} value={run.id}>
-          {new Date(run.start_time).toLocaleDateString("en-AU")}
+          {formatDate(run.start_time)}
         </option>
       ))}
     </select>
