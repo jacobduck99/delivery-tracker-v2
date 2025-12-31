@@ -9,15 +9,33 @@ import DropsChartCard from "../../components/charts/DropsChartCard.jsx"
 
 export default function StatsPage() {
     const [selectedRunId, setSelectedRunId] = useState(null);
-    const getUser = getUserId();
+    const userId = getUserId();
     // 1️⃣ Load all runs for the dropdown
+
+    if (!navigator.onLine) {
+      return (
+        <div className="bg-gray-100 flex items-center justify-center px-4">
+          <div className="max-w-md w-full text-center bg-white border border-gray-200 rounded-lg shadow-sm p-6 mb-15">
+            <h2 className="text-lg font-semibold text-gray-900 mb-2">
+              You’re currently offline
+            </h2>
+
+            <p className="text-sm text-gray-600">
+              Stats require an internet connection.
+              Please reconnect to view your reports.
+            </p>
+          </div>
+        </div>
+      );
+    }
+
     const {
     isLoading: runsLoading,
     isError: runsError,
     data: runsData
   } = useQuery({
-    queryKey: ["runs", getUser],
-    queryFn: () => getAllRuns(getUser)
+    queryKey: ["runs", userId],
+    queryFn: () => getAllRuns(userId)
   });
 
   // 2️⃣ Load stats for the selected run
@@ -36,8 +54,8 @@ export default function StatsPage() {
         isLoading: chartDataLoading,
         isError: chartError
         } = useQuery({
-        queryKey: ["30days", getUser],
-        queryFn: () => getLast30Days(getUser)
+        queryKey: ["30days", userId],
+        queryFn: () => getLast30Days(userId)
     });
 
     const {
@@ -45,8 +63,8 @@ export default function StatsPage() {
         isLoading: previousRunLoading,
         isError: previousRunError
         } = useQuery({
-        queryKey: ["previousRun", getUser],
-        queryFn: () => getPreviousRun(getUser)
+        queryKey: ["previousRun", userId],
+        queryFn: () => getPreviousRun(userId)
     });
 
     if (runsLoading) return <span>Loading runs...</span>;
@@ -70,23 +88,6 @@ export default function StatsPage() {
     
     if (!runData) {
       return <p>No stats available</p>;
-    }
-    
-    if (!navigator.onLine) {
-      return (
-        <div className="bg-gray-100 flex items-center justify-center px-4">
-          <div className="max-w-md w-full text-center bg-white border border-gray-200 rounded-lg shadow-sm p-6 mb-15">
-            <h2 className="text-lg font-semibold text-gray-900 mb-2">
-              You’re currently offline
-            </h2>
-
-            <p className="text-sm text-gray-600">
-              Stats require an internet connection.
-              Please reconnect to view your reports.
-            </p>
-          </div>
-        </div>
-      );
     }
 
     const date = runData.StartTime;

@@ -1,4 +1,3 @@
-
 export function formatTime(date) {
     if (!date) return "N/A";
     return new Date(date).toLocaleTimeString("en-AU", {
@@ -15,3 +14,11 @@ export function formatMinutesAndSeconds(time) {
     return `${minutes}m ${seconds}s`;
 }
 
+export function formatDate(date) {
+    if (!date) return "N/A";
+    return new Date(date).localeDateString("en-AU", {
+        month: "short",
+        day: "numeric",
+    }),
+    drops: date.drop_count,
+}
