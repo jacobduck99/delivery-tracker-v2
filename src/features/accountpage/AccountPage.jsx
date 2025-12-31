@@ -8,27 +8,19 @@ export default function AccountPage({ logoutUser }) {
 
 return (
   <div className="h-[100dvh] bg-gray-50 px-4 pt-4 min-[390px]:px-5 min-[430px]:px-6 overflow-hidden">
-    {/* pb-[88px] = space for your bottom nav */}
-    <div className="mx-auto w-full min-[430px]:max-w-[28rem] md:max-w-[90rem] h-full overflow-y-auto space-y-4 min-[390px]:space-y-5">
+
+    <div className="mx-auto w-full min-[430px]:max-w-[28rem] md:max-w-[90rem] h-full overflow-y-auto space-y-4 min-[390px]:space-y-3">
 
       {/* TOP BAR */}
-      <div className="bg-white border border-gray-200 shadow-sm rounded-2xl px-4 py-4 min-[390px]:px-5 min-[390px]:py-5 flex items-center justify-between">
+      <div className="px-4 py-4 min-[390px]:px-5 min-[390px]:py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center font-semibold text-gray-700">
-            JD
-          </div>
 
           <div className="leading-tight">
-            <h1 className="text-lg min-[390px]:text-xl min-[430px]:text-2xl font-semibold text-gray-900">
-              Your Account
-            </h1>
-            <p className="text-xs min-[390px]:text-sm text-gray-500">
-              Manage your profile and settings
-            </p>
+            <h2 className="text-lg min-[390px]:text-xl min-[430px]:text-2xl font-semibold text-gray-900">
+                Settings and activity
+            </h2>
           </div>
         </div>
-
-        <LogoutBtn handleOnClick={handleLogout} />
       </div>
 
       {/* TABS */}
@@ -109,8 +101,11 @@ return (
           <span className="text-gray-400 text-xl leading-none">›</span>
         </button>
       </div>
-
+        <div className="flex mt-5 justify-center">
+        <LogoutBtn handleOnClick={handleLogout} />
     </div>
+    </div>
+
   </div>
 );
 }
