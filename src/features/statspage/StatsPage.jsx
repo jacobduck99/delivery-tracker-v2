@@ -100,7 +100,7 @@ export default function StatsPage() {
 
 return (
 
-<div className=" bg-gray-100 pb-6 sm:pb-10 lg:pb-12">
+<div className=" bg-gray-100 min-h-screen pb-6 sm:pb-10 lg:pb-12">
 
   <div className="px-4 py-3 max-w-5xl mx-auto space-y-3 sm:space-y-5">
 

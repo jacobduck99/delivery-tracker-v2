@@ -7,93 +7,115 @@ export default function AccountPage({ logoutUser }) {
     }
 
 return (
-  <div className="min-h-[100dvh] bg-gray-50 px-3 py-3 sm:px-6 sm:py-6 lg:px-10 lg:py-10">
-    {/* CONTENT CONTAINER */}
-    <div className="mx-auto w-full max-w-[90rem] flex flex-col gap-3 sm:gap-5 lg:gap-8">
-      {/* TOP BAR */}
-      <div className="bg-white border border-gray-200 shadow-sm rounded-md lg:rounded-xl
-                      flex items-center justify-between
-                      px-3 py-3 sm:px-5 sm:py-4 lg:px-10 lg:py-6">
-        <h1 className="text-base sm:text-lg lg:text-2xl font-semibold text-gray-900">
+  <div className="min-h-[100dvh] bg-gray-50 px-4 pt-4 pb-24
+                  min-[390px]:px-5 min-[430px]:px-6">
+    {/* NOTE: no max-w-md lock on phones */}
+    <div className="mx-auto w-full
+                    min-[430px]:max-w-[28rem]
+                    md:max-w-[90rem]
+                    space-y-4 min-[390px]:space-y-5 md:space-y-6">
+
+      {/* Header */}
+      <div className="bg-white border border-gray-200 shadow-sm rounded-2xl
+                      px-4 py-4
+                      min-[390px]:px-5 min-[390px]:py-5
+                      min-[430px]:px-6
+                      md:rounded-xl md:px-10 md:py-6
+                      flex items-center justify-between">
+        <h1 className="text-lg font-semibold text-gray-900
+                       min-[390px]:text-xl min-[430px]:text-2xl
+                       md:text-2xl">
           Your Account
         </h1>
 
-        <div className="scale-95 sm:scale-100 origin-right">
+        <div className="scale-95 origin-right min-[390px]:scale-100">
           <LogoutBtn handleOnClick={handleLogout} />
         </div>
       </div>
 
-      {/* MAIN CONTENT */}
-      <div
-        className="
-          flex flex-col gap-3 sm:gap-5
-          lg:grid lg:grid-cols-[22rem_1fr] lg:gap-8
-        "
-      >
-        {/* SIDEBAR */}
-        <div className="bg-white border border-gray-200 rounded-md lg:rounded-xl shadow-sm
-                        p-2 sm:p-3 lg:p-6">
-          {/* Mobile: tabs row */}
-          <div className="flex gap-2 lg:hidden">
-            <button className="flex-1 text-center px-3 py-2 rounded-md bg-gray-100 font-medium text-sm">
-              Profile
-            </button>
-            <button className="flex-1 text-center px-3 py-2 rounded-md hover:bg-gray-100 text-sm">
-              Security
-            </button>
-            <button className="flex-1 text-center px-3 py-2 rounded-md hover:bg-gray-100 text-sm">
-              Preferences
-            </button>
-          </div>
+      {/* Tabs (segmented control) */}
+      <div className="bg-white border border-gray-200 shadow-sm rounded-2xl
+                      p-3
+                      min-[390px]:p-4
+                      min-[430px]:p-4
+                      md:rounded-xl md:p-5">
+        <div className="bg-gray-100 rounded-xl p-1 flex gap-1
+                        min-[390px]:p-1.5">
+          <button
+            className="flex-1 rounded-lg
+                       py-2 text-sm font-medium
+                       min-[390px]:py-2.5 min-[390px]:text-base
+                       min-[430px]:py-3
+                       bg-white shadow-sm text-gray-900"
+          >
+            Profile
+          </button>
 
-          {/* Desktop: real sidebar */}
-          <div className="hidden lg:flex lg:flex-col lg:gap-3">
-            <button className="w-full text-left px-4 py-2.5 rounded-md bg-gray-100 font-medium">
-              Profile
-            </button>
-            <button className="w-full text-left px-4 py-2.5 rounded-md hover:bg-gray-100">
-              Security
-            </button>
-            <button className="w-full text-left px-4 py-2.5 rounded-md hover:bg-gray-100">
-              Preferences
-            </button>
+          <button
+            className="flex-1 rounded-lg
+                       py-2 text-sm font-medium
+                       min-[390px]:py-2.5 min-[390px]:text-base
+                       min-[430px]:py-3
+                       text-gray-600 hover:text-gray-900"
+          >
+            Security
+          </button>
 
-            <p className="text-sm text-gray-500 mt-6">
-              Account settings
-            </p>
-          </div>
+          <button
+            className="flex-1 rounded-lg
+                       py-2 text-sm font-medium
+                       min-[390px]:py-2.5 min-[390px]:text-base
+                       min-[430px]:py-3
+                       text-gray-600 hover:text-gray-900"
+          >
+            Preferences
+          </button>
+        </div>
+      </div>
+
+      {/* Main content */}
+      <div className="bg-white border border-gray-200 shadow-sm rounded-2xl
+                      p-4
+                      min-[390px]:p-5
+                      min-[430px]:p-6
+                      md:rounded-xl md:p-8">
+        <div>
+          <h2 className="text-base font-semibold text-gray-900
+                         min-[390px]:text-lg min-[430px]:text-xl
+                         md:text-xl">
+            Personal information
+          </h2>
+          <p className="mt-1 text-sm text-gray-500 hidden min-[390px]:block">
+            Manage your personal information such as name and preferences.
+          </p>
         </div>
 
-        {/* MAIN PANEL */}
-        <div className="bg-white border border-gray-200 rounded-md lg:rounded-xl shadow-sm
-                        p-3 sm:p-5 lg:p-8">
-          {/* SECTION HEADER */}
-          <div className="mb-3 sm:mb-5 lg:mb-8">
-            <h2 className="text-base sm:text-xl lg:text-2xl font-bold text-gray-900">
-              Personal information
-            </h2>
-            <p className="hidden sm:block text-sm lg:text-base text-gray-500 mt-2">
-              Manage your personal information such as name and preferences.
+        <div className="mt-4 divide-y divide-gray-100
+                        min-[390px]:mt-5">
+          <div className="py-3 min-[390px]:py-4">
+            <p className="text-xs text-gray-500 min-[390px]:text-sm">Name</p>
+            <p className="text-base font-medium text-gray-900
+                          min-[390px]:text-lg">
+              Jacob Duckworth
             </p>
           </div>
 
-          {/* CARDS */}
-          <div className="flex flex-col gap-3 sm:grid sm:grid-cols-2 sm:gap-5 lg:gap-6">
-            <div className="border border-gray-200 rounded-md lg:rounded-xl shadow-sm p-3 sm:p-5 lg:p-6">
-              <p className="text-xs sm:text-sm text-gray-500 mb-1">Name</p>
-              <p className="text-sm sm:text-base font-medium text-gray-900">Jacob Duckworth</p>
-            </div>
-
-            <div className="border border-gray-200 rounded-md lg:rounded-xl shadow-sm p-3 sm:p-5 lg:p-6">
-              <p className="text-xs sm:text-sm text-gray-500 mb-1">Appearance</p>
-              <p className="text-sm sm:text-base font-medium text-gray-900">Theme settings</p>
-            </div>
+          <div className="py-3 min-[390px]:py-4">
+            <p className="text-xs text-gray-500 min-[390px]:text-sm">Appearance</p>
+            <p className="text-base font-medium text-gray-900
+                          min-[390px]:text-lg">
+              Theme settings
+            </p>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 );
+
+
+
 
 
 
