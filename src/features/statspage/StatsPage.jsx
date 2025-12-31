@@ -3,6 +3,7 @@ import { getAllRuns } from "../../lib/api/runApi.js";
 import { useQuery } from '@tanstack/react-query';
 import { useState } from "react";
 import { getUserId } from "../../lib/storage/userStorage.js";
+import { formatTime } from "../../lib/utils/formatters.js";
 import Metric from "../../components/metric.jsx";
 import DropsChartCard from "../../components/charts/DropsChartCard.jsx"
 
@@ -95,15 +96,7 @@ export default function StatsPage() {
     }
 
     const date = runData.StartTime;
-    const auDate = new Date(date).toLocaleTimeString("en-AU")
-
-    const parts = auDate.split(":");
-    const left = parts.slice(0, 2);
-    const right = parts.slice(2);
-
-    const ampm = right[0].split(" ")[1]; // "pm"
-    const time = left.join(":");         // "10:30"
-    const formattedTime = `${time} ${ampm}`; // "10:30 pm"
+    const formattedTime = formatTime(date); 
 
     const dropsChartData = 
         chartData?.data?.map(row => ({
