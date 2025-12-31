@@ -1,9 +1,16 @@
 import { LogoutBtn } from "../../components/buttons.jsx";
+import { ChevronLeft } from 'lucide-react';
+import { useNavigate } from "react-router-dom";
 
 export default function AccountPage({ logoutUser }) {
-
+    
+    const navigate = useNavigate();
     function handleLogout() {
         logoutUser()
+    }
+
+    function redirectToRun() {
+        navigate("/run");
     }
 
 return (
@@ -11,17 +18,30 @@ return (
 
     <div className="mx-auto w-full min-[430px]:max-w-[28rem] md:max-w-[90rem] h-full overflow-y-auto space-y-4 min-[390px]:space-y-3">
 
-      {/* TOP BAR */}
-      <div className="px-4 py-4 min-[390px]:px-5 min-[390px]:py-3 flex items-center justify-between">
-        <div className="flex items-center gap-3">
 
-          <div className="leading-tight">
-            <h2 className="text-lg min-[390px]:text-xl min-[430px]:text-2xl font-semibold text-gray-900">
-                Settings and activity
-            </h2>
-          </div>
-        </div>
-      </div>
+{/* TOP BAR */}
+<div className="px-4 py-4 min-[390px]:px-5 min-[390px]:py-3">
+  <div className="grid grid-cols-3 items-center">
+    {/* LEFT: Back */}
+    <button
+      type="button"
+      onClick={redirectToRun}
+      className="justify-self-start inline-flex items-center justify-center h-10 w-10 rounded-full hover:bg-gray-100 active:scale-95 transition"
+      aria-label="Go back"
+    >
+      <ChevronLeft className="h-6 w-6 text-gray-700" />
+    </button>
+
+    {/* CENTER: Title */}
+    <h2 className="justify-self-center text-lg min-[390px]:text-xl min-[430px]:text-2xl font-semibold text-gray-900">
+      Settings and activity
+    </h2>
+
+    {/* RIGHT: Spacer (or put a button here later) */}
+    <div className="justify-self-end h-10 w-10" />
+  </div>
+</div>
+
 
       {/* TABS */}
       <div className="bg-white border border-gray-200 shadow-sm rounded-2xl p-3 min-[390px]:p-4">
@@ -102,7 +122,7 @@ return (
         </button>
       </div>
         <div className="flex mt-5 justify-center">
-        <LogoutBtn handleOnClick={handleLogout} />
+            <LogoutBtn handleOnClick={handleLogout} className="w-[8.75rem] font-bold" />
     </div>
     </div>
 
