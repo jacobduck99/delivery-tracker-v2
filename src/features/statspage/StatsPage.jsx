@@ -3,7 +3,7 @@ import { getAllRuns } from "../../lib/api/runApi.js";
 import { useQuery } from '@tanstack/react-query';
 import { useState } from "react";
 import { getUserId } from "../../lib/storage/userStorage.js";
-import { formatTime } from "../../lib/utils/formatters.js";
+import { formatTime, formatMinutesAndSeconds } from "../../lib/utils/formatters.js";
 import Metric from "../../components/metric.jsx";
 import DropsChartCard from "../../components/charts/DropsChartCard.jsx"
 
@@ -57,14 +57,8 @@ export default function StatsPage() {
 
     const sourceSeconds = statsData?.data?.AverageTimeSeconds ?? 
             previousRunData?.data?.AverageTimeSeconds;
-
-    let readable = "";
-
-    if (sourceSeconds != null) {
-      const minutes = Math.floor(sourceSeconds / 60);
-      const seconds = Math.round(sourceSeconds % 60);
-      readable = `${minutes}m ${seconds}s`;
-    }
+    
+    const readable = formatMinutesAndSeconds(sourceSeconds);
 
     const previousRun = previousRunData?.data
     const selectedRun = statsData?.data

@@ -8,4 +8,10 @@ export function formatTime(date) {
     });
     }
 
+export function formatMinutesAndSeconds(time) {
+    if (time == null || isNaN(time)) return "N/A";
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}m ${seconds}s`;
+}
 
