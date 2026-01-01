@@ -135,7 +135,7 @@ return (
   <div className="w-full max-w-md">
     <label
       htmlFor="runs"
-      className="text-xs uppercase tracking-wide text-gray-500 block"
+      className="text-xs uppercase tracking-wide text-gray-500 block py-1 px-1"
     >
       Selected Run
     </label>
