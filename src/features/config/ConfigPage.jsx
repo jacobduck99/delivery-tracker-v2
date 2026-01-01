@@ -25,6 +25,10 @@ export default function Form() {
     setForm(prev => ({ ...prev, [field]: value }));
   }
 
+    function handleSkip() {
+        navigate("/run");
+    }
+
 
 async function handleSubmit(e) {
     e.preventDefault();
@@ -69,6 +73,15 @@ async function handleSubmit(e) {
 
   return (
     <main className={s.wrap}>
+  <div>
+   <button
+    type="button"
+    onClick={handleSkip}
+    className="absolute top-1 right-10 text-[1rem] font-semibold text-gray-700 hover:text-gray-900"
+  >
+    Skip
+  </button>
+  </div>
       <div className={s.container}> 
 <h1 className={s.title}>Love Coles</h1>
         <form onSubmit={handleSubmit}>
