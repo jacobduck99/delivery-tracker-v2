@@ -1,6 +1,8 @@
 import { getRunStats, getPreviousRun, getLast30Days } from "../../lib/api/statsApi.js";
+import { ChevronLeft } from 'lucide-react';
 import { getAllRuns } from "../../lib/api/runApi.js";
 import { useQuery } from '@tanstack/react-query';
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { getUserId } from "../../lib/storage/userStorage.js";
 import { formatTime, formatMinutesAndSeconds, formatChartDate, formatDate } from "../../lib/utils/formatters.js";
@@ -10,6 +12,7 @@ import DropsChartCard from "../../components/charts/DropsChartCard.jsx"
 export default function StatsPage() {
     const [selectedRunId, setSelectedRunId] = useState(null);
     const userId = getUserId();
+    const navigate = useNavigate();
     // 1️⃣ Load all runs for the dropdown
 
     if (!navigator.onLine) {
@@ -98,17 +101,33 @@ export default function StatsPage() {
     drops: row.drop_count,
       })) ?? []
 
+    function redirectToRun() {
+        navigate("/run");
+    }
+
 return (
+<div className="bg-gray-100 min-h-screen pb-6 sm:pb-10 lg:pb-12">
 
-<div className=" bg-gray-100 min-h-screen pb-6 sm:pb-10 lg:pb-12">
-
-  <div className="px-4 py-3 max-w-5xl mx-auto space-y-3 sm:space-y-5">
+  <div className="px-4 max-w-5xl mx-auto space-y-3 sm:space-y-5">
 
     {/* Header */}
-    <div className="flex flex-col items-center gap-1">
-      <h2 className="text-lg md:text-xl font-semibold tracking-tight text-gray-900">
+    <div className="px-4 py-4 min-[390px]:px-1 min-[390px]:py-1">
+    <div className="grid grid-cols-[40px_1fr_40px] items-center">
+
+    <button
+      type="button"
+      onClick={redirectToRun}
+      className="justify-self-start inline-flex items-center justify-center h-10 w-10 rounded-full hover:bg-gray-100 active:scale-95 transition"
+      aria-label="Go back"
+    >
+      <ChevronLeft className="h-6 w-6 text-gray-700" />
+    </button>
+    <h2 className="justify-self-center text-lg min-[390px]:text-lg min-[430px]:text-2xl font-semibold text-gray-900">
         Run Overview
       </h2>
+
+    <div className="justify-self-end h-10 w-10" />
+    </div>
     </div>
 
     {/* Controls */}
