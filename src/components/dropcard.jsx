@@ -73,7 +73,7 @@ if (drop.status === "Navigating") {
     <Card>
       <h2 className="text-[0.9rem] font-bold ">Drop {index}</h2>
 
-      <div className="flex-1 flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center">
         <button
           onClick={onArrived}
           className="w-70 bg-green-600 text-white py-2.5 rounded-full font-semibold hover:bg-blue-700"

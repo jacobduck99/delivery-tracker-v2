@@ -14,7 +14,7 @@ export default function AccountPage({ logoutUser }) {
     }
 
 return (
-  <div className="h-[100dvh] bg-gray-100 px-4 pt-4 min-[390px]:px-5 min-[430px]:px-6 overflow-hidden">
+  <div className="h-[100dvh] bg-gray-100 px-4 min-[390px]:px-5 min-[430px]:px-6 overflow-hidden">
 
     <div className="mx-auto w-full min-[430px]:max-w-[28rem] md:max-w-[90rem] h-full overflow-y-auto space-y-4 min-[390px]:space-y-3">
 
