@@ -71,7 +71,7 @@ export function LogoutBtn({ handleOnClick, className = "" }) {
 
 export function ConfigBtn({ handleOnClick }) {
   return (
-    <div className="flex justify-center mt-10">
+    <div className="flex justify-center mt-100">
       <button
         onClick={handleOnClick}
         className="w-[15rem] bg-blue-600 text-white py-2.5 rounded-full font-medium hover:bg-blue-700"
