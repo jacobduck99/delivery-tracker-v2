@@ -177,7 +177,7 @@ if (loading) {
 return (
   <div className="h-[100dvh] bg-gray-100 overflow-hidden
                   px-3 pt-2 pb-20
-                  min-[390px]:px-4 min-[390px]:pt-3
+                  min-[390px]:px-4 min-[390px]:pt-1
                   min-[430px]:px-6">
 
     {/* SCROLL CONTAINER */}
@@ -189,7 +189,7 @@ return (
                     lg:max-w-[52rem]">
 
       {/* HEADER + CIRCLE */}
-      <div className="space-y-1 min-[390px]:space-y-2">
+      <div className="space-y-1">
         <div className="text-[1.35rem] min-[390px]:text-[1.6rem] font-medium">
           Hello, Jacob
         </div>
@@ -293,7 +293,7 @@ return (
       </details>
 
       {/* END SHIFT */}
-      <div className="flex justify-center pt-6 min-[390px]:pt-10 pb-4">
+      <div className="flex justify-center pt-6 min-[390px]:pt-8 pb-4">
         {!modal && (
           <EndshiftBtn showModal={showModal} setIsEndShiftVisible={setIsEndShiftVisible} />
         )}
