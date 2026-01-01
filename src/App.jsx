@@ -66,7 +66,7 @@ export default function App() {
 
       const navigate = useNavigate();
       const location = useLocation();
-      const hideNavbar = location.pathname === "/config" || location.pathname === "/account" ;
+      const hideNavbar = location.pathname === "/config" || location.pathname === "/account" || location.pathname === "/stats";
     console.log("this is ur hide nav", hideNavbar);
 
     async function logoutUser() {
