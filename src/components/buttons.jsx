@@ -58,8 +58,8 @@ export function LogoutBtn({ handleOnClick, className = "" }) {
       className={[
         "h-10 px-4",
         "bg-orange-600 text-white",
-        "rounded-full font-medium",
-        "text-sm leading-none",
+        "rounded-full font-semibold",
+        "text-[0.95rem] leading-none",
         "hover:bg-orange-700",
         className,
       ].join(" ")}
