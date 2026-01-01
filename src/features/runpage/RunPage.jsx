@@ -39,8 +39,6 @@ import { syncDrops } from "./syncMachine.js";
 
 import { Camera } from 'lucide-react';
 
-// haven't cached any files for pwa do that once add more things
-
 export default function RunPage({ runId, setRunId }) {
     const [hasError, setHasError] = useState(false)
     const [drops, setDrops] = useState([]);
