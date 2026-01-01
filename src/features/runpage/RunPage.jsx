@@ -173,126 +173,142 @@ if (loading) {
         window.dispatchEvent(new Event("online")); 
     };
 
-// WHERE THE CIRCLE PROGRESS AND PAGE STARTS 
-return ( 
-  <div className="min-h-screen bg-gray-100 px-4 pt-1 pb-20">
-    <div className="md:flex md:justify-center">
-      <div className="w-full lg:mt-50 max-w-2xl md:flex md:flex-col md:items-center">
-        
-        <div className="text-[1.6rem] font-medium">
+// WHERE THE CIRCLE PROGRESS AND PAGE STARTS
+return (
+  <div className="h-[100dvh] bg-gray-100 overflow-hidden
+                  px-3 pt-2 pb-20
+                  min-[390px]:px-4 min-[390px]:pt-3
+                  min-[430px]:px-6">
+
+    {/* SCROLL CONTAINER */}
+    <div className="mx-auto h-full w-full overflow-y-auto overscroll-contain
+                    space-y-3 min-[390px]:space-y-4
+                    max-w-[26rem]
+                    min-[390px]:max-w-[28rem]
+                    md:max-w-[44rem]
+                    lg:max-w-[52rem]">
+
+      {/* HEADER + CIRCLE */}
+      <div className="space-y-1 min-[390px]:space-y-2">
+        <div className="text-[1.35rem] min-[390px]:text-[1.6rem] font-medium">
           Hello, Jacob
         </div>
 
-        <div className="font-extralight">
+        <div className="font-extralight text-sm min-[390px]:text-base">
           Here's todays run
         </div>
-        <Card> 
+
+        <Card>
           <Circleprogress
             completed={completedDrops.length}
             total={drops.length}
           />
         </Card>
       </div>
+
+      {/* COMPLETED */}
+      <details className="mb-2">
+        <summary className="flex items-center mt-3 min-[390px]:mt-5 gap-2
+                            text-[0.95rem] min-[390px]:text-[1rem]
+                            font-medium cursor-pointer">
+          <span>Completed</span>
+
+          <span className="bg-green-200 text-green-700 text-xs px-2 py-0.5 rounded-full">
+            {completedDrops.length}
+          </span>
+
+          <span className="text-gray-500 text-lg leading-none transition-transform group-open:rotate-90">
+            ▸
+          </span>
+        </summary>
+
+        <ul className="mt-3 space-y-3 min-[390px]:space-y-4">
+          {completedDrops.map((drop, index) => (
+            <Dropcard
+              key={drop.drop_idx ?? index}
+              index={drop.drop_idx}
+              drop={drop}
+              onChangeStatus={onChangeStatus}
+              onChangeAddress={onChangeAddress}
+              onChangeStart={onChangeStart}
+              onChangeStop={onChangeStop}
+              onChangeElapsed={onChangeElapsed}
+              onChangeSyncStatus={onChangeSyncStatus}
+              savePendingDrop={savePendingDrop}
+            />
+          ))}
+        </ul>
+      </details>
+
+      {/* CURRENT DROP */}
+      <section className="mt-4 min-[390px]:mt-6">
+        {currentDrop && (
+          <Dropcard
+            key={currentDrop.drop_idx}
+            index={currentDrop.drop_idx}
+            drop={currentDrop}
+            onChangeStatus={onChangeStatus}
+            onChangeAddress={onChangeAddress}
+            onChangeStart={onChangeStart}
+            onChangeStop={onChangeStop}
+            onChangeElapsed={onChangeElapsed}
+            onChangeSyncStatus={onChangeSyncStatus}
+            savePendingDrop={savePendingDrop}
+          />
+        )}
+      </section>
+
+      {/* UPCOMING DROPS */}
+      <details className="mb-2">
+        <summary className="flex items-center gap-2
+                            text-[0.95rem] min-[390px]:text-[1rem]
+                            font-medium cursor-pointer">
+          <span>Remaining</span>
+
+          <span className="bg-green-200 text-green-700 text-xs px-2 py-0.5 rounded-full">
+            {remainingUpcoming.length}
+          </span>
+
+          <span className="text-gray-500 text-lg leading-none transition-transform group-open:rotate-90">
+            ▸
+          </span>
+        </summary>
+
+        <ul className="mt-3 space-y-3 min-[390px]:space-y-4">
+          {remainingUpcoming.map((drop, index) => (
+            <Dropcard
+              key={drop.drop_idx ?? index}
+              index={drop.drop_idx}
+              drop={drop}
+              onChangeStatus={onChangeStatus}
+              onChangeAddress={onChangeAddress}
+              onChangeStart={onChangeStart}
+              onChangeStop={onChangeStop}
+              onChangeElapsed={onChangeElapsed}
+              onChangeSyncStatus={onChangeSyncStatus}
+              savePendingDrop={savePendingDrop}
+            />
+          ))}
+        </ul>
+      </details>
+
+      {/* END SHIFT */}
+      <div className="flex justify-center pt-6 min-[390px]:pt-10 pb-4">
+        {!modal && (
+          <EndshiftBtn showModal={showModal} setIsEndShiftVisible={setIsEndShiftVisible} />
+        )}
+
+        {modal && (
+          <EndShiftModal
+            showModal={showModal}
+            setIsEndShiftVisible={setIsEndShiftVisible}
+            handleEndShift={handleEndShift}
+          />
+        )}
+      </div>
+
     </div>
-
-    <details className="mb-4 md:flex md:justify-center">
-  
-<summary className="flex items-center mt-5 gap-2 text-[1rem] font-medium cursor-pointer">
-  <span>Completed</span>
-
-  <span className="bg-green-200 text-green-700 text-xs px-2 py-0.5 rounded-full">
-    {completedDrops.length}
-  </span>
-
-  <span className="text-gray-500 text-lg leading-none transition-transform group-open:rotate-90">
-    ▸
-  </span>
-</summary>
-
-      
-    <ul className="mt-3 space-y-4 md:flex md:flex-col md:items-center">
-
-        {completedDrops.map((drop, index) => (
-          <Dropcard
-            key={drop.drop_idx ?? index}
-            index={drop.drop_idx}
-            drop={drop}
-            onChangeStatus={onChangeStatus}
-            onChangeAddress={onChangeAddress}
-            onChangeStart={onChangeStart}
-            onChangeStop={onChangeStop}
-            onChangeElapsed={onChangeElapsed}
-            onChangeSyncStatus={onChangeSyncStatus}
-            savePendingDrop={savePendingDrop}
-          />
-        ))}
-      </ul>
-    </details>
-
-    {/* Current Drop */}
-    <section className="drops mt-6 mb-6">
-      {currentDrop && (
-        <Dropcard
-          key={currentDrop.drop_idx}
-          index={currentDrop.drop_idx}
-          drop={currentDrop}
-          onChangeStatus={onChangeStatus}
-          onChangeAddress={onChangeAddress}
-          onChangeStart={onChangeStart}
-          onChangeStop={onChangeStop}
-          onChangeElapsed={onChangeElapsed}
-          onChangeSyncStatus={onChangeSyncStatus}
-          savePendingDrop={savePendingDrop}
-        />
-      )}
-    </section>
-
-    {/* Upcoming Drops */}
-     <details className="mb-4 md:flex md:justify-center">
-
-      <summary className="flex items-center gap-2 text-[1rem] font-medium cursor-pointer">
-        <span>Remaining</span>
-        <span className="bg-green-200 text-green-700 text-xs px-2 py-0.5 rounded-full">
-          {remainingUpcoming.length}
-        </span>
-
-        <span className="text-gray-500 text-lg leading-none transition-transform group-open:rotate-90">
-    ▸
-  </span>
-      </summary>
-
-      <ul className="space-y-4 mt-3">
-        {remainingUpcoming.map((drop, index) => (
-          <Dropcard
-            key={drop.drop_idx ?? index}
-            index={drop.drop_idx}
-            drop={drop}
-            onChangeStatus={onChangeStatus}
-            onChangeAddress={onChangeAddress}
-            onChangeStart={onChangeStart}
-            onChangeStop={onChangeStop}
-            onChangeElapsed={onChangeElapsed}
-            onChangeSyncStatus={onChangeSyncStatus}
-            savePendingDrop={savePendingDrop}
-          />
-        ))}
-      </ul>
-    </details>
-
-<div className="flex mt-14 justify-center">
-
-  {!modal && (
-    <EndshiftBtn showModal={showModal} setIsEndShiftVisible={setIsEndShiftVisible} />
-  )}
-
-  {modal && (
-    <EndShiftModal 
-      showModal={showModal} 
-      setIsEndShiftVisible={setIsEndShiftVisible}
-      handleEndShift={handleEndShift}
-    />
-  )}
-</div>
-</div>
+  </div>
 );
+
 }
