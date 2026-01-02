@@ -37,8 +37,6 @@ import {
 
 import { syncDrops } from "./syncMachine.js";
 
-import { Camera } from 'lucide-react';
-
 export default function RunPage({ runId, setRunId }) {
     const [hasError, setHasError] = useState(false)
     const [drops, setDrops] = useState([]);
