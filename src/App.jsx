@@ -20,6 +20,7 @@ export default function App() {
   // React controlled auth state
     const [runId, setRunId] = useState(null);
     const [loggedIn, setLoggedIn] = useState(() => !!getUserId("user_id"));
+    
 
   useEffect(() => {
     async function syncEndShift() {
@@ -63,6 +64,7 @@ export default function App() {
     );
 
     function AppLayout() {
+const [displayName, setDisplayName] = useState("");
 
       const navigate = useNavigate();
       const location = useLocation();
@@ -99,7 +101,7 @@ export default function App() {
             <Route path="/config" element={<ConfigPage />} />
             <Route path="/run" element={<RunPage runId={runId} setRunId={setRunId} />} />
             <Route path="/stats" element={<StatsPage />} />
-            <Route path="/account" element={<AccountPage logoutUser={logoutUser} />} />
+            <Route path="/account" element={<AccountPage setDisplayName={setDisplayName} displayName={displayName} logoutUser={logoutUser} />} />
 
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>

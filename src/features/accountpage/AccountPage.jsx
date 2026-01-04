@@ -5,10 +5,9 @@ import { useState } from "react";
 import { saveProfile } from "../../lib/api/profileApi.js";
 import { getUserId } from "../../lib/storage/userStorage.js";
 
-export default function AccountPage({ logoutUser }) {
+export default function AccountPage({ logoutUser, displayName, setDisplayName }) {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState("profile"); // "profile" | "security" | "preferences"
-    const [displayName, setDisplayName] = useState("");
     const userId = getUserId();
 
     console.log("this is ur name", displayName);
