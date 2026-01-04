@@ -26,7 +26,7 @@ def get_profile(userId):
 
     return jsonify({"ok": True, "profile": row }), 200
 
-@profile_bp.post("/profile/<int:userId>")
+@profile_bp.post("/profile")
 def update_profile(userId):
     if request.method === "OPTIONS": 
         return ("", 204)
