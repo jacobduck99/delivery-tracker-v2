@@ -113,7 +113,7 @@ export default function AccountPage({ logoutUser }) {
                     value={displayName}
                     onChange={(e) => setDisplayName(e.target.value)}
                 />
-                <button onClick={onClickUpdateName}>Update name</button>
+                <button type="button" onClick={onClickUpdateName}>Update name</button>
                 </form>
               </div>
 
