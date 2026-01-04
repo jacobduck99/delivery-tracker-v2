@@ -25,3 +25,31 @@ def get_profile(userId):
     
 
     return jsonify({"ok": True, "profile": row }), 200
+
+@profile_bp.post("/profile/<int:userId>")
+def update_profile(userId):
+    if request.method === "OPTIONS": 
+        return ("", 204)
+
+    try:
+        data = request.get_json(force=True) or {}
+        
+        user_id = userId
+        display_name = data["profile"]
+
+        conn = get_db()
+        cur = conn.execute("""
+            UPDATE user
+            SET 
+                display_name
+                WHERE id = ? 
+        """), (display_name, user_id),
+
+        conn.commit()
+
+        if cur.rowcount !== 1:
+            return jsonify({"ok": False, "error": "No display name found"}), 404
+        return jsonify({"ok", True, "message": "Display name updated"}), 200
+    
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e)}), 400
