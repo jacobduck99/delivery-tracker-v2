@@ -15,13 +15,30 @@ import { syncDrops } from "././features/runpage/syncMachine.js";
 import Navbar from "./components/navbar.jsx";
 import { logout } from "./lib/api/logoutApi.js";
 import { clearAccount } from "./lib/storage/logoutStorage.js";
+import { getProfile } from "./lib/api/profileApi.js";
 
 export default function App() {
   // React controlled auth state
     const [runId, setRunId] = useState(null);
     const [loggedIn, setLoggedIn] = useState(() => !!getUserId("user_id"));
     const [displayName, setDisplayName] = useState("");
-    
+
+    useEffect(() => {
+      async function getProfileName() {
+        const userId = getUserId();
+        const result = await getProfile(userId);
+
+        console.log("profile result:", result);
+
+        if (result.ok) {
+          setDisplayName(result.profile);
+        } else {
+          setDisplayName("user");
+        }
+      }
+
+      getProfileName();
+    }, []);
 
   useEffect(() => {
     async function syncEndShift() {

@@ -18,13 +18,13 @@ def get_profile(userId):
     WHERE id = ? 
     """, (userId,),
                        )
-    row = cur.fetchone()
+    displayName = cur.fetchone()
 
-    if row is None: 
+    if displayName is None: 
         return jsonify({"ok": True, "profile": None}), 200 
     
 
-    return jsonify({"ok": True, "profile": row }), 200
+    return jsonify({"ok": True, "profile": displayName }), 200
 
 @profile_bp.route("/profile", methods=["POST", "OPTIONS"])
 def update_profile():
