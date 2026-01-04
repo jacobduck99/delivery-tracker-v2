@@ -104,16 +104,46 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
 
             <div className="divide-y divide-gray-100">
               <div className="py-3 flex flex-col min-[390px]:py-4">
-            <form>
-                <label className="text-xs flex min-[390px]:text-sm text-gray-500" htmlFor="name">Display name</label>
-                <input
-                    id="name"
-                    type="text"
-                    value={displayName}
-                    onChange={(e) => setDisplayName(e.target.value)}
-                />
-                <button type="button" onClick={onClickUpdateName}>Update name</button>
-                </form>
+            
+
+<form className="space-y-2">
+  <label
+    className="text-xs min-[390px]:text-sm text-gray-500"
+    htmlFor="name"
+  >
+    Display name
+  </label>
+
+  <div className="flex items-center gap-2">
+    <input
+      id="name"
+      type="text"
+      value={displayName}
+      onChange={(e) => setDisplayName(e.target.value)}
+      className="w-[14rem] min-[390px]:w-[16rem] rounded-xl border border-gray-200 bg-white px-3 py-2.5
+                 text-sm min-[390px]:text-base text-gray-900
+                 placeholder:text-gray-400
+                 focus:outline-none focus:ring-2 focus:ring-gray-200"
+      placeholder="Enter a display name"
+    />
+
+    <button
+      type="button"
+      onClick={onClickUpdateName}
+      disabled={!displayName.trim()}
+      className="inline-flex items-center justify-center rounded-xl px-4 py-2.5
+                 text-sm min-[390px]:text-base font-semibold
+                 bg-gray-900 text-white shadow-sm
+                 hover:bg-gray-800 active:scale-[0.98] transition
+                 disabled:opacity-50 
+                 disabled:hover:bg-gray-900 disabled:active:scale-100"
+    >
+      Update
+    </button>
+  </div>
+</form>
+
+
               </div>
 
               <div className="py-3 min-[390px]:py-4">
