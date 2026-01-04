@@ -20,6 +20,7 @@ export default function App() {
   // React controlled auth state
     const [runId, setRunId] = useState(null);
     const [loggedIn, setLoggedIn] = useState(() => !!getUserId("user_id"));
+    const [displayName, setDisplayName] = useState("");
     
 
   useEffect(() => {
@@ -64,12 +65,12 @@ export default function App() {
     );
 
     function AppLayout() {
-const [displayName, setDisplayName] = useState("");
+        const [displayName, setDisplayName] = useState("");
 
-      const navigate = useNavigate();
-      const location = useLocation();
-      const hideNavbar = location.pathname === "/config" || location.pathname === "/account" || location.pathname === "/stats";
-    console.log("this is ur hide nav", hideNavbar);
+        const navigate = useNavigate();
+        const location = useLocation();
+        const hideNavbar = location.pathname === "/config" || location.pathname === "/account" || location.pathname === "/stats";
+        console.log("this is ur hide nav", hideNavbar);
 
     async function logoutUser() {
             const result = await logout();
