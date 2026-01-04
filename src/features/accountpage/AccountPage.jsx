@@ -2,11 +2,14 @@ import { LogoutBtn } from "../../components/buttons.jsx";
 import { ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { saveProfile } from "../../lib/api/profileApi.js";
+import { getUserId } from "../../lib/storage/userStorage.js";
 
 export default function AccountPage({ logoutUser }) {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState("profile"); // "profile" | "security" | "preferences"
     const [displayName, setDisplayName] = useState("");
+    const userId = getUserId();
 
     console.log("this is ur name", displayName);
 
@@ -17,6 +20,15 @@ export default function AccountPage({ logoutUser }) {
     function redirectToRun() {
         navigate("/run");
       }
+
+    async function onClickUpdateName() {
+        const payload = { displayName: displayName.trim(), userId };
+        try {
+            await saveProfile(payload);
+          } catch (e) {
+            console.log("Couldn't save name", e);
+          }
+        }
 
   const tabBase =
     "flex-1 rounded-lg font-medium py-2 text-sm min-[390px]:py-2.5 min-[390px]:text-base transition";
@@ -101,6 +113,7 @@ export default function AccountPage({ logoutUser }) {
                     value={displayName}
                     onChange={(e) => setDisplayName(e.target.value)}
                 />
+                <button onClick={onClickUpdateName}>Update name</button>
                 </form>
               </div>
 

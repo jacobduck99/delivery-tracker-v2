@@ -27,29 +27,34 @@ def get_profile(userId):
     return jsonify({"ok": True, "profile": row }), 200
 
 @profile_bp.post("/profile")
-def update_profile(userId):
-    if request.method === "OPTIONS": 
+def update_profile():
+    if request.method == "OPTIONS":
         return ("", 204)
 
     try:
-        data = request.get_json(force=True) or {}
-        
-        user_id = userId
-        display_name = data["profile"]
+        data = request.get_json(silent=True) or {}
+
+        user_id = data.get("userId")
+        display_name = (data.get("displayName") or "").strip()
+
+        if not user_id:
+            return jsonify({"ok": False, "error": "userId required"}), 400
+        if not display_name:
+            return jsonify({"ok": False, "error": "displayName required"}), 400
 
         conn = get_db()
-        cur = conn.execute("""
-            UPDATE user
-            SET 
-                display_name
-                WHERE id = ? 
-        """), (display_name, user_id),
+        cur = conn.execute(
+            """
+            UPDATE users
+            SET display_name = ?
+            WHERE id = ?
+            """,
+            (display_name, user_id),
+        )
+        conn.commit() if cur.rowcount != 1:
+            return jsonify({"ok": False, "error": "User not found"}), 404
 
-        conn.commit()
+        return jsonify({"ok": True, "message": "Display name updated"}), 200
 
-        if cur.rowcount !== 1:
-            return jsonify({"ok": False, "error": "No display name found"}), 404
-        return jsonify({"ok", True, "message": "Display name updated"}), 200
-    
     except Exception as e:
         return jsonify({"ok": False, "error": str(e)}), 400
