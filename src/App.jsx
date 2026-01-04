@@ -21,7 +21,7 @@ export default function App() {
   // React controlled auth state
     const [runId, setRunId] = useState(null);
     const [loggedIn, setLoggedIn] = useState(() => !!getUserId("user_id"));
-    const [displayName, setDisplayName] = useState("");
+    const [profileName, setProfileName] = useState("");
 
     useEffect(() => {
       async function getProfileName() {
@@ -31,9 +31,10 @@ export default function App() {
         console.log("profile result:", result);
 
         if (result.ok) {
-          setDisplayName(result.profile);
+          setProfileName(result.profile);
+                console.log("heres ur name", profileName);
         } else {
-          setDisplayName("user");
+          setProfileName("user");
         }
       }
 
@@ -117,7 +118,7 @@ export default function App() {
             <Route path="/signup" element={<SignupPage setLoggedIn={setLoggedIn}/>} />
 
             <Route path="/config" element={<ConfigPage />} />
-            <Route path="/run" element={<RunPage runId={runId} setRunId={setRunId} />} />
+            <Route path="/run" element={<RunPage runId={runId} setRunId={setRunId} profileName={profileName} />} />
             <Route path="/stats" element={<StatsPage />} />
             <Route path="/account" element={<AccountPage setDisplayName={setDisplayName} displayName={displayName} logoutUser={logoutUser} />} />
 
