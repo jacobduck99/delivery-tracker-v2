@@ -20,13 +20,13 @@ def get_profile(userId):
                        )
     row = cur.fetchone()
 
-    if row is None:
+    if row is None: 
         return jsonify({"ok": True, "profile": None}), 200 
     
 
     return jsonify({"ok": True, "profile": row }), 200
 
-@profile_bp.route("/profile")
+@profile_bp.route("/profile", methods=["POST", "OPTIONS"])
 def update_profile():
     if request.method == "OPTIONS":
         return ("", 204)
@@ -51,7 +51,8 @@ def update_profile():
             """,
             (display_name, user_id),
         )
-        conn.commit() if cur.rowcount != 1:
+        conn.commit()
+        if cur.rowcount != 1:
             return jsonify({"ok": False, "error": "User not found"}), 404
 
         return jsonify({"ok": True, "message": "Display name updated"}), 200
