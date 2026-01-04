@@ -4,16 +4,19 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export default function AccountPage({ logoutUser }) {
-  const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("profile"); // "profile" | "security" | "preferences"
+    const navigate = useNavigate();
+    const [activeTab, setActiveTab] = useState("profile"); // "profile" | "security" | "preferences"
+    const [displayName, setDisplayName] = useState("");
 
-  function handleLogout() {
-    logoutUser();
-  }
+    console.log("this is ur name", displayName);
 
-  function redirectToRun() {
-    navigate("/run");
-  }
+    function handleLogout() {
+        logoutUser();
+      }
+
+    function redirectToRun() {
+        navigate("/run");
+      }
 
   const tabBase =
     "flex-1 rounded-lg font-medium py-2 text-sm min-[390px]:py-2.5 min-[390px]:text-base transition";
@@ -89,11 +92,16 @@ export default function AccountPage({ logoutUser }) {
             </div>
 
             <div className="divide-y divide-gray-100">
-              <div className="py-3 min-[390px]:py-4">
-                <p className="text-xs min-[390px]:text-sm text-gray-500">Name</p>
-                <p className="text-base min-[390px]:text-lg font-medium text-gray-900">
-                  Jacob Duckworth
-                </p>
+              <div className="py-3 flex flex-col min-[390px]:py-4">
+            <form>
+                <label className="text-xs flex min-[390px]:text-sm text-gray-500" htmlFor="name">Display name</label>
+                <input
+                    id="name"
+                    type="text"
+                    value={displayName}
+                    onChange={(e) => setDisplayName(e.target.value)}
+                />
+                </form>
               </div>
 
               <div className="py-3 min-[390px]:py-4">
