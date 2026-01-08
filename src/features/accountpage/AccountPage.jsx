@@ -246,7 +246,6 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
                 Update your login security
               </p>
             </div>
-            <span className="text-gray-400 text-xl leading-none">›</span>
           </button>
 
           <button className="w-full text-left px-4 py-4 min-[390px]:px-5 hover:bg-gray-50 flex items-center justify-between border-t border-gray-100">
