@@ -9,8 +9,10 @@ import { getUserId } from "../../lib/storage/userStorage.js";
 export default function AccountPage({ logoutUser, displayName, setDisplayName }) {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState("profile"); // "profile" | "security" | "preferences"
-    const [changePassword, setChangedPassword] = useState("");
+    const [changedPassword, setChangedPassword] = useState("");
     const userId = getUserId();
+
+    console.log("heres pw", changedPassword);
 
     function handleLogout() {
         logoutUser();
@@ -30,7 +32,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
         }
 
     async function onClickUpdatePassword() {
-        const payload = { updatedPassword: changePassword.trim(), userId };
+        const payload = { updatedPassword: changedPassword.trim(), userId };
         try {
             await updatePassword(payload);
         } catch (e) {
@@ -190,10 +192,10 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
 
               <div className="flex items-center gap-2">
                 <input
-                  id="changePassword"
+                  id="changedPassword"
                   type="text"
-                  value={changePassword}
-                  onChange={(e) => setChangePassword(e.target.value)}
+                  value={changedPassword}
+                  onChange={(e) => setChangedPassword(e.target.value)}
                   className="w-[14rem] mt-1 min-[390px]:w-[16rem] rounded-xl border border-gray-200 bg-white px-3 py-2.5
                              text-sm min-[390px]:text-base text-gray-900
                              placeholder:text-gray-400
@@ -204,7 +206,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
                 <button
                   type="button"
                   onClick={onClickUpdatePassword}
-                  disabled={!changePassword.trim()}
+                  disabled={!changedPassword.trim()}
                   className="inline-flex mt-1 items-center justify-center rounded-xl px-4 py-2.5
                              text-sm min-[390px]:text-base font-semibold
                              bg-gray-900 text-white shadow-sm

@@ -2,7 +2,7 @@
 const API_BASE = import.meta.env.VITE_API_URL;
 
 export async function updatePassword(payload) {
-  const url = `${API_BASE}/api/updatePassword`; // TEMP: bypass Vite proxy
+  const url = `${API_BASE}/api/auth/updatePassword`; // TEMP: bypass Vite proxy
   let res;
   try {
     res = await fetch(url, {

@@ -92,15 +92,17 @@ def me():
 @auth_bp.post("/updatePassword")
 def changePassword():
     if not request.is_json:
-        return jsonify({"ok": False, "error": "Expected JSON"}), 400
+        return jsonify({"ok": false, "error": "Expected JSON"}), 400
     try: 
 
         data = request.get_json()
         updated_password = data.get("updatedPassword") 
         user_id = data.get("userId")
         
+        if not user_id:
+            return jsonify(ok=False, error="userId required"), 400 
         if not updated_password:
-            return jsonify({"ok", False, "error": "Can't update password"}), 400
+            return jsonify(ok=False, error="updatedPassword required"), 400
         
          
         conn = get_db()
@@ -114,9 +116,9 @@ def changePassword():
         )
         conn.commit()
         if cur.rowcount != 1:
-                return jsonify({"ok": false, "error": "user not found"}), 404
+            return jsonify(ok=False, error="User not found"), 404
 
-            return jsonify({"ok": true, "message": "Password updated"}), 200
+        return jsonify(ok=True, message="Password updated"), 200
 
     except Exception as e:
-        return jsonify({"ok": False, "error": str(e)}), 400
+        return jsonify(ok=False, error=str(e)), 400
