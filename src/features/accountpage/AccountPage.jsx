@@ -167,16 +167,43 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
             </div>
 
             <div className="divide-y divide-gray-100">
-              <button
-                type="button"
-                className="w-full text-left py-3 min-[390px]:py-4 hover:bg-gray-50 rounded-xl px-2 -mx-2"
+             
+            <form className="space-y-2">
+              <label
+                className="text-xs min-[390px]:text-sm text-gray-500"
+                htmlFor="changePassword"
               >
-                <p className="text-sm font-medium text-gray-900">Change password</p>
-                <p className="text-xs min-[390px]:text-sm text-gray-500">
-                  Update your login security
-                </p>
-              </button>
+                Update password
+              </label>
 
+              <div className="flex items-center gap-2">
+                <input
+                  id="changePassword"
+                  type="text"
+                  value={changePassword}
+                  onChange={(e) => setDisplayName(e.target.value)}
+                  className="w-[14rem] mt-1 min-[390px]:w-[16rem] rounded-xl border border-gray-200 bg-white px-3 py-2.5
+                             text-sm min-[390px]:text-base text-gray-900
+                             placeholder:text-gray-400
+                             focus:outline-none focus:ring-2 focus:ring-gray-200"
+                  placeholder="Change your password"
+                />
+
+                <button
+                  type="button"
+                  onClick={onClickUpdateName}
+                  disabled={!displayName.trim()}
+                  className="inline-flex mt-1 items-center justify-center rounded-xl px-4 py-2.5
+                             text-sm min-[390px]:text-base font-semibold
+                             bg-gray-900 text-white shadow-sm
+                             hover:bg-gray-800 active:scale-[0.98] transition
+                             disabled:opacity-50 
+                             disabled:hover:bg-gray-900 disabled:active:scale-100"
+                >
+                  Update
+                </button>
+              </div>
+            </form>
               <button
                 type="button"
                 className="w-full text-left py-3 min-[390px]:py-4 hover:bg-gray-50 rounded-xl px-2 -mx-2"
