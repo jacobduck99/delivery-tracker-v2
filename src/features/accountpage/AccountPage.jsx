@@ -3,11 +3,13 @@ import { ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { saveProfile } from "../../lib/api/profileApi.js";
+import { updatePassword } from "../../lib/api/authApi.js";
 import { getUserId } from "../../lib/storage/userStorage.js";
 
 export default function AccountPage({ logoutUser, displayName, setDisplayName }) {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState("profile"); // "profile" | "security" | "preferences"
+    const [changePassword, setChangedPassword] = useState("");
     const userId = getUserId();
 
     function handleLogout() {
@@ -26,6 +28,16 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
             console.log("Couldn't save name", e);
           }
         }
+
+    async function onClickUpdatePassword() {
+        const payload = { password: changePassword.trim(), userId };
+        try {
+            await updatePassword(payload);
+        } catch (e) {
+            console.log("Couldn't update password");
+        }
+
+    }
 
   const tabBase =
     "flex-1 rounded-lg font-medium py-2 text-sm min-[390px]:py-2.5 min-[390px]:text-base transition";
@@ -181,7 +193,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
                   id="changePassword"
                   type="text"
                   value={changePassword}
-                  onChange={(e) => setDisplayName(e.target.value)}
+                  onChange={(e) => setChangePassword(e.target.value)}
                   className="w-[14rem] mt-1 min-[390px]:w-[16rem] rounded-xl border border-gray-200 bg-white px-3 py-2.5
                              text-sm min-[390px]:text-base text-gray-900
                              placeholder:text-gray-400
@@ -191,8 +203,8 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
 
                 <button
                   type="button"
-                  onClick={onClickUpdateName}
-                  disabled={!displayName.trim()}
+                  onClick={onClickUpdatePassword}
+                  disabled={!changePassword.trim()}
                   className="inline-flex mt-1 items-center justify-center rounded-xl px-4 py-2.5
                              text-sm min-[390px]:text-base font-semibold
                              bg-gray-900 text-white shadow-sm
