@@ -104,6 +104,7 @@ def changePassword():
         if not updated_password:
             return jsonify(ok=False, error="updatedPassword required"), 400
         
+        new_hash = generate_password_hash(updated_password)
          
         conn = get_db()
         cur = conn.execute(
@@ -112,7 +113,7 @@ def changePassword():
             SET password_hash = ?
             WHERE id = ?
             """,
-            (updated_password, user_id),
+            (new_hash, user_id),
         )
         conn.commit()
         if cur.rowcount != 1:
