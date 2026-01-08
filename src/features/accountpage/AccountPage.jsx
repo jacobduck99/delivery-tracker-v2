@@ -218,15 +218,6 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
                 </button>
               </div>
             </form>
-              <button
-                type="button"
-                className="w-full text-left py-3 min-[390px]:py-4 hover:bg-gray-50 rounded-xl px-2 -mx-2"
-              >
-                <p className="text-sm font-medium text-gray-900">Active sessions</p>
-                <p className="text-xs min-[390px]:text-sm text-gray-500">
-                  Review devices signed in
-                </p>
-              </button>
             </div>
           </div>
         )}
