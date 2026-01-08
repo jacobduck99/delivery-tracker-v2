@@ -10,8 +10,6 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
     const [activeTab, setActiveTab] = useState("profile"); // "profile" | "security" | "preferences"
     const userId = getUserId();
 
-    console.log("this is ur name", displayName);
-
     function handleLogout() {
         logoutUser();
       }
@@ -239,7 +237,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
             </p>
           </div>
 
-          <button className="w-full text-left px-4 py-4 min-[390px]:px-5 hover:bg-gray-50 flex items-center justify-between">
+          <button onClick={() => setActiveTab("security")}className="w-full text-left px-4 py-4 min-[390px]:px-5 hover:bg-gray-50 flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-900">Change password</p>
               <p className="text-xs min-[390px]:text-sm text-gray-500">
