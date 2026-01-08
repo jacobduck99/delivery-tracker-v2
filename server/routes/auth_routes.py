@@ -88,3 +88,35 @@ def me():
     if current_user.is_authenticated:
         return jsonify({"ok": True, "user": {"id": current_user.id, "email": current_user.email}})
     return jsonify({"ok": False, "user": None}), 200
+
+@auth_bp.post("/updatePassword")
+def changePassword():
+    if not request.is_json:
+        return jsonify({"ok": False, "error": "Expected JSON"}), 400
+    try: 
+
+        data = request.get_json()
+        updated_password = data.get("updatedPassword") 
+        user_id = data.get("userId")
+        
+        if not updated_password:
+            return jsonify({"ok", False, "error": "Can't update password"}), 400
+        
+         
+        conn = get_db()
+        cur = conn.execute(
+            """
+            UPDATE users
+            SET password_hash = ?
+            WHERE id = ?
+            """,
+            (updated_password, user_id),
+        )
+        conn.commit()
+        if cur.rowcount != 1:
+                return jsonify({"ok": false, "error": "user not found"}), 404
+
+            return jsonify({"ok": true, "message": "Password updated"}), 200
+
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e)}), 400

@@ -30,7 +30,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
         }
 
     async function onClickUpdatePassword() {
-        const payload = { password: changePassword.trim(), userId };
+        const payload = { updatedPassword: changePassword.trim(), userId };
         try {
             await updatePassword(payload);
         } catch (e) {
