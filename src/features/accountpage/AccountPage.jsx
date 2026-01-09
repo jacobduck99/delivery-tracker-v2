@@ -184,7 +184,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
              
             <form className="space-y-2">
               <label
-                className="text-xs min-[390px]:text-sm text-gray-500"
+                className="text-xs min-[390px]:text-sm px-1 text-gray-500"
                 htmlFor="changePassword"
               >
                 Update password
