@@ -27,8 +27,11 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
         const payload = { displayName: displayName.trim(), userId };
         try {
             setStatus("saving");
+            await new Promise((resolve) => setTimeout(resolve, 1000));
             await saveProfile(payload);
             setStatus("success");
+            await new Promise((resolve) => setTimeout(resolve, 3000));
+            setStatus("idle");
           } catch (e) {
             setStatus("error");
             console.log("Couldn't save name", e);
@@ -38,8 +41,11 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
     async function onClickUpdatePassword() {
         const payload = { updatedPassword: changedPassword.trim(), userId };
         try {
+            setStatus("saving");
             await updatePassword(payload);
+            setStatus("saved");
         } catch (e) {
+            setStatus("error");
             console.log("Couldn't update password");
         }
 
@@ -219,12 +225,12 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
                   disabled={!changedPassword.trim()}
                   className="inline-flex mt-1 items-center justify-center rounded-xl px-4 py-2
                              text-sm min-[390px]:text-base font-semibold
-                             bg-gray-900 text-white shadow-sm
-                             hover:bg-gray-800 active:scale-[0.98] transition
-                             disabled:opacity-50 
-                             disabled:hover:bg-gray-900 disabled:active:scale-100"
+                             bg-blue-600 text-white shadow-sm
+                             hover:bg-blue-700 active:scale-[0.98] transition
+                             disabled:opacity-90 
+                             disabled:hover:bg-blue-600 disabled:active:scale-100"
                 >
-                  Update
+                {renderButtonContent(status)}
                 </button>
               </div>
             </form>
