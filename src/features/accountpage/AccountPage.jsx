@@ -144,7 +144,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
 
                 <button
                   type="button"
-                  onClick={() => {onClickUpdateName}}
+                  onClick={onClickUpdateName}
                   disabled={!displayName.trim()}
                   className="inline-flex mt-1 items-center justify-center rounded-xl px-4 py-2
                              text-sm min-[390px]:text-base font-semibold
@@ -152,8 +152,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
                              hover:bg-gray-800 active:scale-[0.98] transition
                              disabled:opacity-50 
                              disabled:hover:bg-gray-900 disabled:active:scale-100"
-                >
-                  Update
+                >Update
                 </button>
               </div>
             </form>
