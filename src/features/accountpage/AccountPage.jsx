@@ -132,7 +132,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
                   type="text"
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
-                  className="w-[14rem] mt-1 min-[390px]:w-[16rem] rounded-xl border border-gray-200 bg-white px-3 py-2.5
+                  className="w-[14rem] mt-1 min-[390px]:w-[13rem] rounded-xl border border-gray-200 bg-white px-3 py-2
                              text-sm min-[390px]:text-base text-gray-900
                              placeholder:text-gray-400
                              focus:outline-none focus:ring-2 focus:ring-gray-200"
@@ -143,7 +143,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
                   type="button"
                   onClick={onClickUpdateName}
                   disabled={!displayName.trim()}
-                  className="inline-flex mt-1 items-center justify-center rounded-xl px-4 py-2.5
+                  className="inline-flex mt-1 items-center justify-center rounded-xl px-4 py-2
                              text-sm min-[390px]:text-base font-semibold
                              bg-gray-900 text-white shadow-sm
                              hover:bg-gray-800 active:scale-[0.98] transition
@@ -196,7 +196,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
                   type="text"
                   value={changedPassword}
                   onChange={(e) => setChangedPassword(e.target.value)}
-                  className="w-[14rem] mt-1 min-[390px]:w-[16rem] rounded-xl border border-gray-200 bg-white px-3 py-2.5
+                  className="w-[14rem] mt-1 min-[390px]:w-[13rem] rounded-xl border border-gray-200 bg-white px-3 py-2
                              text-sm min-[390px]:text-base text-gray-900
                              placeholder:text-gray-400
                              focus:outline-none focus:ring-2 focus:ring-gray-200"
@@ -207,7 +207,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
                   type="button"
                   onClick={onClickUpdatePassword}
                   disabled={!changedPassword.trim()}
-                  className="inline-flex mt-1 items-center justify-center rounded-xl px-4 py-2.5
+                  className="inline-flex mt-1 items-center justify-center rounded-xl px-4 py-2
                              text-sm min-[390px]:text-base font-semibold
                              bg-gray-900 text-white shadow-sm
                              hover:bg-gray-800 active:scale-[0.98] transition
