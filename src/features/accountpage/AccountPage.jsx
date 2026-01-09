@@ -27,7 +27,9 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
         const payload = { displayName: displayName.trim(), userId };
         try {
             await saveProfile(payload);
+            setStatus("success");
           } catch (e) {
+            setStatus("error");
             console.log("Couldn't save name", e);
           }
         }
@@ -142,7 +144,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
 
                 <button
                   type="button"
-                  onClick={onClickUpdateName}
+                  onClick={() => {onClickUpdateName}}
                   disabled={!displayName.trim()}
                   className="inline-flex mt-1 items-center justify-center rounded-xl px-4 py-2
                              text-sm min-[390px]:text-base font-semibold
