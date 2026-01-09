@@ -156,10 +156,10 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
                   disabled={!displayName.trim() || status === "saving"}
                   className="inline-flex mt-1 items-center justify-center rounded-xl px-4 py-2
                              text-sm min-[390px]:text-base font-semibold
-                             bg-gray-900 text-white shadow-sm
-                             hover:bg-gray-800 active:scale-[0.98] transition
-                             disabled:opacity-50 
-                             disabled:hover:bg-gray-900 disabled:active:scale-100"
+                             bg-blue-600 text-white shadow-sm
+                             hover:bg-blue-700 active:scale-[0.98] transition
+                             disabled:opacity-80 
+                             disabled:hover:bg-blue-600 disabled:active:scale-100"
                 >{renderButtonContent(status)}
                 </button>
               </div>
