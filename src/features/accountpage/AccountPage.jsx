@@ -26,6 +26,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
     async function onClickUpdateName() {
         const payload = { displayName: displayName.trim(), userId };
         try {
+            setStatus("saving");
             await saveProfile(payload);
             setStatus("success");
           } catch (e) {
@@ -43,11 +44,18 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
         }
 
     }
+   
+    function renderButtonContent(status) {
+      if (status === "saving") return "Saving...";
+      if (status === "success") return "Updated ✓";
+      if (status === "error") return "Error";
+      return "Update";
+    }
 
-  const tabBase =
-    "flex-1 rounded-lg font-medium py-2 text-sm min-[390px]:py-2.5 min-[390px]:text-base transition";
-  const tabActive = "bg-white shadow-sm text-gray-900";
-  const tabInactive = "text-gray-600 hover:text-gray-900";
+      const tabBase =
+        "flex-1 rounded-lg font-medium py-2 text-sm min-[390px]:py-2.5 min-[390px]:text-base transition";
+      const tabActive = "bg-white shadow-sm text-gray-900";
+      const tabInactive = "text-gray-600 hover:text-gray-900";
 
   return (
     <div className="h-[100dvh] bg-gray-100 px-4 min-[390px]:px-5 min-[430px]:px-6 overflow-hidden">
@@ -145,14 +153,14 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
                 <button
                   type="button"
                   onClick={onClickUpdateName}
-                  disabled={!displayName.trim()}
+                  disabled={!displayName.trim() || status === "saving"}
                   className="inline-flex mt-1 items-center justify-center rounded-xl px-4 py-2
                              text-sm min-[390px]:text-base font-semibold
                              bg-gray-900 text-white shadow-sm
                              hover:bg-gray-800 active:scale-[0.98] transition
                              disabled:opacity-50 
                              disabled:hover:bg-gray-900 disabled:active:scale-100"
-                >Update
+                >{renderButtonContent(status)}
                 </button>
               </div>
             </form>
