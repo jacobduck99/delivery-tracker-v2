@@ -42,8 +42,11 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
         const payload = { updatedPassword: changedPassword.trim(), userId };
         try {
             setStatus("saving");
+            await new Promise((resolve) => setTimeout(resolve, 1000));
             await updatePassword(payload);
-            setStatus("saved");
+            setStatus("success");
+            await new Promise((resolve) => setTimeout(resolve, 3000));
+            setStatus("idle");
         } catch (e) {
             setStatus("error");
             console.log("Couldn't update password");
