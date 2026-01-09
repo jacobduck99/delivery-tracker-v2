@@ -10,6 +10,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState("profile"); // "profile" | "security" | "preferences"
     const [changedPassword, setChangedPassword] = useState("");
+    const [status, setStatus] = useState("idle"); // "saving" | "success" | "error"
     const userId = getUserId();
 
     console.log("heres pw", changedPassword);
