@@ -133,7 +133,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
             </div>
 
             <div className="divide-y divide-gray-100">
-              <div className="py-3 flex flex-col min-[390px]:py-4">
+              <div className="py-3 flex flex-col min-[390px]:py-1">
             
 
             <form className="space-y-2">
@@ -177,7 +177,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
 
               <div className="py-3 min-[390px]:py-4">
                 <p className="text-xs min-[390px]:text-sm text-gray-500">Appearance</p>
-                <p className="text-base min-[390px]:text-lg font-medium text-gray-900">
+                <p className="text-base min-[390px]:text-lg py-2 font-ms text-gray-900">
                   Theme settings
                 </p>
               </div>
