@@ -22,14 +22,14 @@ export default function App() {
   // React controlled auth state
     const [runId, setRunId] = useState(null);
     const [loggedIn, setLoggedIn] = useState(() => !!getUserId("user_id"));
-    const [profileName, setProfileName] = useState("");
+    const [displayName, setDisplayName] = useState("");
 
     useEffect(() => {
       async function getProfileName() {
         const cachedDisplayName = loadDisplayName();
         console.log("here is ur cached name", cachedDisplayName);
         if (cachedDisplayName !== null) {
-                return setProfileName(cachedDisplayName); 
+                return setDisplayName(cachedDisplayName); 
             }
 
         const userId = getUserId();
@@ -38,10 +38,10 @@ export default function App() {
         console.log("profile result:", result);
 
         if (result.ok) {
-          setProfileName(result.profile);
-                console.log("heres ur name", profileName);
+          setDisplayName(result.profile);
+                console.log("heres ur name", displayName);
         } else {
-          setProfileName("user");
+          setDisplayName("user");
         }
       }
 
@@ -90,12 +90,9 @@ export default function App() {
     );
 
     function AppLayout() {
-        const [displayName, setDisplayName] = useState("");
-
         const navigate = useNavigate();
         const location = useLocation();
         const hideNavbar = location.pathname === "/config" || location.pathname === "/account" || location.pathname === "/stats";
-        console.log("this is ur hide nav", hideNavbar);
 
     async function logoutUser() {
             const result = await logout();
@@ -125,7 +122,7 @@ export default function App() {
             <Route path="/signup" element={<SignupPage setLoggedIn={setLoggedIn}/>} />
 
             <Route path="/config" element={<ConfigPage />} />
-            <Route path="/run" element={<RunPage runId={runId} setRunId={setRunId} profileName={profileName} />} />
+            <Route path="/run" element={<RunPage runId={runId} setRunId={setRunId} displayName={displayName} />} />
             <Route path="/stats" element={<StatsPage />} />
             <Route path="/account" element={<AccountPage setDisplayName={setDisplayName} displayName={displayName} logoutUser={logoutUser} />} />
 

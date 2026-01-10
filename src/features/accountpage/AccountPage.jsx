@@ -12,6 +12,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
     const [activeTab, setActiveTab] = useState("profile"); // "profile" | "security" | "preferences"
     const [newPassword, setnewPassword] = useState("");
     const [displayNameStatus, setDisplayNameStatus] = useState("idle"); // "saving" | "success" | "error"
+    const [displayNameDraft, setDisplayNameDraft] = useState("");
     const [passwordStatus, setPasswordStatus] = useState("idle"); // "saving" | "success" | "error"
     const userId = getUserId();
 
@@ -149,8 +150,8 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
                 <input
                   id="name"
                   type="text"
-                  value={displayName}
-                  onChange={(e) => setDisplayName(e.target.value)}
+                  value={displayNameDraft}
+                  onChange={(e) => setDisplayNameDraft(e.target.value)}
                   className="w-[14rem] mt-1 min-[390px]:w-[13rem] rounded-xl border border-gray-200 bg-white px-3 py-2
                              text-sm min-[390px]:text-base text-gray-900
                              placeholder:text-gray-400
