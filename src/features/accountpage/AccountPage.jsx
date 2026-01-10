@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { saveProfile } from "../../lib/api/profileApi.js";
 import { updatePassword } from "../../lib/api/authApi.js";
+import { saveDisplayName } from "../../lib/storage/accountPageStorage.js";
 import { getUserId } from "../../lib/storage/userStorage.js";
 
 export default function AccountPage({ logoutUser, displayName, setDisplayName }) {
@@ -27,6 +28,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
         try {
             setDisplayNameStatus("saving");
             await saveProfile(payload);
+            saveDisplayName(payload);
             await new Promise((resolve) => setTimeout(resolve, 1000));
             setDisplayNameStatus("success");
             await new Promise((resolve) => setTimeout(resolve, 3000));
