@@ -10,7 +10,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState("profile"); // "profile" | "security" | "preferences"
     const [changedPassword, setChangedPassword] = useState("");
-    const [status, setStatus] = useState("idle"); // "saving" | "success" | "error"
+    const [displayNameStatus, setDisplayNameStatus] = useState("idle"); // "saving" | "success" | "error"
     const userId = getUserId();
 
     console.log("heres pw", changedPassword);
@@ -202,7 +202,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
             <form className="space-y-2">
               <label
                 className="text-xs min-[390px]:text-sm px-1 text-gray-500"
-                htmlFor="changePassword"
+                htmlFor="changedPassword"
               >
                 Update password
               </label>
