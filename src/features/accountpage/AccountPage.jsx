@@ -166,7 +166,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
                              hover:bg-blue-700 active:scale-[0.98] transition
                              disabled:opacity-80 
                              disabled:hover:bg-blue-600 disabled:active:scale-100"
-                >{renderButtonContent(status)}
+                >{renderButtonContent(displayNameStatus)}
                 </button>
               </div>
             </form>
@@ -230,7 +230,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
                              disabled:opacity-90 
                              disabled:hover:bg-blue-600 disabled:active:scale-100"
                 >
-                {renderButtonContent(status)}
+                {renderButtonContent(passwordStatus)}
                 </button>
               </div>
             </form>
