@@ -9,7 +9,7 @@ import { getUserId } from "../../lib/storage/userStorage.js";
 export default function AccountPage({ logoutUser, displayName, setDisplayName }) {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState("profile"); // "profile" | "security" | "preferences"
-    const [changedPassword, setChangedPassword] = useState("");
+    const [newPassword, setnewPassword] = useState("");
     const [displayNameStatus, setDisplayNameStatus] = useState("idle"); // "saving" | "success" | "error"
     const [passwordStatus, setPasswordStatus] = useState("idle"); // "saving" | "success" | "error"
     const userId = getUserId();
@@ -36,7 +36,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
         }
 
     async function onClickUpdatePassword() {
-        const payload = { updatedPassword: changedPassword.trim(), userId };
+        const payload = { updatedPassword: newPassword.trim(), userId };
         try {
             setPasswordStatus("saving");
             await updatePassword(payload);
@@ -201,17 +201,17 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
             <form className="space-y-2">
               <label
                 className="text-xs min-[390px]:text-sm px-1 text-gray-500"
-                htmlFor="changedPassword"
+                htmlFor="newPassword"
               >
-                Update password
+                Change password
               </label>
 
               <div className="flex items-center gap-2">
                 <input
-                  id="changedPassword"
+                  id="newPassword"
                   type="text"
-                  value={changedPassword}
-                  onChange={(e) => setChangedPassword(e.target.value)}
+                  value={newPassword}
+                  onChange={(e) => setnewPassword(e.target.value)}
                   className="w-[14rem] mt-1 min-[390px]:w-[13rem] rounded-xl border border-gray-200 bg-white px-3 py-2
                              text-sm min-[390px]:text-base text-gray-900
                              placeholder:text-gray-400
@@ -222,7 +222,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
                 <button
                   type="button"
                   onClick={onClickUpdatePassword}
-                  disabled={!changedPassword.trim()}
+                  disabled={!newPassword.trim()}
                   className="inline-flex mt-1 items-center justify-center rounded-xl px-4 py-2
                              text-sm min-[390px]:text-base font-semibold
                              bg-blue-600 text-white shadow-sm
