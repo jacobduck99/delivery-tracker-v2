@@ -29,7 +29,8 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
         try {
             setDisplayNameStatus("saving");
             await saveProfile(payload);
-            saveDisplayName(displayName);
+            saveDisplayName(displayNameDraft);
+            setDisplayName(displayNameDraft);
             await new Promise((resolve) => setTimeout(resolve, 1000));
             setDisplayNameStatus("success");
             await new Promise((resolve) => setTimeout(resolve, 3000));
@@ -162,7 +163,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
                 <button
                   type="button"
                   onClick={onClickUpdateName}
-                  disabled={!displayName.trim() || status === "saving"}
+                  disabled={!displayNameDraft.trim() || status === "saving"}
                   className="inline-flex mt-1 items-center justify-center rounded-xl px-4 py-2
                              text-sm min-[390px]:text-base font-semibold
                              bg-blue-600 text-white shadow-sm
