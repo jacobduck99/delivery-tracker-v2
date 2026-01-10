@@ -37,7 +37,7 @@ import {
 
 import { syncDrops } from "./syncMachine.js";
 
-export default function RunPage({ runId, setRunId, profileName }) {
+export default function RunPage({ runId, setRunId, displayName }) {
     const [hasError, setHasError] = useState(false)
     const [drops, setDrops] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -46,7 +46,7 @@ export default function RunPage({ runId, setRunId, profileName }) {
     const [modal, showModal] = useState(false); 
     const [isEndShiftVisible, setIsEndShiftVisible] = useState(true);
 
-    console.log("RunPage props profileName:", profileName);
+    console.log("RunPage props profileName:", displayName);
  
 useEffect(() => {
     async function init() {
@@ -189,7 +189,7 @@ return (
       {/* HEADER + CIRCLE */}
       <div className="space-y-1">
         <div className="text-[1.35rem] min-[390px]:text-[1.6rem] font-medium">
-            {`Hello, ${profileName || "there"}`}
+            {`Hello, ${displayName || "there"}`}
 
         </div>
 

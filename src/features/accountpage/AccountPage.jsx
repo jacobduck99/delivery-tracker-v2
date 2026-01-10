@@ -25,7 +25,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
       }
 
     async function onClickUpdateName() {
-        const payload = { displayName: displayName.trim(), userId };
+        const payload = { displayName: displayNameDraft.trim(), userId };
         try {
             setDisplayNameStatus("saving");
             await saveProfile(payload);
