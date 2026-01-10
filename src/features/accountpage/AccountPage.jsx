@@ -6,6 +6,7 @@ import { saveProfile } from "../../lib/api/profileApi.js";
 import { updatePassword } from "../../lib/api/authApi.js";
 import { saveDisplayName } from "../../lib/storage/accountPageStorage.js";
 import { getUserId } from "../../lib/storage/userStorage.js";
+import { LoaderCircle } from 'lucide-react';
 
 export default function AccountPage({ logoutUser, displayName, setDisplayName }) {
     const navigate = useNavigate();
@@ -56,7 +57,13 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
     }
    
     function renderButtonContent(status) {
-      if (status === "saving") return "Saving...";
+      if (status === "saving") {
+        return (
+          <span className="inline-flex items-center gap-2">
+            <LoaderCircle className="h-4 w-4 animate-spin" />
+          </span>
+        );
+      }
       if (status === "success") return "Updated ✓";
       if (status === "error") return "Error";
       return "Update";
@@ -163,10 +170,9 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
                 <button
                   type="button"
                   onClick={onClickUpdateName}
-                  disabled={!displayNameDraft.trim() || status === "saving"}
-                  className="inline-flex mt-1 items-center justify-center rounded-xl px-4 py-2
-                             text-sm min-[390px]:text-base font-semibold
-                             bg-blue-600 text-white shadow-sm
+                  disabled={!displayNameDraft.trim() || displayNameStatus === "saving"}
+                  className="inline-flex mt-1 items-center justify-center rounded-xl px-4 text-sm min-[390px]:text-base font-semibold
+                             bg-blue-600 text-white shadow-sm min-w-[90px] h-10.5
                              hover:bg-blue-700 active:scale-[0.98] transition
                              disabled:opacity-80 
                              disabled:hover:bg-blue-600 disabled:active:scale-100"
