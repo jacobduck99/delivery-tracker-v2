@@ -16,6 +16,7 @@ import Navbar from "./components/navbar.jsx";
 import { logout } from "./lib/api/logoutApi.js";
 import { clearAccount } from "./lib/storage/logoutStorage.js";
 import { getProfile } from "./lib/api/profileApi.js";
+import { loadDisplayName } from "./lib/storage/accountPageStorage.js";
 
 export default function App() {
   // React controlled auth state
@@ -25,6 +26,12 @@ export default function App() {
 
     useEffect(() => {
       async function getProfileName() {
+        const cachedDisplayName = loadDisplayName();
+        console.log("here is ur cached name", cachedDisplayName);
+        if (cache !== null) {
+                return { ok: true, displayName: cachedDisplayName}
+            }
+
         const userId = getUserId();
         const result = await getProfile(userId);
 
