@@ -31,9 +31,9 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
             setDisplayNameStatus("saving");
             await saveProfile(payload);
             await new Promise((resolve) => setTimeout(resolve, 1000));
+            setDisplayNameStatus("success");
             saveDisplayName(displayNameDraft);
             setDisplayName(displayNameDraft);
-            setDisplayNameStatus("success");
             await new Promise((resolve) => setTimeout(resolve, 3000));
             setDisplayNameStatus("idle");
           } catch (e) {
@@ -64,7 +64,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
           </span>
         );
       }
-      if (status === "success") return "Updated ✓";
+      if (status === "success") return "Updated";
       if (status === "error") return "Error";
       return "Update";
     }
@@ -145,8 +145,13 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
             <div className="divide-y divide-gray-100">
               <div className="py-3 flex flex-col min-[390px]:py-1">
             
-
-            <form className="space-y-2">
+            <form
+              className="space-y-2"
+              onSubmit={(e) => {
+                e.preventDefault();
+                onClickUpdateName();
+              }}
+            >
               <label
                 className="text-xs min-[390px]:text-sm px-1 text-gray-500"
                 htmlFor="name"
@@ -168,19 +173,18 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
                 />
 
                 <button
-                  type="button"
-                  onClick={onClickUpdateName}
+                  type="submit"
                   disabled={!displayNameDraft.trim() || displayNameStatus === "saving"}
                   className="inline-flex mt-1 items-center justify-center rounded-xl px-4 text-sm min-[390px]:text-base font-semibold
                              bg-blue-600 text-white shadow-sm min-w-[90px] h-10.5
                              hover:bg-blue-700 active:scale-[0.98] transition
                              disabled:opacity-80 
                              disabled:hover:bg-blue-600 disabled:active:scale-100"
-                >{renderButtonContent(displayNameStatus)}
+                >
+                  {renderButtonContent(displayNameStatus)}
                 </button>
               </div>
             </form>
-
 
               </div>
 
@@ -208,7 +212,11 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
 
             <div className="divide-y divide-gray-100">
              
-            <form className="space-y-2">
+            <form className="space-y-2"
+            onSubmit={(e) => {
+                e.preventDefault();
+                onClickUpdatePassword();
+              }}>
               <label
                 className="text-xs min-[390px]:text-sm px-1 text-gray-500"
                 htmlFor="newPassword"
@@ -222,7 +230,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
                   type="password"
                   value={newPassword}
                   onChange={(e) => setnewPassword(e.target.value)}
-                  className="w-[14rem] mt-1 min-[390px]:w-[13rem] rounded-xl border border-gray-200 bg-white px-3 py-2
+                  className="w-[14rem] mt-1 min-[390px]:w-c[13rem] rounded-xl border border-gray-200 bg-white px-3 py-2
                              text-sm min-[390px]:text-base text-gray-900
                              placeholder:text-gray-400
                              focus:outline-none focus:ring-2 focus:ring-gray-200"
