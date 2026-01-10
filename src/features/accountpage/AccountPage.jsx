@@ -213,7 +213,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
               <div className="flex items-center gap-2">
                 <input
                   id="newPassword"
-                  type="text"
+                  type="password"
                   value={newPassword}
                   onChange={(e) => setnewPassword(e.target.value)}
                   className="w-[14rem] mt-1 min-[390px]:w-[13rem] rounded-xl border border-gray-200 bg-white px-3 py-2
