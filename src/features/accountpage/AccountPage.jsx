@@ -11,9 +11,8 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
     const [activeTab, setActiveTab] = useState("profile"); // "profile" | "security" | "preferences"
     const [changedPassword, setChangedPassword] = useState("");
     const [displayNameStatus, setDisplayNameStatus] = useState("idle"); // "saving" | "success" | "error"
+    const [passwordStatus, setPasswordStatus] = useState("idle"); // "saving" | "success" | "error"
     const userId = getUserId();
-
-    console.log("heres pw", changedPassword);
 
     function handleLogout() {
         logoutUser();
@@ -26,27 +25,27 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
     async function onClickUpdateName() {
         const payload = { displayName: displayName.trim(), userId };
         try {
-            setStatus("saving");
+            setDisplayNameStatus("saving");
             await saveProfile(payload);
             await new Promise((resolve) => setTimeout(resolve, 1000));
-            setStatus("success");
+            setDisplayNameStatus("success");
             await new Promise((resolve) => setTimeout(resolve, 3000));
-            setStatus("idle");
+            setDisplayNameStatus("idle");
           } catch (e) {
-            setStatus("error"); console.log("Couldn't save name", e); }
+            setDisplayNameStatus("error"); console.log("Couldn't save name", e); }
         }
 
     async function onClickUpdatePassword() {
         const payload = { updatedPassword: changedPassword.trim(), userId };
         try {
-            setStatus("saving");
+            setPasswordStatus("saving");
             await updatePassword(payload);
             await new Promise((resolve) => setTimeout(resolve, 1000));
-            setStatus("success");
+            setPasswordStatus("success");
             await new Promise((resolve) => setTimeout(resolve, 3000));
-            setStatus("idle");
+            setPasswordStatus("idle");
         } catch (e) {
-            setStatus("error");
+            setPasswordStatus("error");
             console.log("Couldn't update password");
         }
 
