@@ -100,6 +100,7 @@ export default function App() {
             if (result.ok) {
                 clearAccount();
                 setLoggedIn(false);
+                setDisplayName("");
                 navigate("/login"); 
             }
         } 
