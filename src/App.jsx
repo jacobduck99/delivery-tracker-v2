@@ -28,8 +28,8 @@ export default function App() {
       async function getProfileName() {
         const cachedDisplayName = loadDisplayName();
         console.log("here is ur cached name", cachedDisplayName);
-        if (cache !== null) {
-                return { ok: true, displayName: cachedDisplayName}
+        if (cachedDisplayName !== null) {
+                return setProfileName(cachedDisplayName); 
             }
 
         const userId = getUserId();

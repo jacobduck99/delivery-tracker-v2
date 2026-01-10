@@ -28,7 +28,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
         try {
             setDisplayNameStatus("saving");
             await saveProfile(payload);
-            saveDisplayName(payload);
+            saveDisplayName(displayName);
             await new Promise((resolve) => setTimeout(resolve, 1000));
             setDisplayNameStatus("success");
             await new Promise((resolve) => setTimeout(resolve, 3000));
