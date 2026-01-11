@@ -35,6 +35,7 @@ import {
   updateDropStop
 } from "../../lib/storage/syncStorage.js";
 
+import { ModeToggle } from "../../components/ui/mode-toggle.jsx";
 import { syncDrops } from "./syncMachine.js";
 
 export default function RunPage({ runId, setRunId, displayName }) {
@@ -173,50 +174,55 @@ if (loading) {
 
 // WHERE THE CIRCLE PROGRESS AND PAGE STARTS
 return (
-  <div className="h-[100dvh] bg-gray-100 overflow-hidden
-                  px-3 pt-2 pb-20
-                  min-[390px]:px-4 min-[390px]:pt-1
-                  min-[430px]:px-6">
-
+  <div
+    className="h-[100dvh] bg-background text-foreground overflow-hidden
+               px-3 pt-2 pb-20
+               min-[390px]:px-4 min-[390px]:pt-1
+               min-[430px]:px-6"
+  >
     {/* SCROLL CONTAINER */}
-    <div className="mx-auto h-full w-full overflow-y-auto overscroll-contain
-                    space-y-3 min-[390px]:space-y-4
-                    max-w-[26rem]
-                    min-[390px]:max-w-[28rem]
-                    md:max-w-[44rem]
-                    lg:max-w-[52rem]">
-
+    <div
+      className="mx-auto h-full w-full overflow-y-auto overscroll-contain
+                 space-y-3 min-[390px]:space-y-4
+                 max-w-[26rem]
+                 min-[390px]:max-w-[28rem]
+                 md:max-w-[44rem]
+                 lg:max-w-[52rem]"
+    >
       {/* HEADER + CIRCLE */}
-      <div className="space-y-1">
-        <div className="text-[1.35rem] min-[390px]:text-[1.6rem] font-medium">
+      <div className="space-y-2">
+        <div className="flex items-center justify-between gap-3">
+          <div className="text-[1.35rem] min-[390px]:text-[1.6rem] font-medium">
             {`Hello, ${displayName || "there"}`}
+          </div>
 
+          <ModeToggle />
         </div>
 
-        <div className="font-extralight text-sm min-[390px]:text-base">
+        <div className="font-extralight text-sm min-[390px]:text-base text-muted-foreground">
           Here's todays run
         </div>
 
         <Card>
-          <Circleprogress
-            completed={completedDrops.length}
-            total={drops.length}
-          />
+          <Circleprogress completed={completedDrops.length} total={drops.length} />
         </Card>
       </div>
 
       {/* COMPLETED */}
       <details className="mb-2">
-        <summary className="flex items-center mt-3 min-[390px]:mt-5 gap-2
-                            text-[0.95rem] min-[390px]:text-[1rem]
-                            font-medium cursor-pointer">
+        <summary
+          className="flex items-center mt-3 min-[390px]:mt-5 gap-2
+                     text-[0.95rem] min-[390px]:text-[1rem]
+                     font-medium cursor-pointer"
+        >
           <span>Completed</span>
 
-          <span className="bg-green-200 text-green-700 text-xs px-2 py-0.5 rounded-full">
+          <span className="bg-green-200 text-green-700 text-xs px-2 py-0.5 rounded-full
+                           dark:bg-green-900/30 dark:text-green-300">
             {completedDrops.length}
           </span>
 
-          <span className="text-gray-500 text-lg leading-none transition-transform group-open:rotate-90">
+          <span className="text-muted-foreground text-lg leading-none transition-transform group-open:rotate-90">
             ▸
           </span>
         </summary>
@@ -259,16 +265,19 @@ return (
 
       {/* UPCOMING DROPS */}
       <details className="mb-2">
-        <summary className="flex items-center gap-2
-                            text-[0.95rem] min-[390px]:text-[1rem]
-                            font-medium cursor-pointer">
+        <summary
+          className="flex items-center gap-2
+                     text-[0.95rem] min-[390px]:text-[1rem]
+                     font-medium cursor-pointer"
+        >
           <span>Remaining</span>
 
-          <span className="bg-green-200 text-green-700 text-xs px-2 py-0.5 rounded-full">
+          <span className="bg-green-200 text-green-700 text-xs px-2 py-0.5 rounded-full
+                           dark:bg-green-900/30 dark:text-green-300">
             {remainingUpcoming.length}
           </span>
 
-          <span className="text-gray-500 text-lg leading-none transition-transform group-open:rotate-90">
+          <span className="text-muted-foreground text-lg leading-none transition-transform group-open:rotate-90">
             ▸
           </span>
         </summary>
@@ -294,7 +303,10 @@ return (
       {/* END SHIFT */}
       <div className="flex justify-center pt-6 min-[390px]:pt-8 pb-4">
         {!modal && (
-          <EndshiftBtn showModal={showModal} setIsEndShiftVisible={setIsEndShiftVisible} />
+          <EndshiftBtn
+            showModal={showModal}
+            setIsEndShiftVisible={setIsEndShiftVisible}
+          />
         )}
 
         {modal && (
@@ -305,7 +317,6 @@ return (
           />
         )}
       </div>
-
     </div>
   </div>
 );
