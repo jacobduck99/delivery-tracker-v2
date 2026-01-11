@@ -184,12 +184,6 @@ return (
               </form>
             </div>
 
-            <div className="py-3 min-[390px]:py-4">
-              <p className="text-xs min-[390px]:text-sm text-muted-foreground">Appearance</p>
-              <p className="text-base min-[390px]:text-lg py-2 font-ms text-foreground">
-                Theme settings
-              </p>
-            </div>
           </div>
         </div>
       )}
@@ -273,19 +267,10 @@ return (
             >
               <p className="text-sm font-medium text-foreground">Theme</p>
               <p className="text-xs min-[390px]:text-sm text-muted-foreground">
-                Light / Dark / System
+                Light / Dark 
               </p>
             </button>
 
-            <button
-              type="button"
-              className="w-full text-left py-3 min-[390px]:py-4 hover:bg-muted rounded-xl px-2 -mx-2"
-            >
-              <p className="text-sm font-medium text-foreground">Notifications</p>
-              <p className="text-xs min-[390px]:text-sm text-muted-foreground">
-                Control alerts and reminders
-              </p>
-            </button>
           </div>
         </div>
       )}
@@ -325,7 +310,6 @@ return (
           </div>
           <span className="text-muted-foreground text-xl leading-none">›</span>
         </button>
-
         <button
           className="w-full text-left px-4 py-4 min-[390px]:px-5 hover:bg-muted flex items-center justify-between border-t border-border"
         >
