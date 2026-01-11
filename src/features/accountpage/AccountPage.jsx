@@ -299,13 +299,12 @@ return (
         </button>
 
         <button
-            onClick={() => setActiveTab("preferences")}
+            onClick={() => setActiveTab(activeTab === "preferences" ? "profile" : "preferences")}
           className="w-full text-left px-4 py-4 min-[390px]:px-5 hover:bg-muted flex items-center justify-between border-t border-border"
         >
           <div>
-            <p className="text-sm font-medium text-foreground">Theme</p>
-            <p className="text-xs min-[390px]:text-sm text-muted-foreground">
-              Light / Dark / System
+            <p className="text-sm font-medium text-foreground">{activeTab === "preferences" ? "Update name" : "Update theme"}</p>
+            <p className="text-xs min-[390px]:text-sm text-muted-foreground">{activeTab === "preferences" ? "Update your display name" : "Change your theme"}
             </p>
           </div>
           <span className="text-muted-foreground text-xl leading-none">›</span>
