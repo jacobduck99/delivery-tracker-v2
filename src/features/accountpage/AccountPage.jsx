@@ -7,6 +7,7 @@ import { updatePassword } from "../../lib/api/authApi.js";
 import { saveDisplayName } from "../../lib/storage/accountPageStorage.js";
 import { getUserId } from "../../lib/storage/userStorage.js";
 import { LoaderCircle } from 'lucide-react';
+import { ModeToggle } from "../../components/ui/mode-toggle.jsx";
 
 export default function AccountPage({ logoutUser, displayName, setDisplayName }) {
     const navigate = useNavigate();
@@ -260,20 +261,15 @@ return (
             </p>
           </div>
 
-          <div className="divide-y divide-border">
-            <button
-              type="button"
-              className="w-full text-left py-3 min-[390px]:py-4 hover:bg-muted rounded-xl px-2 -mx-2"
-            >
-              <p className="text-sm font-medium text-foreground">Theme</p>
-              <p className="text-xs min-[390px]:text-sm text-muted-foreground">
-                Light / Dark 
-              </p>
-            </button>
-
+         <div>
+          <p className="text-sm font-medium text-foreground">Theme</p>
+          <div className="flex items-center gap-2 min-[390px]:gap-3 text-xs min-[390px]:text-sm text-muted-foreground">
+            <span>Light / Dark</span>
+            <ModeToggle />
           </div>
         </div>
-      )}
+                </div>
+              )}
 
       {/* QUICK ACTIONS (shows on all tabs) */}
       <div className="bg-card text-card-foreground border border-border shadow-sm rounded-2xl overflow-hidden">
