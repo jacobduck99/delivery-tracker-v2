@@ -302,13 +302,12 @@ return (
         </div>
 
         <button
-          onClick={() => setActiveTab("security")}
+            onClick={() => setActiveTab(activeTab === "security" ? "profile" : "security")}
           className="w-full text-left px-4 py-4 min-[390px]:px-5 hover:bg-muted flex items-center justify-between"
         >
           <div>
-            <p className="text-sm font-medium text-foreground">Change password</p>
-            <p className="text-xs min-[390px]:text-sm text-muted-foreground">
-              Update your login security
+            <p className="text-sm font-medium text-foreground">{activeTab === "security" ? "Update name" : "Update password" }</p>
+            <p className="text-xs min-[390px]:text-sm text-muted-foreground">{activeTab === "security" ? "Update your display name" : "Update your login info"}
             </p>
           </div>
           <span className="text-muted-foreground text-xl leading-none">›</span>
