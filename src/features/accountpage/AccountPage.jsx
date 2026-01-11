@@ -74,151 +74,148 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
       const tabActive = "bg-white shadow-sm text-gray-900";
       const tabInactive = "text-gray-600 hover:text-gray-900";
 
-  return (
-    <div className="h-[100dvh] bg-gray-100 px-4 min-[390px]:px-5 min-[430px]:px-6 overflow-hidden">
-      <div className="mx-auto w-full min-[430px]:max-w-[28rem] md:max-w-[90rem] h-full overflow-y-auto space-y-4 min-[390px]:space-y-4">
+return (
+  <div className="h-[100dvh] bg-background text-foreground px-4 min-[390px]:px-5 min-[430px]:px-6 overflow-hidden">
+    <div className="mx-auto w-full min-[430px]:max-w-[28rem] md:max-w-[90rem] h-full overflow-y-auto space-y-4 min-[390px]:space-y-4">
 
-        {/* TOP BAR */}
-        <div className="px-4 py-4 min-[390px]:px-1 min-[390px]:py-1">
-          <div className="grid grid-cols-[40px_1fr_40px] items-center">
-            {/* LEFT: Back */}
-            <button
-              type="button"
-              onClick={redirectToRun}
-              className="justify-self-start inline-flex items-center justify-center h-10 w-10 rounded-full hover:bg-gray-100 active:scale-95 transition"
-              aria-label="Go back"
-            >
-              <ChevronLeft className="h-6 w-6 text-gray-700" />
-            </button>
+      {/* TOP BAR */}
+      <div className="px-4 py-4 min-[390px]:px-1 min-[390px]:py-1">
+        <div className="grid grid-cols-[40px_1fr_40px] items-center">
+          {/* LEFT: Back */}
+          <button
+            type="button"
+            onClick={redirectToRun}
+            className="justify-self-start inline-flex items-center justify-center h-10 w-10 rounded-full hover:bg-muted active:scale-95 transition"
+            aria-label="Go back"
+          >
+            <ChevronLeft className="h-6 w-6 text-foreground" />
+          </button>
 
-            {/* CENTER: Title */}
-            <h2 className="justify-self-center text-lg min-[390px]:text-lg min-[430px]:text-2xl font-semibold text-gray-900">
-              Settings and activity
+          {/* CENTER: Title */}
+          <h2 className="justify-self-center text-lg min-[390px]:text-lg min-[430px]:text-2xl font-semibold text-foreground">
+            Settings and activity
+          </h2>
+
+        </div>
+      </div>
+
+      {/* TABS */}
+      <div className="bg-card text-card-foreground border border-border shadow-sm rounded-2xl p-3 min-[390px]:p-4">
+        <div className="bg-muted rounded-xl p-1 min-[390px]:p-1.5 flex gap-1">
+          <button
+            type="button"
+            onClick={() => setActiveTab("profile")}
+            className={`${tabBase} ${activeTab === "profile" ? tabActive : tabInactive}`}
+          >
+            Profile
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab("security")}
+            className={`${tabBase} ${activeTab === "security" ? tabActive : tabInactive}`}
+          >
+            Security
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab("preferences")}
+            className={`${tabBase} ${activeTab === "preferences" ? tabActive : tabInactive}`}
+          >
+            Preferences
+          </button>
+        </div>
+      </div>
+
+      {/* PROFILE TAB */}
+      {activeTab === "profile" && (
+        <div className="bg-card text-card-foreground border border-border shadow-sm rounded-2xl p-4 min-[390px]:p-5 min-[430px]:p-6">
+          <div className="mb-4 min-[390px]:mb-5">
+            <h2 className="text-base min-[390px]:text-lg min-[430px]:text-xl font-semibold text-foreground">
+              Personal information
             </h2>
-
-            {/* RIGHT: Spacer */}
-            <div className="justify-self-end h-10 w-10" />
+            <p className="text-sm text-muted-foreground mt-1">
+              Manage your personal information such as name and preferences.
+            </p>
           </div>
-        </div>
 
-        {/* TABS */}
-        <div className="bg-white border border-gray-200 shadow-sm rounded-2xl p-3 min-[390px]:p-4">
-          <div className="bg-gray-100 rounded-xl p-1 min-[390px]:p-1.5 flex gap-1">
-            <button
-              type="button"
-              onClick={() => setActiveTab("profile")}
-              className={`${tabBase} ${activeTab === "profile" ? tabActive : tabInactive}`}
-            >
-              Profile
-            </button>
+          <div className="divide-y divide-border">
+            <div className="py-3 flex flex-col min-[390px]:py-1">
+              <form
+                className="space-y-2"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  onClickUpdateName();
+                }}
+              >
+                <label
+                  className="text-xs min-[390px]:text-sm px-1 text-muted-foreground"
+                  htmlFor="name"
+                >
+                  Display name
+                </label>
 
-            <button
-              type="button"
-              onClick={() => setActiveTab("security")}
-              className={`${tabBase} ${activeTab === "security" ? tabActive : tabInactive}`}
-            >
-              Security
-            </button>
+                <div className="flex items-center gap-2">
+                  <input
+                    id="name"
+                    type="text"
+                    value={displayNameDraft}
+                    onChange={(e) => setDisplayNameDraft(e.target.value)}
+                    className="w-[14rem] mt-1 min-[390px]:w-[13rem] rounded-xl border border-input bg-background px-3 py-2
+                               text-sm min-[390px]:text-base text-foreground
+                               placeholder:text-muted-foreground
+                               focus:outline-none focus:ring-2 focus:ring-ring"
+                    placeholder="Enter a display name"
+                  />
 
-            <button
-              type="button"
-              onClick={() => setActiveTab("preferences")}
-              className={`${tabBase} ${activeTab === "preferences" ? tabActive : tabInactive}`}
-            >
-              Preferences
-            </button>
-          </div>
-        </div>
-
-        {/* PROFILE TAB */}
-        {activeTab === "profile" && (
-          <div className="bg-white border border-gray-200 shadow-sm rounded-2xl p-4 min-[390px]:p-5 min-[430px]:p-6">
-            <div className="mb-4 min-[390px]:mb-5">
-              <h2 className="text-base min-[390px]:text-lg min-[430px]:text-xl font-semibold text-gray-900">
-                Personal information
-              </h2>
-              <p className="text-sm text-gray-500 mt-1">
-                Manage your personal information such as name and preferences.
-              </p>
+                  <button
+                    type="submit"
+                    disabled={!displayNameDraft.trim() || displayNameStatus === "saving"}
+                    className="inline-flex mt-1 items-center justify-center rounded-xl px-4 text-sm min-[390px]:text-base font-semibold
+                               bg-blue-600 text-white shadow-sm min-w-[90px] h-10.5
+                               hover:bg-blue-700 active:scale-[0.98] transition
+                               disabled:opacity-80
+                               disabled:hover:bg-blue-600 disabled:active:scale-100"
+                  >
+                    {renderButtonContent(displayNameStatus)}
+                  </button>
+                </div>
+              </form>
             </div>
 
-            <div className="divide-y divide-gray-100">
-              <div className="py-3 flex flex-col min-[390px]:py-1">
-            
+            <div className="py-3 min-[390px]:py-4">
+              <p className="text-xs min-[390px]:text-sm text-muted-foreground">Appearance</p>
+              <p className="text-base min-[390px]:text-lg py-2 font-ms text-foreground">
+                Theme settings
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* SECURITY TAB */}
+      {activeTab === "security" && (
+        <div className="bg-card text-card-foreground border border-border shadow-sm rounded-2xl p-4 min-[390px]:p-5 min-[430px]:p-6">
+          <div className="mb-4 min-[390px]:mb-5">
+            <h2 className="text-base min-[390px]:text-lg min-[430px]:text-xl font-semibold text-foreground">
+              Security
+            </h2>
+            <p className="text-sm text-muted-foreground mt-1">
+              Update your password and login protection.
+            </p>
+          </div>
+
+          <div className="divide-y divide-border">
             <form
               className="space-y-2"
               onSubmit={(e) => {
                 e.preventDefault();
-                onClickUpdateName();
+                onClickUpdatePassword();
               }}
             >
               <label
-                className="text-xs min-[390px]:text-sm px-1 text-gray-500"
-                htmlFor="name"
-              >
-                Display name
-              </label>
-
-              <div className="flex items-center gap-2">
-                <input
-                  id="name"
-                  type="text"
-                  value={displayNameDraft}
-                  onChange={(e) => setDisplayNameDraft(e.target.value)}
-                  className="w-[14rem] mt-1 min-[390px]:w-[13rem] rounded-xl border border-gray-200 bg-white px-3 py-2
-                             text-sm min-[390px]:text-base text-gray-900
-                             placeholder:text-gray-400
-                             focus:outline-none focus:ring-2 focus:ring-gray-200"
-                  placeholder="Enter a display name"
-                />
-
-                <button
-                  type="submit"
-                  disabled={!displayNameDraft.trim() || displayNameStatus === "saving"}
-                  className="inline-flex mt-1 items-center justify-center rounded-xl px-4 text-sm min-[390px]:text-base font-semibold
-                             bg-blue-600 text-white shadow-sm min-w-[90px] h-10.5
-                             hover:bg-blue-700 active:scale-[0.98] transition
-                             disabled:opacity-80 
-                             disabled:hover:bg-blue-600 disabled:active:scale-100"
-                >
-                  {renderButtonContent(displayNameStatus)}
-                </button>
-              </div>
-            </form>
-
-              </div>
-
-              <div className="py-3 min-[390px]:py-4">
-                <p className="text-xs min-[390px]:text-sm text-gray-500">Appearance</p>
-                <p className="text-base min-[390px]:text-lg py-2 font-ms text-gray-900">
-                  Theme settings
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* SECURITY TAB */}
-        {activeTab === "security" && (
-          <div className="bg-white border border-gray-200 shadow-sm rounded-2xl p-4 min-[390px]:p-5 min-[430px]:p-6">
-            <div className="mb-4 min-[390px]:mb-5">
-              <h2 className="text-base min-[390px]:text-lg min-[430px]:text-xl font-semibold text-gray-900">
-                Security
-              </h2>
-              <p className="text-sm text-gray-500 mt-1">
-                Update your password and login protection.
-              </p>
-            </div>
-
-            <div className="divide-y divide-gray-100">
-             
-            <form className="space-y-2"
-            onSubmit={(e) => {
-                e.preventDefault();
-                onClickUpdatePassword();
-              }}>
-              <label
-                className="text-xs min-[390px]:text-sm px-1 text-gray-500"
+                className="text-xs min-[390px]:text-sm px-1 text-muted-foreground"
                 htmlFor="newPassword"
               >
                 Change password
@@ -230,10 +227,10 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
                   type="password"
                   value={newPassword}
                   onChange={(e) => setnewPassword(e.target.value)}
-                  className="w-[14rem] mt-1 min-[390px]:w-c[13rem] rounded-xl border border-gray-200 bg-white px-3 py-2
-                             text-sm min-[390px]:text-base text-gray-900
-                             placeholder:text-gray-400
-                             focus:outline-none focus:ring-2 focus:ring-gray-200"
+                  className="w-[14rem] mt-1 min-[390px]:w-[13rem] rounded-xl border border-input bg-background px-3 py-2
+                             text-sm min-[390px]:text-base text-foreground
+                             placeholder:text-muted-foreground
+                             focus:outline-none focus:ring-2 focus:ring-ring"
                   placeholder="Change your password"
                 />
 
@@ -241,104 +238,112 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
                   type="button"
                   onClick={onClickUpdatePassword}
                   disabled={!newPassword.trim()}
-                  className="inline-flex mt-1 items-center justify-center rounded-xl px-4 
+                  className="inline-flex mt-1 items-center justify-center rounded-xl px-4
                              text-sm min-[390px]:text-base font-semibold min-w-[90px]
-                            h-10.5
+                             h-10.5
                              bg-blue-600 text-white shadow-sm
                              hover:bg-blue-700 active:scale-[0.98] transition
-                             disabled:opacity-90 
+                             disabled:opacity-90
                              disabled:hover:bg-blue-600 disabled:active:scale-100"
                 >
-                {renderButtonContent(passwordStatus)}
+                  {renderButtonContent(passwordStatus)}
                 </button>
               </div>
             </form>
-            </div>
           </div>
-        )}
+        </div>
+      )}
 
-        {/* PREFERENCES TAB */}
-        {activeTab === "preferences" && (
-          <div className="bg-white border border-gray-200 shadow-sm rounded-2xl p-4 min-[390px]:p-5 min-[430px]:p-6">
-            <div className="mb-4 min-[390px]:mb-5">
-              <h2 className="text-base min-[390px]:text-lg min-[430px]:text-xl font-semibold text-gray-900">
-                Preferences
-              </h2>
-              <p className="text-sm text-gray-500 mt-1">
-                Customize how the app looks and behaves.
-              </p>
-            </div>
-
-            <div className="divide-y divide-gray-100">
-              <button
-                type="button"
-                className="w-full text-left py-3 min-[390px]:py-4 hover:bg-gray-50 rounded-xl px-2 -mx-2"
-              >
-                <p className="text-sm font-medium text-gray-900">Theme</p>
-                <p className="text-xs min-[390px]:text-sm text-gray-500">
-                  Light / Dark / System
-                </p>
-              </button>
-
-              <button
-                type="button"
-                className="w-full text-left py-3 min-[390px]:py-4 hover:bg-gray-50 rounded-xl px-2 -mx-2"
-              >
-                <p className="text-sm font-medium text-gray-900">Notifications</p>
-                <p className="text-xs min-[390px]:text-sm text-gray-500">
-                  Control alerts and reminders
-                </p>
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* QUICK ACTIONS (shows on all tabs) */}
-        <div className="bg-white border border-gray-200 shadow-sm rounded-2xl overflow-hidden">
-          <div className="px-4 py-3 min-[390px]:px-5 min-[390px]:py-4 border-b border-gray-100">
-            <h3 className="text-sm min-[390px]:text-base font-semibold text-gray-900">
-              Quick actions
-            </h3>
-            <p className="text-xs min-[390px]:text-sm text-gray-500 mt-1">
-              Common things you might want to do.
+      {/* PREFERENCES TAB */}
+      {activeTab === "preferences" && (
+        <div className="bg-card text-card-foreground border border-border shadow-sm rounded-2xl p-4 min-[390px]:p-5 min-[430px]:p-6">
+          <div className="mb-4 min-[390px]:mb-5">
+            <h2 className="text-base min-[390px]:text-lg min-[430px]:text-xl font-semibold text-foreground">
+              Preferences
+            </h2>
+            <p className="text-sm text-muted-foreground mt-1">
+              Customize how the app looks and behaves.
             </p>
           </div>
 
-          <button onClick={() => setActiveTab("security")}className="w-full text-left px-4 py-4 min-[390px]:px-5 hover:bg-gray-50 flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-900">Change password</p>
-              <p className="text-xs min-[390px]:text-sm text-gray-500">
-                Update your login security
-              </p>
-            </div>
-            <span className="text-gray-400 text-xl leading-none">›</span>
-          </button>
-
-          <button className="w-full text-left px-4 py-4 min-[390px]:px-5 hover:bg-gray-50 flex items-center justify-between border-t border-gray-100">
-            <div>
-              <p className="text-sm font-medium text-gray-900">Theme</p>
-              <p className="text-xs min-[390px]:text-sm text-gray-500">
+          <div className="divide-y divide-border">
+            <button
+              type="button"
+              className="w-full text-left py-3 min-[390px]:py-4 hover:bg-muted rounded-xl px-2 -mx-2"
+            >
+              <p className="text-sm font-medium text-foreground">Theme</p>
+              <p className="text-xs min-[390px]:text-sm text-muted-foreground">
                 Light / Dark / System
               </p>
-            </div>
-            <span className="text-gray-400 text-xl leading-none">›</span>
-          </button>
+            </button>
 
-          <button className="w-full text-left px-4 py-4 min-[390px]:px-5 hover:bg-gray-50 flex items-center justify-between border-t border-gray-100">
-            <div>
-              <p className="text-sm font-medium text-gray-900">Support</p>
-              <p className="text-xs min-[390px]:text-sm text-gray-500">
-                Get help or send feedback
+            <button
+              type="button"
+              className="w-full text-left py-3 min-[390px]:py-4 hover:bg-muted rounded-xl px-2 -mx-2"
+            >
+              <p className="text-sm font-medium text-foreground">Notifications</p>
+              <p className="text-xs min-[390px]:text-sm text-muted-foreground">
+                Control alerts and reminders
               </p>
-            </div>
-            <span className="text-gray-400 text-xl leading-none">›</span>
-          </button>
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* QUICK ACTIONS (shows on all tabs) */}
+      <div className="bg-card text-card-foreground border border-border shadow-sm rounded-2xl overflow-hidden">
+        <div className="px-4 py-3 min-[390px]:px-5 min-[390px]:py-4 border-b border-border">
+          <h3 className="text-sm min-[390px]:text-base font-semibold text-foreground">
+            Quick actions
+          </h3>
+          <p className="text-xs min-[390px]:text-sm text-muted-foreground mt-1">
+            Common things you might want to do.
+          </p>
         </div>
 
-        <div className="flex mt-5 justify-center">
-          <LogoutBtn handleOnClick={handleLogout} className="w-[8.75rem] font-bold" />
-        </div>
+        <button
+          onClick={() => setActiveTab("security")}
+          className="w-full text-left px-4 py-4 min-[390px]:px-5 hover:bg-muted flex items-center justify-between"
+        >
+          <div>
+            <p className="text-sm font-medium text-foreground">Change password</p>
+            <p className="text-xs min-[390px]:text-sm text-muted-foreground">
+              Update your login security
+            </p>
+          </div>
+          <span className="text-muted-foreground text-xl leading-none">›</span>
+        </button>
+
+        <button
+          className="w-full text-left px-4 py-4 min-[390px]:px-5 hover:bg-muted flex items-center justify-between border-t border-border"
+        >
+          <div>
+            <p className="text-sm font-medium text-foreground">Theme</p>
+            <p className="text-xs min-[390px]:text-sm text-muted-foreground">
+              Light / Dark / System
+            </p>
+          </div>
+          <span className="text-muted-foreground text-xl leading-none">›</span>
+        </button>
+
+        <button
+          className="w-full text-left px-4 py-4 min-[390px]:px-5 hover:bg-muted flex items-center justify-between border-t border-border"
+        >
+          <div>
+            <p className="text-sm font-medium text-foreground">Support</p>
+            <p className="text-xs min-[390px]:text-sm text-muted-foreground">
+              Get help or send feedback
+            </p>
+          </div>
+          <span className="text-muted-foreground text-xl leading-none">›</span>
+        </button>
+      </div>
+
+      <div className="flex mt-5 justify-center">
+        <LogoutBtn handleOnClick={handleLogout} className="w-[8.75rem] font-bold" />
       </div>
     </div>
-  );
+  </div>
+);
+
 }
