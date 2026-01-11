@@ -73,20 +73,24 @@ async function handleSubmit(e) {
 return (
   <main className="min-h-screen w-full flex justify-center items-center bg-page px-4 font-sans">
     <div className="w-[90%] max-w-[800px] mx-auto mb-[55px] p-3 bg-card border border-app rounded-[12px] shadow-[0_4px_12px_rgba(0,0,0,0.08)]">
-      <div className="flex items-center justify-between gap-3">
-        <h1 className="text-center my-6 mb-3 text-[1.2rem] font-semibold text-high">
-          Love Coles
-        </h1>
+      <div className="grid grid-cols-[40px_1fr_40px] items-center">
+  {/* left spacer */}
+  <div />
 
-        <button
-          type="button"
-          onClick={handleSkip}
-          className="text-[1rem] font-semibold text-med hover:text-high active:scale-95 transition"
-        >
-          Skip
-        </button>
-      </div>
+  {/* centered title */}
+  <h1 className="justify-self-center my-6 mb-3 text-[1.2rem] font-semibold text-high text-center">
+    Love Coles
+  </h1>
 
+  {/* right: skip */}
+  <button
+    type="button"
+    onClick={handleSkip}
+    className="justify-self-end text-[1rem] font-semibold text-med hover:text-high active:scale-95 transition"
+  >
+    Skip
+  </button>
+</div>
       <form onSubmit={handleSubmit}>
         {/* group */}
         <div className="flex flex-col gap-[6px] mb-[10px]">
