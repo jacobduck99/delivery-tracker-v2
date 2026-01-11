@@ -57,7 +57,7 @@ export default function Dropcard({
 if (drop.status === "Not-started") {
   return (
     <Card>
-      <h2 className="text-[0.9rem] font-bold">Drop {index}</h2>
+      <h2 className="text-[0.9rem] font-bold text-foreground">Drop {index}</h2>
 
       <div className="flex justify-center">
         <div className="w-full max-w-[20rem] flex flex-col justify-center">
@@ -71,9 +71,9 @@ if (drop.status === "Not-started") {
 if (drop.status === "Navigating") {
   return (
     <Card>
-      <h2 className="text-[0.9rem] font-bold ">Drop {index}</h2>
+      <h2 className="text-[0.9rem] font-bold text-foreground">Drop {index}</h2>
 
-      <div className="flex-1  flex flex-col justify-center items-center">
+      <div className="flex-1 flex flex-col justify-center items-center">
         <button
           onClick={onArrived}
           className="w-70 bg-green-600 text-white py-2.5 rounded-full font-semibold hover:bg-green-700"
@@ -88,7 +88,8 @@ if (drop.status === "Navigating") {
 if (drop.status === "In-progress") {
   return (
     <Card>
-      <h2 className="text-[0.9rem] font-bold ">Drop {index}</h2>
+      <h2 className="text-[0.9rem] font-bold text-foreground">Drop {index}</h2>
+
       <div className="flex-1 flex flex-col justify-center items-center">
         <button
           onClick={onDelivered}
@@ -106,10 +107,12 @@ if (drop.status === "Finishing") {
 
   return (
     <Card>
-      <h2 className="text-[0.9rem] font-bold ">Drop {index}</h2>
-      <div className="flex-1 flex flex-col justify-center items-center1">
-        <h3 className="text-lg font-semibold text-gray-800">
-          Total-time <span className="text-blue-600">{onCompleted(ms)}</span>
+      <h2 className="text-[0.9rem] font-bold text-foreground">Drop {index}</h2>
+
+      <div className="flex-1 flex flex-col justify-center items-center">
+        <h3 className="text-lg font-semibold text-foreground">
+          Total-time{" "}
+          <span className="text-primary">{onCompleted(ms)}</span>
         </h3>
       </div>
     </Card>
@@ -121,17 +124,21 @@ if (drop.status === "Completed") {
 
   return (
     <Card>
-      <h2 className="text-[0.9rem] font-bold ">Drop {index}</h2>
+      <h2 className="text-[0.9rem] font-bold text-foreground">Drop {index}</h2>
 
       <div className="flex-1 flex flex-col justify-center items-center min-h-[150px]">
-        <h3 className="text-lg font-semibold text-gray-800">
+        <h3 className="text-lg font-semibold text-foreground">
           Completed:{" "}
-          <span className="font-bold text-green-600">{onCompleted(ms)}</span>
+          <span className="font-bold text-green-600 dark:text-green-300">
+            {onCompleted(ms)}
+          </span>
         </h3>
       </div>
     </Card>
   );
 }
-  return null;
+
+return null;
+
 }
 

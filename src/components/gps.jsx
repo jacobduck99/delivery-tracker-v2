@@ -3,30 +3,29 @@
 
 export default function Gps({ address, setAddress, onStart }) {
   return (
-   
-  <div className="bg-white rounded-xl p-5 flex flex-col gap-4">
-    <div className="flex flex-col gap-2">
+    <div className="bg-card text-card-foreground rounded-xl p-5 flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
+        <input
+          id="gps-input"
+          type="text"
+          placeholder="Enter address"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+          className="border border-input bg-background text-foreground placeholder:text-muted-foreground rounded-lg p-2
+                     focus:outline-none focus:ring-2 focus:ring-ring"
+        />
+      </div>
 
-      <input
-        id="gps-input"
-        type="text"
-        placeholder="Enter address"
-        value={address}
-        onChange={(address) => setAddress(address.target.value)}
-        className="border border-gray-300 rounded-lg p-2"
-      />
+      <button
+        type="button"
+        onClick={onStart}
+        className="bg-primary text-primary-foreground py-2.5 rounded-full font-semibold hover:opacity-90"
+      >
+        Start Navigation
+      </button>
     </div>
-
-    <button
-      type="button"
-      onClick={onStart}
-      className="bg-blue-500 text-white py-2.5 rounded-full font-semibold"
-    >
-      Start Navigation
-    </button>
-  </div>
-
   );
 }
+
 
 
