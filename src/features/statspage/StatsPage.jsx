@@ -106,98 +106,98 @@ export default function StatsPage() {
     }
 
 return (
-<div className="bg-gray-100 min-h-screen pb-6 sm:pb-10 lg:pb-12">
+  <div className="bg-background text-foreground min-h-screen pb-6 sm:pb-10 lg:pb-12">
+    <div className="px-4 max-w-5xl mx-auto space-y-3 sm:space-y-5">
 
-  <div className="px-4 max-w-5xl mx-auto space-y-3 sm:space-y-5">
+      {/* Header */}
+      <div className="px-4 py-4 min-[390px]:px-1 min-[390px]:py-1">
+        <div className="grid grid-cols-[40px_1fr_40px] items-center">
 
-    {/* Header */}
-    <div className="px-4 py-4 min-[390px]:px-1 min-[390px]:py-1">
-    <div className="grid grid-cols-[40px_1fr_40px] items-center">
+          <button
+            type="button"
+            onClick={redirectToRun}
+            className="justify-self-start inline-flex items-center justify-center h-10 w-10 rounded-full hover:bg-muted active:scale-95 transition"
+            aria-label="Go back"
+          >
+            <ChevronLeft className="h-6 w-6 text-foreground" />
+          </button>
 
-    <button
-      type="button"
-      onClick={redirectToRun}
-      className="justify-self-start inline-flex items-center justify-center h-10 w-10 rounded-full hover:bg-gray-100 active:scale-95 transition"
-      aria-label="Go back"
-    >
-      <ChevronLeft className="h-6 w-6 text-gray-700" />
-    </button>
-    <h2 className="justify-self-center text-lg min-[390px]:text-lg min-[430px]:text-2xl font-semibold text-gray-900">
-        Run Overview
-      </h2>
+          <h2 className="justify-self-center text-lg min-[390px]:text-lg min-[430px]:text-2xl font-semibold text-foreground">
+            Run Overview
+          </h2>
 
-    <div className="justify-self-end h-10 w-10" />
+          <div className="justify-self-end h-10 w-10" />
+        </div>
+      </div>
+
+      {/* Controls */}
+      <div className="flex justify-center">
+        <div className="w-full max-w-md">
+          <label
+            htmlFor="runs"
+            className="text-xs uppercase tracking-wide text-muted-foreground block py-1 px-1"
+          >
+            Selected Run
+          </label>
+
+          <select
+            id="runs"
+            className="h-12 w-full rounded-xl border border-input bg-background px-4 text-sm shadow-sm
+                       focus:outline-none focus:ring-2 focus:ring-ring"
+            value={selectedRunId ?? ""}
+            onChange={(e) =>
+              setSelectedRunId(e.target.value === "" ? null : Number(e.target.value))
+            }
+          >
+            <option value="">Most recent</option>
+            {reversedRuns.map((run) => (
+              <option key={run.id} value={run.id}>
+                {formatDate(run.start_time)}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      {/* States */}
+      {statsLoading && (
+        <p className="text-center text-sm text-muted-foreground">
+          Loading stats…
+        </p>
+      )}
+      {statsError && (
+        <p className="text-center text-sm text-destructive">
+          Error loading stats
+        </p>
+      )}
+
+      {/* Chart Card */}
+      <DropsChartCard data={dropsChartData} />
+
+      {/* Summary Card */}
+      <div className="bg-card text-card-foreground rounded-2xl border border-border shadow-md">
+        <div className="px-6 py-4 border-b border-border">
+          <h3 className="text-m font-semibold text-foreground">
+            Summary
+          </h3>
+        </div>
+
+        <div className="grid grid-cols-2 gap-x-3 gap-y-3 px-6 py-3">
+          <Metric label="Van #" value={runData.VanNumber} />
+          <Metric label="Van Name" value={runData.VanName} />
+          <Metric label="Drops" value={runData.Drops} />
+          <Metric label="Duration" value={`${runData.DurationHours} hrs`} />
+          <Metric label="Start Time" value={formattedTime} />
+          <Metric label="Truck Damage" value={runData.TruckDamage ? runData.TruckDamage : "None"} />
+          <Metric
+            label="Avg / Drop"
+            value={readable}
+            full
+            highlight
+          />
+        </div>
+      </div>
+
     </div>
-    </div>
-
-    {/* Controls */}
-<div className="flex justify-center">
-  <div className="w-full max-w-md">
-    <label
-      htmlFor="runs"
-      className="text-xs uppercase tracking-wide text-gray-500 block py-1 px-1"
-    >
-      Selected Run
-    </label>
-
-    <select
-      id="runs"
-      className="h-12 w-full rounded-xl border border-gray-300 bg-white px-4 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
-      value={selectedRunId ?? ""}
-      onChange={(e) =>
-        setSelectedRunId(
-          e.target.value === "" ? null : Number(e.target.value)
-        )
-      }
-    >
-      <option value="">Most recent</option>
-      {reversedRuns.map((run) => (
-        <option key={run.id} value={run.id}>
-          {formatDate(run.start_time)}
-        </option>
-      ))}
-    </select>
   </div>
-</div>
-
-    {/* States */}
-    {statsLoading && (
-      <p className="text-center text-sm text-gray-500">
-        Loading stats…
-      </p>
-    )}
-    {statsError && (
-      <p className="text-center text-sm text-red-600">
-        Error loading stats
-      </p>
-    )}
-
-    {/* Summary Card */}
-   <DropsChartCard data={dropsChartData}/> 
-<div className="bg-white rounded-2xl border border-gray-300 shadow-md">
-
-  <div className="px-6 py-4 border-b border-gray-200">
-    <h3 className="text-m font-semibold text-gray-800">
-      Summary
-    </h3>
-  </div>
-
-  <div className="grid grid-cols-2 gap-x-3 gap-y-3 px-6 py-3">
-    <Metric label="Van #" value={runData.VanNumber} />
-    <Metric label="Van Name" value={runData.VanName} />
-    <Metric label="Drops" value={runData.Drops} />
-    <Metric label="Duration" value={`${runData.DurationHours} hrs`} />
-    <Metric label="Start Time" value={formattedTime} />
-    <Metric label="Truck Damage" value={runData.TruckDamage ? runData.TruckDamage : "None"} />
-    <Metric
-      label="Avg / Drop"
-      value={readable}
-      full
-      highlight
-    />
-  </div>
-</div>
-  </div>
-</div>
-);
-}
+);}
