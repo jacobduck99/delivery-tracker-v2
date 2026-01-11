@@ -315,6 +315,7 @@ return (
         </button>
 
         <button
+            onClick={() => setActiveTab("preferences")}
           className="w-full text-left px-4 py-4 min-[390px]:px-5 hover:bg-muted flex items-center justify-between border-t border-border"
         >
           <div>
