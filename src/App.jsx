@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 
+import { ThemeProvider } from "./components/ui/theme-provider.jsx";
 import AccountPage from "./features/accountpage/AccountPage.jsx";
 import StatsPage from "./features/statspage/StatsPage.jsx";
 import LoginPage from "./features/auth/LoginPage.jsx";
@@ -84,7 +85,9 @@ export default function App() {
     return ( 
 
         <BrowserRouter>
-            <AppLayout />
+            <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+                <AppLayout />
+            </ThemeProvider>
         </BrowserRouter>
 
     );
