@@ -30,46 +30,139 @@ export default function SignupPage({ setLoggedIn }) {
         navigate("/login");
     }
 
-    return (
-    <div className={s.authCenter}>
-      <div className={s.authCard}>
-        <h1>Sign up</h1>
-        <form onSubmit={handleSubmit}>
-        <div className={s.authField}>
-          <label className={s.authLabel} htmlFor="email">Email</label>
+return (
+  <div
+    className="
+      min-h-[100dvh] grid place-items-center p-5
+      bg-[radial-gradient(1100px_520px_at_12%_12%,color-mix(in_oklch,var(--primary)_15%,transparent),transparent_60%),radial-gradient(900px_520px_at_88%_18%,color-mix(in_oklch,var(--ring)_10%,transparent),transparent_55%),var(--background)]
+      text-[var(--foreground)]
+    "
+  >
+    <div
+      className="
+        w-[min(440px,92vw)]
+        rounded-[18px]
+        border border-[var(--border)]
+        bg-[var(--card)]
+        text-[var(--card-foreground)]
+        p-5
+        shadow-[0_26px_70px_color-mix(in_oklch,var(--foreground)_10%,transparent),0_2px_12px_color-mix(in_oklch,var(--foreground)_6%,transparent)]
+      "
+    >
+      <header className="text-center mb-4">
+        <h1 className="text-[1.5rem] font-semibold tracking-[-0.02em]">
+          Sign Up
+        </h1>
+      </header>
+
+      <form className="grid gap-4" onSubmit={handleSubmit}>
+        {/* Email */}
+        <div className="grid gap-1.5">
+          <label
+            htmlFor="email"
+            className="text-[0.92rem] text-[var(--muted-foreground)]"
+          >
+            Email
+          </label>
           <input
             id="email"
-            className={s.authInput}
+            className="
+              w-full rounded-xl border border-[var(--input)]
+              bg-[var(--background)] text-[var(--foreground)]
+              px-4 py-3
+              placeholder:text-[var(--muted-foreground)]
+              focus:outline-none focus:border-[var(--ring)]
+              focus:ring-4 focus:ring-[color-mix(in_oklch,var(--ring)_25%,transparent)]
+              transition
+            "
             type="email"
             value={form.email}
-            onChange={(e) => update("email", e.target.value)}
-            placeholder="e.g. jacob@example.com"
+            onChange={(e) => update('email', e.target.value)}
+            placeholder="jacob@example.com"
+            autoComplete="email"
+            required
           />
         </div>
 
-        <div className={s.authField}>
-          <label className={s.authLabel} htmlFor="password">Password</label>
+        {/* Password */}
+        <div className="grid gap-1.5">
+          <label
+            htmlFor="password"
+            className="text-[0.92rem] text-[var(--muted-foreground)]"
+          >
+            Password
+          </label>
           <input
             id="password"
-            className={s.authInput}
+            className="
+              w-full rounded-xl border border-[var(--input)]
+              bg-[var(--background)] text-[var(--foreground)]
+              px-4 py-3
+              placeholder:text-[var(--muted-foreground)]
+              focus:outline-none focus:border-[var(--ring)]
+              focus:ring-4 focus:ring-[color-mix(in_oklch,var(--ring)_25%,transparent)]
+              transition
+            "
             type="password"
             value={form.password}
-            onChange={(e) => update("password", e.target.value)}
+            onChange={(e) => update('password', e.target.value)}
             placeholder="••••••••"
+            autoComplete="new-password"
+            required
           />
         </div>
 
+        {/* Submit */}
+        <button
+          type="submit"
+          className="
+            mt-1 w-full rounded-[14px] px-4 py-3
+            bg-[var(--primary)] text-[var(--primary-foreground)]
+            font-semibold tracking-[-0.01em]
+            shadow-[0_14px_34px_color-mix(in_oklch,var(--primary)_25%,transparent)]
+            hover:brightness-105
+            active:brightness-95
+            transition
+          "
+        >
+          Sign Up
+        </button>
 
-        <div className={s.authRedirect}>
-            <a onClick={handleClick}>Already have an account?</a>
-        </div>
+        {/* Error */}
+        {err && (
+          <p
+            className="
+              rounded-xl border border-[var(--destructive)]
+              bg-[color-mix(in_oklch,var(--destructive)_12%,transparent)]
+              px-4 py-3 text-sm
+            "
+          >
+            {err}
+          </p>
+        )}
 
-        <button className={s.authSubmit}>Sign Up</button>
-        {err && <p className={s.authError}>{err}</p>}
-        </form>
-      </div>
+        {/* Redirect */}
+        <button
+          type="button"
+          onClick={handleClick}
+          className="
+            w-full rounded-xl px-3 py-3
+            text-[var(--muted-foreground)]
+            hover:text-[var(--foreground)]
+            hover:bg-[var(--muted)]
+            transition
+          "
+        >
+          Already have an account?{" "}
+          <span className="font-semibold text-[var(--foreground)]">
+            Sign in
+          </span>
+        </button>
+      </form>
     </div>
-  );
+  </div>
+);
+
 }
 
 
