@@ -20,17 +20,17 @@ export default function Gps({ address, setAddress, onStart }) {
       type="button"
       onClick={onStart}
       className="
-        inline-flex items-center justify-center
-        rounded-full px-5 py-2.5
+        mt-1 w-full rounded-[14px] px-4 py-3
         bg-primary text-primary-foreground
-        font-semibold
-        transition
+        font-semibold tracking-tight
+        shadow-md
         hover:bg-primary/90
         active:bg-primary/80
         focus-visible:outline-none
         focus-visible:ring-2
         focus-visible:ring-ring
         focus-visible:ring-offset-2
+        transition
       "
     >
       Start Navigation
