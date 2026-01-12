@@ -178,7 +178,7 @@ return (
     className="h-[100dvh] bg-background text-foreground overflow-hidden
                px-3 pt-2 pb-20
                min-[390px]:px-4 min-[390px]:pt-1
-               min-[430px]:px-6"
+               min-[430px]:px-6 lg:mt-50"
   >
     {/* SCROLL CONTAINER */}
     <div
