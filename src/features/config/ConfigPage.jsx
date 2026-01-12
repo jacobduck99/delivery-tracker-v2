@@ -206,7 +206,7 @@ return (
         <div className="mt-3">
           <button
             type="submit"
-            className="w-full rounded-full px-4 py-[0.65rem] text-[0.95rem] font-semibold text-white bg-primary bg-primary-hover hover:-translate-y-[1px] transition"
+            className="w-full rounded-full px-4 py-[0.65rem] text-[0.95rem] font-semibold text-white bg-blue-600 bg-blue-700-hover hover:-translate-y-[1px] transition"
           >
             Start Shift
           </button>
