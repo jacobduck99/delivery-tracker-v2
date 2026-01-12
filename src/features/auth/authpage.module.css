@@ -2,7 +2,8 @@
   min-height: 100dvh;
   display: grid;
   place-items: center;
-  background: #f5f7fa;
+  background: var(--background);
+  color: var(--foreground);
   padding: 1rem;
   font-family: system-ui, sans-serif;
 }
@@ -10,10 +11,11 @@
 .authCard {
   width: 92%;
   max-width: 380px;
-  background: white;
-  border: 1px solid #d1d5da;
+  background: var(--card);
+  color: var(--card-foreground);
+  border: 1px solid var(--border);
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
   padding: 1.2rem;
 }
 
@@ -21,7 +23,6 @@
   margin: 0 0 1rem;
   text-align: center;
   font-size: 1.3rem;
-  color: #111;
 }
 
 .authField {
@@ -32,23 +33,29 @@
   display: block;
   margin-bottom: 0.35rem;
   font-size: 0.95rem;
-  color: #444;
+  color: var(--muted-foreground);
 }
 
 .authInput {
   width: 100%;
   padding: 0.65rem 0.75rem;
-  border: 1px solid #d1d5da;
+  border: 1px solid var(--input);
   border-radius: 10px;
   font-size: 1rem;
-  background: white;
+  background: var(--background);
+  color: var(--foreground);
   box-sizing: border-box;
 }
 
+.authInput::placeholder {
+  color: var(--muted-foreground);
+  opacity: 0.9;
+}
+
 .authInput:focus {
-  border-color: #5559ff;
-  box-shadow: 0 0 0 3px rgba(85,89,255,.2);
   outline: none;
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 25%, transparent);
 }
 
 .authSubmit {
@@ -57,8 +64,8 @@
   padding: 12px;
   border: none;
   border-radius: 12px;
-  background: #5559ff;
-  color: white;
+  background: var(--primary);
+  color: var(--primary-foreground);
   font-weight: 600;
   cursor: pointer;
 }
@@ -68,7 +75,12 @@
 }
 
 .authRedirect {
-    cursor: pointer;
-    text-decoration: underline;
-    padding: 8px;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 8px;
+  color: var(--muted-foreground);
+}
+
+.authRedirect:hover {
+  color: var(--foreground);
 }
