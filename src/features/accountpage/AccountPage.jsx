@@ -132,7 +132,7 @@ return (
       {/* PROFILE TAB */}
       {activeTab === "profile" && (
         <div className="bg-card text-card-foreground border border-border shadow-sm rounded-2xl p-4 min-[390px]:p-5 min-[430px]:p-6">
-          <div className="mb-4 min-[390px]:mb-5">
+          <div className="mb-4 min-[390px]:mb-5 ">
             <h2 className="text-base min-[390px]:text-lg min-[430px]:text-xl font-semibold text-foreground">
               Personal information
             </h2>
