@@ -20,25 +20,23 @@ export default function Gps({ address, setAddress, onStart }) {
       type="button"
       onClick={onStart}
       className="
-        mt-1 w-full rounded-[14px] px-4 py-3
-        bg-primary text-primary-foreground
-        font-semibold tracking-tight
-        shadow-md
-        hover:bg-primary/90
-        active:bg-primary/80
-        focus-visible:outline-none
-        focus-visible:ring-2
-        focus-visible:ring-ring
-        focus-visible:ring-offset-2
+        w-full rounded-full px-5 py-2.5
+        bg-blue-600 text-white
+        font-semibold
+        hover:bg-blue-700
+        active:bg-blue-800
+        focus:outline-none
+        focus:ring-2 focus:ring-blue-400 focus:ring-offset-2
         transition
       "
     >
       Start Navigation
     </button>
 
-    </div>
-  );
-}
+
+        </div>
+      );
+    }
 
 
 
