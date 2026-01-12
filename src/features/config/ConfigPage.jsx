@@ -204,12 +204,24 @@ return (
         </div>
 
         <div className="mt-3">
-          <button
-            type="submit"
-            className="w-full rounded-full px-4 py-[0.65rem] text-[0.95rem] font-semibold text-white bg-blue-600 bg-blue-700-hover hover:-translate-y-[1px] transition"
-          >
-            Start Shift
-          </button>
+        <button
+          type="submit"
+          className="
+            mt-1 w-full rounded-[14px] px-4 py-3
+            bg-primary text-primary-foreground
+            font-semibold tracking-tight
+            shadow-md
+            hover:bg-primary/90
+            active:bg-primary/80
+            focus-visible:outline-none
+            focus-visible:ring-2
+            focus-visible:ring-ring
+            focus-visible:ring-offset-2
+            transition
+          "
+        >
+            Start shift
+        </button>
         </div>
       </form>
     </div>
