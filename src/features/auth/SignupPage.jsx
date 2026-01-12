@@ -31,13 +31,13 @@ export default function SignupPage({ setLoggedIn }) {
     }
 
 return (
-  <div
-    className="
-      min-h-[100dvh] grid place-items-center p-5
-      bg-[radial-gradient(1100px_520px_at_12%_12%,color-mix(in_oklch,var(--primary)_15%,transparent),transparent_60%),radial-gradient(900px_520px_at_88%_18%,color-mix(in_oklch,var(--ring)_10%,transparent),transparent_55%),var(--background)]
-      text-[var(--foreground)]
-    "
-  >
+    <div
+        className="
+        min-h-screen flex items-center justify-center p-5
+        bg-[radial-gradient(1100px_520px_at_12%_12%,color-mix(in_oklch,var(--primary)_15%,transparent),transparent_60%),radial-gradient(900px_520px_at_88%_18%,color-mix(in_oklch,var(--ring)_10%,transparent),transparent_55%),var(--background)]
+        text-[var(--foreground)]
+        "
+    >
     <div
       className="
         w-[min(440px,92vw)]
