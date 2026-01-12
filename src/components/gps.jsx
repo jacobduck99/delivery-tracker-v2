@@ -16,13 +16,26 @@ export default function Gps({ address, setAddress, onStart }) {
         />
       </div>
 
-      <button
-        type="button"
-        onClick={onStart}
-        className="bg-primary text-primary-foreground py-2.5 rounded-full font-semibold hover:opacity-90"
-      >
-        Start Navigation
-      </button>
+    <button
+      type="button"
+      onClick={onStart}
+      className="
+        inline-flex items-center justify-center
+        rounded-full px-5 py-2.5
+        bg-primary text-primary-foreground
+        font-semibold
+        transition
+        hover:bg-primary/90
+        active:bg-primary/80
+        focus-visible:outline-none
+        focus-visible:ring-2
+        focus-visible:ring-ring
+        focus-visible:ring-offset-2
+      "
+    >
+      Start Navigation
+    </button>
+
     </div>
   );
 }

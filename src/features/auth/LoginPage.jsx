@@ -1,5 +1,4 @@
 import { useState } from "react";
-import s from "./authpage.module.css";
 import { login } from "../../lib/api/loginApi.js";
 import { useNavigate } from 'react-router-dom';
 import { saveUserId } from "../../lib/storage/userStorage.js";
@@ -31,13 +30,13 @@ export default function LoginPage( {setLoggedIn }) {
     }
 
 return (
-<div
-  className="
-    min-h-screen flex items-center justify-center p-5
-    bg-[radial-gradient(1100px_520px_at_12%_12%,color-mix(in_oklch,var(--primary)_15%,transparent),transparent_60%),radial-gradient(900px_520px_at_88%_18%,color-mix(in_oklch,var(--ring)_10%,transparent),transparent_55%),var(--background)]
-    text-[var(--foreground)]
-  "
->
+    <div
+        className="
+        min-h-screen flex items-center justify-center p-5
+        bg-[radial-gradient(1100px_520px_at_12%_12%,color-mix(in_oklch,var(--primary)_15%,transparent),transparent_60%),radial-gradient(900px_520px_at_88%_18%,color-mix(in_oklch,var(--ring)_10%,transparent),transparent_55%),var(--background)]
+        text-[var(--foreground)]
+        "
+    >
     <div
       className="
         w-[min(440px,92vw)]
@@ -102,10 +101,15 @@ return (
           type="submit"
           className="
             mt-1 w-full rounded-[14px] px-4 py-3
-            bg-[var(--primary)] text-[var(--primary-foreground)]
-            font-semibold
-            shadow-[0_14px_34px_color-mix(in_oklch,var(--primary)_25%,transparent)]
-            hover:brightness-105 active:brightness-95
+            bg-primary text-primary-foreground
+            font-semibold tracking-tight
+            shadow-md
+            hover:bg-primary/90
+            active:bg-primary/80
+            focus-visible:outline-none
+            focus-visible:ring-2
+            focus-visible:ring-ring
+            focus-visible:ring-offset-2
             transition
           "
         >
