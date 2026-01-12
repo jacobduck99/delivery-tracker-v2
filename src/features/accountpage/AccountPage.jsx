@@ -77,7 +77,7 @@ export default function AccountPage({ logoutUser, displayName, setDisplayName })
 
 return (
   <div className="h-[100dvh] bg-background text-foreground px-4 min-[390px]:px-5 min-[430px]:px-6 overflow-hidden">
-    <div className="mx-auto w-full min-[430px]:max-w-[28rem] md:max-w-[90rem] h-full overflow-y-auto space-y-4 min-[390px]:space-y-4">
+    <div className="mx-auto w-full min-[430px]:max-w-[28rem] lg:w-290 md:max-w-[90rem] h-full overflow-y-auto lg:space-y-7 space-y-4 min-[390px]:space-y-4">
 
       {/* TOP BAR */}
       <div className="px-4 py-4 min-[390px]:px-1 min-[390px]:py-1">
