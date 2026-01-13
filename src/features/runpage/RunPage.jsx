@@ -206,20 +206,23 @@ return (
           Here's todays run
         </div>
 
-<Card>
+<Card className="relative">
   <Circleprogress completed={completedDrops.length} total={drops.length} />
 
-  <div className="mt-3 flex justify-end ">
+  <div className="absolute top-3 right-3 z-10">
     <BreakButton showBreakModal={setShowBreakModal} />
   </div>
 
-{showBreakModal && (
-  <BreakButtonModal
-    setBreakSelection={setBreakSelection}
-    setShowBreakModal={setShowBreakModal}
-  />
-)}
+  {showBreakModal && (
+    <div className="absolute top-12 right-3 z-10">
+      <BreakButtonModal
+        setBreakSelection={setBreakSelection}
+        setShowBreakModal={setShowBreakModal}
+      />
+    </div>
+  )}
 </Card>
+
       </div>
 
       {/* COMPLETED */}

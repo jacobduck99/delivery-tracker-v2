@@ -1,11 +1,17 @@
 import Gps from "./gps.jsx";
 
 
-export const Card = ({ children }) => (
-  <div className="bg-card text-card-foreground border border-border rounded-2xl shadow-md p-6 w-full max-w-md mx-auto mt-6 min-h-[240px] flex flex-col">
+export const Card = ({ children, className = "" }) => (
+  <div
+    className={[
+      "bg-card text-card-foreground border border-border rounded-2xl shadow-md p-6 w-full max-w-md mx-auto mt-6 min-h-[240px] flex flex-col",
+      className,
+    ].join(" ")}
+  >
     {children}
   </div>
 );
+
 
 
 export default function CircleProgress({
