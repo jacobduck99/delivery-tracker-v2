@@ -46,9 +46,11 @@ export default function RunPage({ runId, setRunId, displayName }) {
     const navigate = useNavigate();
     const [modal, showModal] = useState(false); 
     const [isEndShiftVisible, setIsEndShiftVisible] = useState(true);
+    const [breakStartAt, setBreakStartAt] = useState(null);
+    const [breakEndAt, setBreakEndAt] = useState(null);    
+    const [showBreakModal, setShowBreakModal] = useState(false);
+    const [breakSelection, setBreakSelection] = useState(null);
 
-    console.log("RunPage props profileName:", displayName);
- 
 useEffect(() => {
     async function init() {
         const result = await loadDrops();
