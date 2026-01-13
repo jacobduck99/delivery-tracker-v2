@@ -209,7 +209,7 @@ return (
 <Card>
   <Circleprogress completed={completedDrops.length} total={drops.length} />
 
-  <div className="mt-3 flex justify-center">
+  <div className="mt-3 flex justify-end ">
     <BreakButton showBreakModal={setShowBreakModal} />
   </div>
 
