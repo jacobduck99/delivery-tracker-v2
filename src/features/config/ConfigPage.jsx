@@ -208,7 +208,7 @@ return (
           type="submit"
           className="
             mt-1 w-full rounded-[14px] px-4 py-3
-            bg-primary text-primary-foreground
+            bg-primary text-white
             font-semibold tracking-tight
             shadow-md
             hover:bg-primary/90
