@@ -35,6 +35,7 @@ import {
   updateDropStop
 } from "../../lib/storage/syncStorage.js";
 
+import { BreakButton, BreakButtonModal } from "../../components/breaktimer.jsx";
 import { ModeToggle } from "../../components/ui/mode-toggle.jsx";
 import { syncDrops } from "./syncMachine.js";
 
@@ -205,9 +206,20 @@ return (
           Here's todays run
         </div>
 
-        <Card>
-          <Circleprogress completed={completedDrops.length} total={drops.length} />
-        </Card>
+<Card>
+  <Circleprogress completed={completedDrops.length} total={drops.length} />
+
+  <div className="mt-3 flex justify-center">
+    <BreakButton showBreakModal={setShowBreakModal} />
+  </div>
+
+{showBreakModal && (
+  <BreakButtonModal
+    setBreakSelection={setBreakSelection}
+    setShowBreakModal={setShowBreakModal}
+  />
+)}
+</Card>
       </div>
 
       {/* COMPLETED */}
