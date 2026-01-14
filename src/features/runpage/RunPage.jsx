@@ -81,7 +81,7 @@ if (loading) {
 
 if (breakStartAt !== null) {
     return(<Card className="flex mt-90 justify-center items-center">
-            <p>MM:SS</p>
+            <p className="text-[1.5rem]">MM:SS</p>
          </Card>
         )
     }
