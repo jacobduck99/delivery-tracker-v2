@@ -35,7 +35,7 @@ import {
   updateDropStop
 } from "../../lib/storage/syncStorage.js";
 
-import { BreakButton, BreakButtonModal } from "../../components/breaktimer.jsx";
+import { BreakButton, BreakButtonModal, EndBreakTimerBtn } from "../../components/breaktimer.jsx";
 import { ModeToggle } from "../../components/ui/mode-toggle.jsx";
 import { syncDrops } from "./syncMachine.js";
 
@@ -82,6 +82,7 @@ if (loading) {
 if (breakStartAt !== null) {
     return(<Card className="flex mt-90 justify-center items-center">
             <p className="text-[1.5rem]">MM:SS</p>
+            <EndBreakTimerBtn setBreakEndAt={setBreakEndAt} />
          </Card>
         )
     }
