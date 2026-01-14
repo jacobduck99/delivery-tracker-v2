@@ -38,6 +38,7 @@ import {
 import { BreakButton, BreakButtonModal, EndBreakTimerBtn } from "../../components/breaktimer.jsx";
 import { ModeToggle } from "../../components/ui/mode-toggle.jsx";
 import { syncDrops } from "./syncMachine.js";
+import { TimerCard } from "../../components/breakTimerCard.jsx";
 
 export default function RunPage({ runId, setRunId, displayName }) {
     const [hasError, setHasError] = useState(false)
@@ -81,25 +82,7 @@ if (loading) {
 
 if (breakStartAt !== null) {
   return (
-    <div className="min-h-[90dvh] flex items-center justify-center p-4">
-      <Card className="flex items-center justify-center">
-        <div className="w-full flex flex-col items-center text-center gap-4">
-          <div className="flex flex-col gap-1">
-            <p className="text-sm text-muted-foreground">On break</p>
-            <p className="text-5xl font-semibold tabular-nums tracking-tight">
-              {breakSelection === 15 ? "15:00" : "30:00"}
-            </p>
-            <p className="text-sm text-muted-foreground">
-              {breakSelection === 15 ? "15 minute break" : "30 minute break"}
-            </p>
-          </div>
-
-          <div className="w-full flex justify-center pt-2">
-            <EndBreakTimerBtn setBreakEndAt={setBreakEndAt} setBreakStartAt={setBreakStartAt}/>
-          </div>
-        </div>
-      </Card>
-    </div>
+  <TimerCard breakSelection={breakSelection} setBreakEndAt={setEndBreakEndAt} setBreakStartAt={setBreakStartAt} />
   );
 }
 
