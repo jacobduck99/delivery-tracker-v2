@@ -6,13 +6,10 @@ import { useState, useEffect } from "react";
 export default function TimerCard({ breakSelection, breakStartAt, setBreakEndAt, setBreakStartAt }) {
     const [nowMs, setNowMs] = useState(Date.now());
     
-    function durationMs(breakSelection) {
-        const ms = breakSelection * 60000;
-        return ms;
-    }
+    const durationMs = breakSelection * 60000;
 
     const elapsedMs = nowMs - breakStartAt; 
-    const remainingMs = durationMs(breakSelection) - elapsedMs;
+    const remainingMs = durationMs - elapsedMs;
 
     const readable = formatMinutesAndSecondsMs(remainingMs);
 
@@ -20,7 +17,11 @@ export default function TimerCard({ breakSelection, breakStartAt, setBreakEndAt,
         const intervalId = setInterval(() => {
             setNowMs(Date.now());
         }, 1000)
-    }, [breakStartAt]) 
+
+    return () => {
+      clearInterval(intervalId);
+    };
+    }, [breakStartAt]);
 
   return (
     <div className="min-h-[90dvh] flex items-center justify-center p-4">
