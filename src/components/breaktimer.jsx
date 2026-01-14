@@ -41,11 +41,13 @@ export function BreakButtonModal({ setBreakSelection, setShowBreakModal, setBrea
   );
 }
 
-export function EndBreakTimerBtn({ setBreakEndAt }) {
+export function EndBreakTimerBtn({ setBreakEndAt, setBreakStartAt }) {
    return (
     <button
         className="w-30 bg-red-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700"
-        onClick={() => { setBreakEndAt(Date.now());}}
+        onClick={() => {    setBreakEndAt(Date.now());
+                            setBreakStartAt(null); 
+            }}
       >
         End Break
       </button>

@@ -80,12 +80,28 @@ if (loading) {
 }
 
 if (breakStartAt !== null) {
-    return(<Card className="flex mt-90 justify-center items-center">
-            <p className="text-[1.5rem]">MM:SS</p>
-            <EndBreakTimerBtn setBreakEndAt={setBreakEndAt} />
-         </Card>
-        )
-    }
+  return (
+    <div className="min-h-[90dvh] flex items-center justify-center p-4">
+      <Card className="flex items-center justify-center">
+        <div className="w-full flex flex-col items-center text-center gap-4">
+          <div className="flex flex-col gap-1">
+            <p className="text-sm text-muted-foreground">On break</p>
+            <p className="text-5xl font-semibold tabular-nums tracking-tight">
+              {breakSelection === 15 ? "15:00" : "30:00"}
+            </p>
+            <p className="text-sm text-muted-foreground">
+              {breakSelection === 15 ? "15 minute break" : "30 minute break"}
+            </p>
+          </div>
+
+          <div className="w-full flex justify-center pt-2">
+            <EndBreakTimerBtn setBreakEndAt={setBreakEndAt} setBreakStartAt={setBreakStartAt}/>
+          </div>
+        </div>
+      </Card>
+    </div>
+  );
+}
 
     function navigateToConfig() {
       navigate("/config");
@@ -102,8 +118,6 @@ if (breakStartAt !== null) {
     const completedDrops = drops.filter( (drop) => drop.status === "Completed" ); 
 
     console.log(drops);
-
-    console.log("break started at", breakStartAt);
 
     function onChangeStatus(drop_idx, newStatus) {
         setDrops(prev => { 
