@@ -1,5 +1,6 @@
 import { Card } from "./progresscircle.jsx";
 import { EndBreakTimerBtn } from "./breaktimer.jsx";
+import { formatMinutesAndSeconds } from "../lib/utils/formatters.js";
 import { useState } from "react";
 
 export default function TimerCard({ breakSelection, breakStartAt, setBreakEndAt, setBreakStartAt }) {
@@ -12,6 +13,8 @@ export default function TimerCard({ breakSelection, breakStartAt, setBreakEndAt,
 
     const elapsedMs = nowMs - breakStartAt; 
     const remainingMs = durationMs(breakSelection) - elapsedMs;
+
+    const readable = formatMinutesAndSeconds(remainingMs);
 
     let intervalId = setInterval(() => setNow)
 
