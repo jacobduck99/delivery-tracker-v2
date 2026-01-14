@@ -208,11 +208,11 @@ return (
           type="submit"
           className="
             mt-1 w-full rounded-[14px] px-4 py-3
-            bg-primary text-white
+            bg-blue-600 text-white
             font-semibold tracking-tight
             shadow-md
-            hover:bg-primary/90
-            active:bg-primary/80
+            hover:bg-blue-700
+            active:bg-blue-800
             focus-visible:outline-none
             focus-visible:ring-2
             focus-visible:ring-ring
