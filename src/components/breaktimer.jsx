@@ -32,6 +32,7 @@ export function BreakButtonModal({ setBreakSelection, setShowBreakModal, setBrea
             setBreakSelection(30);
             setShowBreakModal(false);
             setBreakStartAt(Date.now());
+            console.log("break started?", setBreakStartAt);
         
         }}
       >

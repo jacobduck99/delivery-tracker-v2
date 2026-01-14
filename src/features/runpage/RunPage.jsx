@@ -82,7 +82,7 @@ if (loading) {
 
 if (breakStartAt !== null) {
   return (
-  <TimerCard breakSelection={breakSelection} setBreakEndAt={setBreakEndAt} setBreakStartAt={setBreakStartAt} />
+  <TimerCard breakSelection={breakSelection} setBreakEndAt={setBreakEndAt} setBreakStartAt={setBreakStartAt} breakStartAt={breakStartAt}/>
   );
 }
 

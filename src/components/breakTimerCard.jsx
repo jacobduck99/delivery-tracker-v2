@@ -1,22 +1,29 @@
 import { Card } from "./progresscircle.jsx";
 import { EndBreakTimerBtn } from "./breaktimer.jsx";
 import { formatMinutesAndSeconds } from "../lib/utils/formatters.js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function TimerCard({ breakSelection, breakStartAt, setBreakEndAt, setBreakStartAt }) {
     const [nowMs, setNowMs] = useState(Date.now());
+    
+    console.log("break started", breakStartAt);
 
-    function durationMS(breakSelection) {
+    function durationMs(breakSelection) {
         const ms = breakSelection * 60000;
         return ms;
     }
 
     const elapsedMs = nowMs - breakStartAt; 
+    console.log("here is ur elapsed", elapsedMs);
     const remainingMs = durationMs(breakSelection) - elapsedMs;
 
     const readable = formatMinutesAndSeconds(remainingMs);
 
-    let intervalId = setInterval(() => setNow)
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setNowMs(Date.now());
+        }, 1000)
+    }, [breakStartAt]) 
 
   return (
     <div className="min-h-[90dvh] flex items-center justify-center p-4">
@@ -25,7 +32,7 @@ export default function TimerCard({ breakSelection, breakStartAt, setBreakEndAt,
           <div className="flex flex-col gap-1">
             <p className="text-sm text-muted-foreground">On break</p>
             <p className="text-5xl font-semibold tabular-nums tracking-tight">
-              {breakSelection === 15 ? "15:00" : "30:00"}
+              {breakSelection === 15 ? `${readable}` : `${readable}` }
             </p>
             <p className="text-sm text-muted-foreground">
               {breakSelection === 15 ? "15 minute break" : "30 minute break"}
