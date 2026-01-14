@@ -95,6 +95,8 @@ if (loading) {
 
     console.log(drops);
 
+    console.log("break started at", breakStartAt);
+
     function onChangeStatus(drop_idx, newStatus) {
         setDrops(prev => { 
             const nextDrops = updateDropStatus(prev, drop_idx, newStatus);
@@ -218,6 +220,7 @@ return (
       <BreakButtonModal
         setBreakSelection={setBreakSelection}
         setShowBreakModal={setShowBreakModal}
+        setBreakStartAt={setBreakStartAt}
       />
     </div>
   )}
