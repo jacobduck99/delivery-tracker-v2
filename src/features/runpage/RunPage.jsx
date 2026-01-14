@@ -79,6 +79,13 @@ if (loading) {
   );
 }
 
+if (breakStartAt !== null) {
+    return(<Card className="flex mt-90 justify-center items-center">
+            <p>MM:SS</p>
+         </Card>
+        )
+    }
+
     function navigateToConfig() {
       navigate("/config");
     }
