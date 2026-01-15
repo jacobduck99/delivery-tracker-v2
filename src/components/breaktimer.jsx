@@ -19,7 +19,6 @@ export function BreakButtonModal({ setBreakSelection, handleSelectedBreak }) {
         className="w-25 bg-red-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700"
         onClick={() => {
             handleSelectedBreak(15);
-
         }}
       >
         15 
@@ -37,12 +36,12 @@ export function BreakButtonModal({ setBreakSelection, handleSelectedBreak }) {
   );
 }
 
-export function EndBreakTimerBtn({ setBreakEndAt, setBreakStartAt }) {
+export function EndBreakTimerBtn({ setBreakEndAt, setRenderTimer }) {
    return (
     <button
         className="w-30 bg-red-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700"
         onClick={() => {    setBreakEndAt(Date.now());
-                            setBreakStartAt(null); 
+                            setRenderTimer(false); 
             }}
       >
         End Break

@@ -4,7 +4,7 @@ import { formatMinutesAndSecondsMs } from "../lib/utils/formatters.js";
 import { loadBreakStartTime, loadBreakSelection } from "../lib/storage/breakStorage.js";
 import { useState, useEffect } from "react";
 
-export default function TimerCard({ setBreakEndAt, setBreakStartAt}) {
+export default function TimerCard({ setBreakEndAt, setRenderTimer }) {
     const [nowMs, setNowMs] = useState(Date.now());
     const [startBreak, setStartBreak] = useState("loading");
     const [selectedBreak, setSelectedBreak] = useState("loading");
@@ -54,7 +54,7 @@ export default function TimerCard({ setBreakEndAt, setBreakStartAt}) {
           </div>
 
           <div className="w-full flex justify-center pt-2">
-            <EndBreakTimerBtn setBreakEndAt={setBreakEndAt} setBreakStartAt={setBreakStartAt}/>
+            <EndBreakTimerBtn setBreakEndAt={setBreakEndAt} setRenderTimer={setRenderTimer}/>
           </div>
         </div>
       </Card>

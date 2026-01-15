@@ -39,7 +39,7 @@ import { BreakButton, BreakButtonModal, EndBreakTimerBtn } from "../../component
 import { ModeToggle } from "../../components/ui/mode-toggle.jsx";
 import { syncDrops } from "./syncMachine.js";
 import TimerCard from "../../components/breakTimerCard.jsx";
-import { saveBreakStartTime, saveBreakSelection } from "../../lib/storage/breakStorage.js";
+import { saveBreakStartTime, saveBreakSelection, loadBreakStartTime, loadBreakSelection } from "../../lib/storage/breakStorage.js";
 
 export default function RunPage({ runId, setRunId, displayName }) {
     const [hasError, setHasError] = useState(false)
@@ -53,6 +53,7 @@ export default function RunPage({ runId, setRunId, displayName }) {
     const [breakEndAt, setBreakEndAt] = useState(null);    
     const [showBreakModal, setShowBreakModal] = useState(false);
     const [breakSelection, setBreakSelection] = useState(null);
+    const [renderTimer, setRenderTimer ] = useState(false);
 
 useEffect(() => {
     async function init() {
@@ -73,6 +74,16 @@ useEffect(() => {
     init();
 }, []);
 
+useEffect(() => {
+        function renderBreakTimer() {
+            const breakActive = loadBreakStartTime();
+            const breakSelection = loadBreakSelection();
+            if (!breakActive) return;
+            setRenderTimer(true);
+                                 }
+        renderBreakTimer();
+        }, [breakStartAt]);
+
 if (loading) {
   return (
     <div className="container">
@@ -89,11 +100,10 @@ if (loading) {
         setShowBreakModal(false);
     }
 
-    console.log("break selected", breakSelection);
 
-if (breakStartAt !== null) {
+if (renderTimer === true) {
   return (
-  <TimerCard setBreakEndAt={setBreakEndAt} setBreakStartAt={setBreakStartAt} breakStartAt={breakStartAt}/>
+  <TimerCard setBreakEndAt={setBreakEndAt} setBreakStartAt={setBreakStartAt} setRenderTimer={setRenderTimer}/>
   );
 }
 
