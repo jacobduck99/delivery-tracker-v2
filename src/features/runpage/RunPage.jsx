@@ -100,15 +100,23 @@ if (loading) {
         setShowBreakModal(false);
     }
 
-    function handleBreakEnded(){
+    async function handleBreakEnded(){
         const endedAt = Date.now();
         setBreakEndAt(endedAt);
         saveBreakEndTime(endedAt);
         setRenderTimer(false);
+        const breakSelected = loadBreakSelection();
+        const startedAt = loadBreakStartTime();
+        const runid = runId; 
+        const payload = { runId,
+            break: `${breakSelected}`,
+                         start_at: `${startedAt}`, 
+                        end_at: `${endedAt}`}  
     }
+    
 
-
-if (renderTimer === true) {
+    
+if (renderTimer === true && breakEndAt === null) {
   return (
   <TimerCard handleBreakEnded={handleBreakEnded}/>
   );
