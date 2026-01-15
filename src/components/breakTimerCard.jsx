@@ -1,14 +1,25 @@
 import { Card } from "./progresscircle.jsx";
 import { EndBreakTimerBtn } from "./breaktimer.jsx";
 import { formatMinutesAndSecondsMs } from "../lib/utils/formatters.js";
+import { loadBreakStartTime } from "../lib/storage/breakStorage.js";
 import { useState, useEffect } from "react";
 
-export default function TimerCard({ breakSelection, breakStartAt, setBreakEndAt, setBreakStartAt }) {
+export default function TimerCard({ breakSelection, setBreakEndAt}) {
     const [nowMs, setNowMs] = useState(Date.now());
-    
+    const [startBreak, setStartBreak] = useState(null);
+
+    const checkStartTime = loadBreakStartTime();
+
+    useEffect(() => {
+        const checkStartTime = loadBreakStartTime();
+        if (!checkStartTime) return;
+
+        setStartBreak(checkStartTime); 
+    }, []);
+ 
     const durationMs = breakSelection * 60000;
 
-    const elapsedMs = nowMs - breakStartAt; 
+    const elapsedMs = nowMs - startBreak; 
     const remainingMs = durationMs - elapsedMs;
 
     const readable = formatMinutesAndSecondsMs(remainingMs);
@@ -21,7 +32,7 @@ export default function TimerCard({ breakSelection, breakStartAt, setBreakEndAt,
     return () => {
       clearInterval(intervalId);
     };
-    }, [breakStartAt]);
+    }, []);
 
   return (
     <div className="min-h-[90dvh] flex items-center justify-center p-4">
@@ -38,7 +49,7 @@ export default function TimerCard({ breakSelection, breakStartAt, setBreakEndAt,
           </div>
 
           <div className="w-full flex justify-center pt-2">
-            <EndBreakTimerBtn setBreakEndAt={setBreakEndAt} setBreakStartAt={setBreakStartAt}/>
+            <EndBreakTimerBtn setBreakEndAt={setBreakEndAt} />
           </div>
         </div>
       </Card>
