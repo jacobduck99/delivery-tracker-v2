@@ -29,7 +29,7 @@ export function loadBreakEndTime() {
     return JSON.parse(raw);
 }
 
-export function savePendingBreakQueue(payload) {
+export function savePendingBreak(payload) {
     localStorage.setItem("Completed break", JSON.stringify(payload));
 }
 
