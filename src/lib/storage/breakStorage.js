@@ -33,4 +33,8 @@ export function savePendingBreakQueue(payload) {
     localStorage.setItem("Completed break", JSON.stringify(payload));
 }
 
-
+export function clearBreak() {
+    localStorage.removeItem("Break selected");
+    localStorage.removeItem("Break started at");
+    localStorage.removeItem("Break ended at");
+}
