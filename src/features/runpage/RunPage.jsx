@@ -39,9 +39,11 @@ import { BreakButton, BreakButtonModal, EndBreakTimerBtn } from "../../component
 import { ModeToggle } from "../../components/ui/mode-toggle.jsx";
 import { syncDrops } from "./syncMachine.js";
 import TimerCard from "../../components/breakTimerCard.jsx";
-import { saveBreakStartTime, saveBreakSelection, savePendingBreak, loadBreakStartTime, clearActiveBreak, loadBreakSelection, saveBreakEndTime } from "../../lib/storage/breakStorage.js";
+import { saveBreakStartTime, clearSyncedBreak, saveBreakSelection, savePendingBreak, loadBreakStartTime, clearActiveBreak, loadBreakSelection, saveBreakEndTime } from "../../lib/storage/breakStorage.js";
 
 import { getUserId } from "../../lib/storage/userStorage.js";
+
+import { postBreak } from "../../lib/api/runApi.js";
 
 export default function RunPage({ runId, setRunId, displayName }) {
     const [hasError, setHasError] = useState(false)
@@ -116,6 +118,12 @@ if (loading) {
         const payload = { userId, runId, break_minutes: breakSelected,start_at: startedAt, end_at: endedAt} 
         savePendingBreak(payload);
         clearActiveBreak();
+        const result = await postBreak(payload); 
+        
+        if (result.ok) {
+           console.log("break success synced", result) 
+           clearSyncedBreak(); 
+        }
 
     }
     

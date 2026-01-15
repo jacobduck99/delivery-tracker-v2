@@ -38,3 +38,7 @@ export function clearActiveBreak() {
     localStorage.removeItem("Break started at");
     localStorage.removeItem("Break ended at");
 }
+
+export function clearSyncedBreak() {
+    localStorage.removeItem("Completed break");
+} 
