@@ -80,6 +80,11 @@ if (loading) {
   );
 }
 
+    function handleSelectedBreak() {
+        setShowBreakModal(false);
+        setBreakStartAt(Date.now());
+    }
+
 if (breakStartAt !== null) {
   return (
   <TimerCard breakSelection={breakSelection} setBreakEndAt={setBreakEndAt} setBreakStartAt={setBreakStartAt} breakStartAt={breakStartAt}/>
@@ -224,8 +229,7 @@ return (
     <div className="absolute top-12 right-3 z-10">
       <BreakButtonModal
         setBreakSelection={setBreakSelection}
-        setShowBreakModal={setShowBreakModal}
-        setBreakStartAt={setBreakStartAt}
+        handleSelectedBreak={handleSelectedBreak}
       />
     </div>
   )}
