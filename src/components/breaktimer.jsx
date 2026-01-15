@@ -36,13 +36,11 @@ export function BreakButtonModal({ setBreakSelection, handleSelectedBreak }) {
   );
 }
 
-export function EndBreakTimerBtn({ setBreakEndAt, setRenderTimer }) {
+export function EndBreakTimerBtn({ handleBreakEnded }) {
    return (
     <button
         className="w-30 bg-red-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700"
-        onClick={() => {    setBreakEndAt(Date.now());
-                            setRenderTimer(false); 
-            }}
+        onClick={() => { handleBreakEnded() }}
       >
         End Break
       </button>

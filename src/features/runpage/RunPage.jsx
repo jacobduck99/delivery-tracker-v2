@@ -39,7 +39,7 @@ import { BreakButton, BreakButtonModal, EndBreakTimerBtn } from "../../component
 import { ModeToggle } from "../../components/ui/mode-toggle.jsx";
 import { syncDrops } from "./syncMachine.js";
 import TimerCard from "../../components/breakTimerCard.jsx";
-import { saveBreakStartTime, saveBreakSelection, loadBreakStartTime, loadBreakSelection } from "../../lib/storage/breakStorage.js";
+import { saveBreakStartTime, saveBreakSelection, loadBreakStartTime, loadBreakSelection, saveBreakEndTime } from "../../lib/storage/breakStorage.js";
 
 export default function RunPage({ runId, setRunId, displayName }) {
     const [hasError, setHasError] = useState(false)
@@ -100,10 +100,17 @@ if (loading) {
         setShowBreakModal(false);
     }
 
+    function handleBreakEnded(){
+        const endedAt = Date.now();
+        setBreakEndAt(endedAt);
+        saveBreakEndTime(endedAt);
+        setRenderTimer(false);
+    }
+
 
 if (renderTimer === true) {
   return (
-  <TimerCard setBreakEndAt={setBreakEndAt} setBreakStartAt={setBreakStartAt} setRenderTimer={setRenderTimer}/>
+  <TimerCard handleBreakEnded={handleBreakEnded}/>
   );
 }
 

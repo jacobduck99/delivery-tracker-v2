@@ -19,5 +19,16 @@ export function loadBreakSelection() {
     return JSON.parse(raw);
 }
 
+export function saveBreakEndTime(breakEndedAt) {
+    localStorage.setItem("Break ended at", JSON.stringify(breakEndedAt)); 
+}
+
+export function loadBreakEndTime() {
+    const raw = localStorage.getItem("Break ended at");
+    if (!raw) return null;
+    return JSON.parse(raw);
+}
+
+
 
 
