@@ -77,8 +77,10 @@ useEffect(() => {
 useEffect(() => {
         function renderBreakTimer() {
             const breakActive = loadBreakStartTime();
-            const breakSelection = loadBreakSelection();
-            if (!breakActive) return;
+            setBreakStartAt(breakActive);
+            const breakSelected = loadBreakSelection();
+            setBreakSelection(breakSelected);
+            if (!breakActive && !breakSelected) return;
             setRenderTimer(true);
                                  }
         renderBreakTimer();
@@ -98,6 +100,7 @@ if (loading) {
         saveBreakStartTime(startedAt);
         saveBreakSelection(breakSelected);
         setShowBreakModal(false);
+        renderBreakTimer();
     }
 
     async function handleBreakEnded(){
@@ -107,14 +110,15 @@ if (loading) {
         setRenderTimer(false);
         const breakSelected = loadBreakSelection();
         const startedAt = loadBreakStartTime();
-        const payload = { runId, breakMinutes: `${breakSelected}`,start_at: `${startedAt}`, end_at: `${endedAt}`} savePendingBreak(payload);
+        const payload = { runId, break_minutes: breakSelected,start_at: startedAt, end_at: endedAt} 
+        savePendingBreak(payload);
         clearActiveBreak();
 
     }
     
 
     
-if (renderTimer === true && breakEndAt === null) {
+if (renderTimer === true) {
   return (
   <TimerCard handleBreakEnded={handleBreakEnded}/>
   );
