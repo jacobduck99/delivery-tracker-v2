@@ -104,7 +104,6 @@ if (loading) {
         saveBreakStartTime(startedAt);
         saveBreakSelection(breakSelected);
         setShowBreakModal(false);
-        renderBreakTimer();
     }
 
     async function handleBreakEnded(){
