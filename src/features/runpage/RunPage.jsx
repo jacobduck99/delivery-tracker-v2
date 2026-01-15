@@ -41,6 +41,8 @@ import { syncDrops } from "./syncMachine.js";
 import TimerCard from "../../components/breakTimerCard.jsx";
 import { saveBreakStartTime, saveBreakSelection, savePendingBreak, loadBreakStartTime, clearActiveBreak, loadBreakSelection, saveBreakEndTime } from "../../lib/storage/breakStorage.js";
 
+import { getUserId } from "../../lib/storage/userStorage.js";
+
 export default function RunPage({ runId, setRunId, displayName }) {
     const [hasError, setHasError] = useState(false)
     const [drops, setDrops] = useState([]);
@@ -110,7 +112,8 @@ if (loading) {
         setRenderTimer(false);
         const breakSelected = loadBreakSelection();
         const startedAt = loadBreakStartTime();
-        const payload = { runId, break_minutes: breakSelected,start_at: startedAt, end_at: endedAt} 
+        const userId = getUserId();
+        const payload = { userId, runId, break_minutes: breakSelected,start_at: startedAt, end_at: endedAt} 
         savePendingBreak(payload);
         clearActiveBreak();
 

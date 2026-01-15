@@ -120,8 +120,15 @@ def get_all_runs(userId):
     rows = cur.fetchall()
 
     runs = [dict(row) for row in rows]
-
     return jsonify({"ok": True, "Runs": runs}), 200
 
+@run_bp.post("/run/<int:userId>/<int:runId>/breaks")
+def save_break(userId, runId):
+    conn = get_db()
+    cur = conn.execute(
+        """
+        
+        """
+    )
 
 
