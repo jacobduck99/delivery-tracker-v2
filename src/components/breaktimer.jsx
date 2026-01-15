@@ -18,8 +18,7 @@ export function BreakButtonModal({ setBreakSelection, handleSelectedBreak }) {
       <button
         className="w-25 bg-red-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700"
         onClick={() => {
-            setBreakSelection(15);
-            handleSelectedBreak();
+            handleSelectedBreak(15);
 
         }}
       >
@@ -29,8 +28,7 @@ export function BreakButtonModal({ setBreakSelection, handleSelectedBreak }) {
       <button
         className="w-25 bg-green-600 text-white py-2.5 rounded-full font-semibold hover:bg-green-700"
         onClick={() => {
-            setBreakSelection(30);
-            handleSelectedBreak();
+            handleSelectedBreak(30);
         }}
       >
         30

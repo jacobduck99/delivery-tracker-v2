@@ -39,7 +39,7 @@ import { BreakButton, BreakButtonModal, EndBreakTimerBtn } from "../../component
 import { ModeToggle } from "../../components/ui/mode-toggle.jsx";
 import { syncDrops } from "./syncMachine.js";
 import TimerCard from "../../components/breakTimerCard.jsx";
-import { saveBreakStartTime } from "../../lib/storage/breakStorage.js";
+import { saveBreakStartTime, saveBreakSelection } from "../../lib/storage/breakStorage.js";
 
 export default function RunPage({ runId, setRunId, displayName }) {
     const [hasError, setHasError] = useState(false)
@@ -81,17 +81,19 @@ if (loading) {
   );
 }
 
-    function handleSelectedBreak() {
+    function handleSelectedBreak(breakSelected) {
         const startedAt = Date.now();
         setBreakStartAt(startedAt);
         saveBreakStartTime(startedAt);
+        saveBreakSelection(breakSelected);
         setShowBreakModal(false);
     }
 
+    console.log("break selected", breakSelection);
 
 if (breakStartAt !== null) {
   return (
-  <TimerCard breakSelection={breakSelection} setBreakEndAt={setBreakEndAt} setBreakStartAt={setBreakStartAt} breakStartAt={breakStartAt}/>
+  <TimerCard setBreakEndAt={setBreakEndAt} setBreakStartAt={setBreakStartAt} breakStartAt={breakStartAt}/>
   );
 }
 
@@ -226,7 +228,7 @@ return (
   <Circleprogress completed={completedDrops.length} total={drops.length} />
 
   <div className="absolute top-3 right-3 z-10">
-    <BreakButton showBreakModal={setShowBreakModal} />
+    <BreakButton showBreakModal={setShowBreakModal} handleSelectedBreak={handleSelectedBreak} />
   </div>
 
   {showBreakModal && (

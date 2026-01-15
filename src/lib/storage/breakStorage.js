@@ -8,3 +8,16 @@ export function loadBreakStartTime() {
     if (!raw) return null;
     return JSON.parse(raw);
 }
+
+export function saveBreakSelection(selectedBreak) {
+    localStorage.setItem("Break selected", JSON.stringify(selectedBreak)); 
+} 
+
+export function loadBreakSelection() {
+    const raw = localStorage.getItem("Break selected");
+    if (!raw) return null;
+    return JSON.parse(raw);
+}
+
+
+
