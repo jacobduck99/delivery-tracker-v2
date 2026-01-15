@@ -107,6 +107,7 @@ export async function postBreak(payload) {
         try {
         res = await fetch(url, {
           method: "POST",
+            mode: "cors",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         });

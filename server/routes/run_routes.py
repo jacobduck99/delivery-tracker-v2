@@ -129,13 +129,11 @@ def save_break(userId, runId):
 
     data = request.get_json() or {}
 
-    # pull fields
     break_minutes = data.get("break_minutes")
     start_at = data.get("start_at")
     end_at = data.get("end_at")
-    sync_status = data.get("sync_status")
+    sync_status = "Synced"
 
-    # minimal validation
     if break_minutes is None or start_at is None or end_at is None:
         return jsonify({"ok": False, "error": "break_minutes, start_at, end_at required"}), 400
 
