@@ -88,7 +88,6 @@ if (loading) {
         setShowBreakModal(false);
     }
 
-    console.log("break started v2", breakStartAt);
 
 if (breakStartAt !== null) {
   return (
