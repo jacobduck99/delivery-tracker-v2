@@ -124,11 +124,39 @@ def get_all_runs(userId):
 
 @run_bp.post("/run/<int:userId>/<int:runId>/breaks")
 def save_break(userId, runId):
+    if not request.is_json:
+        return jsonify({"ok": False, "error": "Expected JSON"}), 400
+
+    data = request.get_json() or {}
+
+    # pull fields
+    break_minutes = data.get("break_minutes")
+    start_at = data.get("start_at")
+    end_at = data.get("end_at")
+    sync_status = data.get("sync_status")
+
+    # minimal validation
+    if break_minutes is None or start_at is None or end_at is None:
+        return jsonify({"ok": False, "error": "break_minutes, start_at, end_at required"}), 400
+
+    try:
+        break_minutes = int(break_minutes)
+        start_at = int(start_at)
+        end_at = int(end_at)
+    except (TypeError, ValueError):
+        return jsonify({"ok": False, "error": "Invalid types"}), 400
+
+    if end_at < start_at:
+        return jsonify({"ok": False, "error": "end_at must be >= start_at"}), 400
+
     conn = get_db()
     cur = conn.execute(
         """
-        
-        """
+        INSERT INTO breaks (run_id, break_minutes, start_ts, end_ts, sync_status)
+        VALUES (?, ?, ?, ?, ?)
+        """,
+        (runId, break_minutes, start_at, end_at, sync_status),
     )
+    conn.commit()
 
-
+    return jsonify({"ok": True, "id": cur.lastrowid}), 201
