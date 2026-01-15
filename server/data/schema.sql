@@ -39,9 +39,23 @@ CREATE TABLE IF NOT EXISTS deliveries (
     UNIQUE (run_id, drop_idx)
 );
 
+CREATE TABLE IF NOT EXISTS breaks (
+  id           INTEGER PRIMARY KEY AUTOINCREMENT,
+  run_id        INTEGER NOT NULL,          -- config.id
+  break_minutes INTEGER NOT NULL,          -- 15 or 30 (intended)
+  start_ts      TEXT NOT NULL,             -- store ISO string
+  end_ts        TEXT,                      -- NULL until ended
+  sync_status   TEXT,                      -- optional, matches your deliveries pattern
+  created_at    TEXT DEFAULT CURRENT_TIMESTAMP,
+
+  FOREIGN KEY (run_id) REFERENCES config(id) ON DELETE CASCADE
+);
+
 CREATE INDEX IF NOT EXISTS idx_deliveries_run_id ON deliveries(run_id);
 
 CREATE INDEX IF NOT EXISTS idx_config_user_id ON config(user_id);
 CREATE INDEX IF NOT EXISTS idx_config_start   ON config(start_time);
 CREATE INDEX IF NOT EXISTS idx_config_van     ON config(van_number, start_time);
 
+CREATE INDEX IF NOT EXISTS idx_breaks_run_id ON breaks(run_id);
+CREATE INDEX IF NOT EXISTS idx_breaks_end_ts ON breaks(run_id, end_ts);
