@@ -41,13 +41,12 @@ CREATE TABLE IF NOT EXISTS deliveries (
 
 CREATE TABLE IF NOT EXISTS breaks (
   id           INTEGER PRIMARY KEY AUTOINCREMENT,
-  run_id        INTEGER NOT NULL,          -- config.id
-  break_minutes INTEGER NOT NULL,          -- 15 or 30 (intended)
-  start_ts      TEXT NOT NULL,             -- store ISO string
-  end_ts        TEXT,                      -- NULL until ended
-  sync_status   TEXT,                      -- optional, matches your deliveries pattern
+  run_id        INTEGER NOT NULL,
+  break_minutes INTEGER NOT NULL,
+  start_ts      INTEGER NOT NULL,
+  end_ts        INTEGER,                 -- NULL until ended
+  sync_status   TEXT,
   created_at    TEXT DEFAULT CURRENT_TIMESTAMP,
-
   FOREIGN KEY (run_id) REFERENCES config(id) ON DELETE CASCADE
 );
 
