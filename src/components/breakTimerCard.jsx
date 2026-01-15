@@ -1,12 +1,13 @@
 import { Card } from "./progresscircle.jsx";
 import { EndBreakTimerBtn } from "./breaktimer.jsx";
 import { formatMinutesAndSecondsMs } from "../lib/utils/formatters.js";
-import { loadBreakStartTime } from "../lib/storage/breakStorage.js";
+import { loadBreakStartTime, loadBreakSelection } from "../lib/storage/breakStorage.js";
 import { useState, useEffect } from "react";
 
-export default function TimerCard({ breakSelection, setBreakEndAt, setBreakStartAt}) {
+export default function TimerCard({ setBreakEndAt, setBreakStartAt}) {
     const [nowMs, setNowMs] = useState(Date.now());
     const [startBreak, setStartBreak] = useState("loading");
+    const [selectedBreak, setSelectedBreak] = useState("loading");
 
     const checkStartTime = loadBreakStartTime();
 
@@ -14,10 +15,14 @@ export default function TimerCard({ breakSelection, setBreakEndAt, setBreakStart
         const checkStartTime = loadBreakStartTime();
         if (!checkStartTime) return;
 
+        const breakSelected = loadBreakSelection();
+        if (!breakSelected) return;
+       
+        setSelectedBreak(breakSelected)
         setStartBreak(checkStartTime); 
     }, []);
  
-    const durationMs = breakSelection * 60000;
+    const durationMs = selectedBreak * 60000;
 
     const elapsedMs = nowMs - startBreak; 
     const remainingMs = durationMs - elapsedMs;
@@ -41,10 +46,10 @@ export default function TimerCard({ breakSelection, setBreakEndAt, setBreakStart
           <div className="flex flex-col gap-1">
             <p className="text-sm text-muted-foreground">On break</p>
             <p className="text-5xl font-semibold tabular-nums tracking-tight">
-              {breakSelection === 15 ? `${readable}` : `${readable}` }
+              {selectedBreak === 15 ? `${readable}` : `${readable}` }
             </p>
             <p className="text-sm text-muted-foreground">
-              {breakSelection === 15 ? "15 minute break" : "30 minute break"}
+              {selectedBreak === 15 ? "15 minute break" : "30 minute break"}
             </p>
           </div>
 
