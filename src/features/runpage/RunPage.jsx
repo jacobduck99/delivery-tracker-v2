@@ -175,8 +175,6 @@ if (renderTimer === true) {
             status: "Ready",
             created_at: Date.now(),
         });
-
-        syncDrops(runId);
         }
 
     window.dispatchEvent(new Event("online")); 

@@ -49,40 +49,40 @@ export default function App() {
       getProfileName();
     }, []);
 
-  useEffect(() => {
+    async function flushSync(runId) {
+        await syncEndshift();
+        await syncDrops(runId);
+    }
+
+useEffect(() => {
     async function syncEndShift() {
         const pending = loadPendingEndShift();
         if (!pending) return;
         if (pending.synced_status !== "Pending") return;
-
         const result = await endShift(pending.runid, pending.endShift);
-
         if (result.ok) {
             const synced = { ...pending, synced_status: "Completed" };
             queueEndingShift(synced);
-//            clearCurrentRun();
             resetRun(runId);
             drainEndShiftQueue();
             console.log("End shift synced:", result);
         }
     }
 
-    // run at startup
-    syncEndShift();
-    const syncedOffline = syncDrops(runId);
+    async function flushSync() {
+        await syncDrops(runId);
+        await syncEndShift();
+    }
 
-    console.log("synced drops offline", syncedOffline);
-
+    // Run at startup
+    flushSync();
     console.log("SYNC STARTED", Date.now());
-    console.log("SYNC DROPS STARTED", Date.now());
 
-    // run when online
-    window.addEventListener("online", syncEndShift);
-
-    // NEED TO COME BACK HERE AND FIND OUT WHY THIS ISN'T FIRING WHEN BACK ONLINE
-    window.addEventListener("online", syncDrops(runId));
-
-}, []);
+    // Run when back online
+    window.addEventListener("online", flushSync);
+    
+    return () => window.removeEventListener("online", flushSync);
+}, [runId]);
 
     return ( 
 
