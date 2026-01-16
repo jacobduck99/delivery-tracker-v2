@@ -8,16 +8,16 @@ export function BreakButton({ showBreakModal }) {
       className="w-13 text-foreground py-2.5 inline-flex items-center justify-center"
       onClick={() => showBreakModal((prev) => !prev)}
     >
-      <Coffee className="h-7 w-7" />
+      <Coffee className="h-8 w-8" />
     </button>
   );
 }
 
 export function BreakButtonModal({ setBreakSelection, handleSelectedBreak }) {
   return (
-    <div className="flex flex-col gap-4 mt-3 items-center">
+    <div className="mt-7 flex flex-col gap-4 mt-3 items-center">
       <button
-        className="w-25 text-foreground py-2.5 rounded-full font-semibold "
+        className="w-15 text-foreground border py-3 rounded-full font-bold "
         onClick={() => {
             handleSelectedBreak(15);
         }}
@@ -26,7 +26,7 @@ export function BreakButtonModal({ setBreakSelection, handleSelectedBreak }) {
       </button>
 
       <button
-        className="w-25 text-foreground py-2.5 bg-green rounded-full font-semibold" 
+        className="w-15 text-foreground border py-3 rounded-full font-bold" 
         onClick={() => {
             handleSelectedBreak(30);
         }}
