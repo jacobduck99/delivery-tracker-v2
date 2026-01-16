@@ -117,17 +117,9 @@ if (loading) {
         const payload = { userId, runId, break_minutes: breakSelected,start_at: startedAt, end_at: endedAt} 
         savePendingBreak(payload);
         clearActiveBreak();
-        const result = await postBreak(payload); 
-        
-        if (result.ok) {
-           console.log("break success synced", result) 
-           clearSyncedBreak(); 
-        }
-
+        window.dispatchEvent(new Event("online")); 
     }
-    
-
-    
+        
 if (renderTimer === true) {
   return (
   <TimerCard handleBreakEnded={handleBreakEnded}/>
