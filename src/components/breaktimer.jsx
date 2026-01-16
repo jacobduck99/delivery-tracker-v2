@@ -8,7 +8,7 @@ export function BreakButton({ showBreakModal }) {
       className="w-13 text-foreground py-2.5 inline-flex items-center justify-center"
       onClick={() => showBreakModal((prev) => !prev)}
     >
-      <Coffee className="h-8 w-8" />
+      <Coffee className="h-8 w-8 mr-1" />
     </button>
   );
 }
