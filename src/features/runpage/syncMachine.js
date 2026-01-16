@@ -1,5 +1,5 @@
 import { loadPendingQueue, loadDeliveries, savePendingDrop, saveDeliveries, drainQueue } from "../../lib/storage/runStorage.js";
-import { syncPendingDrops } from "../../lib/api/runApi.js";
+import { syncPendingDrops, postBreak } from "../../lib/api/runApi.js";
 
 // leaving this how it is took me two days to come up with this is for future jacob to look at 11 months into my coding progress :)
 
@@ -44,3 +44,12 @@ export async function syncDrops(runId) {
 
         
 }}
+
+export async function syncPendingBreak() {
+    const result = await postBreak(payload); 
+        
+        if (result.ok) {
+           console.log("break success synced", result) 
+           clearSyncedBreak(); 
+        }
+}
