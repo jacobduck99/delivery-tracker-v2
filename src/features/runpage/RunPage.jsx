@@ -179,6 +179,7 @@ if (renderTimer === true) {
         syncDrops(runId);
         }
 
+    window.dispatchEvent(new Event("online")); 
     return next;
     });
     }
