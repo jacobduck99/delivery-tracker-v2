@@ -7,7 +7,7 @@ export async function syncDrops(runId) {
   const queue = loadPendingQueue("Pending_queue_v1");
   if (!queue || queue.length === 0) return;
 
-  const deliveries = loadDeliveries(runId); // ← SOURCE OF TRUTH
+  const deliveries = loadDeliveries(runId); 
   if (!deliveries) return;
 
   for (const job of queue) {

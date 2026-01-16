@@ -60,7 +60,7 @@ export default function App() {
         if (result.ok) {
             const synced = { ...pending, synced_status: "Completed" };
             queueEndingShift(synced);
-            clearCurrentRun();
+//            clearCurrentRun();
             resetRun(runId);
             drainEndShiftQueue();
             console.log("End shift synced:", result);
@@ -69,14 +69,16 @@ export default function App() {
 
     // run at startup
     syncEndShift();
-    syncDrops(runId);
+    const syncedOffline = syncDrops(runId);
+
+    console.log("synced drops offline", syncedOffline);
 
     console.log("SYNC STARTED", Date.now());
     console.log("SYNC DROPS STARTED", Date.now());
 
     // run when online
     window.addEventListener("online", syncEndShift);
-    return () => window.removeEventListener("online", syncEndShift);
+
     // NEED TO COME BACK HERE AND FIND OUT WHY THIS ISN'T FIRING WHEN BACK ONLINE
     window.addEventListener("online", syncDrops(runId));
 
