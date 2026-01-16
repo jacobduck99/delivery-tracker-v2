@@ -17,7 +17,7 @@ export function BreakButtonModal({ setBreakSelection, handleSelectedBreak }) {
   return (
     <div className="flex flex-col gap-4 mt-3 items-center">
       <button
-        className="w-25 text-white py-2.5 rounded-full font-semibold hover:bg-red-700"
+        className="w-25 text-foreground py-2.5 rounded-full font-semibold "
         onClick={() => {
             handleSelectedBreak(15);
         }}
@@ -26,7 +26,7 @@ export function BreakButtonModal({ setBreakSelection, handleSelectedBreak }) {
       </button>
 
       <button
-        className="w-25 text-white py-2.5 rounded-full font-semibold hover:bg-green-700"
+        className="w-25 text-foreground py-2.5 bg-green rounded-full font-semibold" 
         onClick={() => {
             handleSelectedBreak(30);
         }}
