@@ -68,12 +68,23 @@ useEffect(() => {
     }
 
     async function flushSync() {
+      try {
         await syncDrops(runId);
-        const payload = loadCompletedBreak();
-        console.log("heres ur payload", payload);
-        await syncPendingBreak(payload);
+
+        const breakPayload = loadCompletedBreak();
+        if (breakPayload) {
+          console.log("flushSync: syncing break", breakPayload);
+          await syncPendingBreak(breakPayload);
+        } else {
+          console.log("flushSync: no completed break to sync");
+        }
+
         await syncEndShift();
+
         clearCurrentRun();
+      } catch (err) {
+        console.error("flushSync failed:", err);
+      }
     }
 
     // Run at startup
