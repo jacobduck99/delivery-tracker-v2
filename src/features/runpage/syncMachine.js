@@ -1,6 +1,8 @@
 import { loadPendingQueue, loadDeliveries, savePendingDrop, saveDeliveries, drainQueue } from "../../lib/storage/runStorage.js";
 import { syncPendingDrops, postBreak } from "../../lib/api/runApi.js";
 
+import { clearSyncedBreak } from "../../lib/storage/breakStorage.js";
+
 // leaving this how it is took me two days to come up with this is for future jacob to look at 11 months into my coding progress :)
 
 export async function syncDrops(runId) {
@@ -45,7 +47,7 @@ export async function syncDrops(runId) {
         
 }}
 
-export async function syncPendingBreak() {
+export async function syncPendingBreak(payload) {
     const result = await postBreak(payload); 
         
         if (result.ok) {

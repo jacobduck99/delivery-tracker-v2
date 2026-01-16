@@ -12,12 +12,14 @@ import { getUserId } from "./lib/storage/userStorage.js";
 import { loadPendingEndShift, resetRun, queueEndingShift, clearCurrentRun, drainEndShiftQueue} from "./lib/storage/endshiftStorage.js";
 import { loadPendingQueue } from "./lib/storage/runStorage.js";
 import { endShift } from "./lib/api/runApi.js";
-import { syncDrops } from "././features/runpage/syncMachine.js";
+import { syncDrops, syncPendingBreak } from "././features/runpage/syncMachine.js";
 import Navbar from "./components/navbar.jsx";
 import { logout } from "./lib/api/logoutApi.js";
 import { clearAccount } from "./lib/storage/logoutStorage.js";
 import { getProfile } from "./lib/api/profileApi.js";
 import { loadDisplayName } from "./lib/storage/accountPageStorage.js";
+
+import { loadCompletedBreak } from "./lib/storage/breakStorage.js"; 
 
 export default function App() {
   // React controlled auth state
@@ -49,10 +51,6 @@ export default function App() {
       getProfileName();
     }, []);
 
-    async function flushSync(runId) {
-        await syncEndshift();
-        await syncDrops(runId);
-    }
 
 useEffect(() => {
     async function syncEndShift() {
@@ -71,6 +69,9 @@ useEffect(() => {
 
     async function flushSync() {
         await syncDrops(runId);
+        const payload = loadCompletedBreak();
+        console.log("heres ur payload", payload);
+        await syncPendingBreak(payload);
         await syncEndShift();
         clearCurrentRun();
     }

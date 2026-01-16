@@ -42,3 +42,9 @@ export function clearActiveBreak() {
 export function clearSyncedBreak() {
     localStorage.removeItem("Completed break");
 } 
+
+export function loadCompletedBreak() {
+    const raw = localStorage.getItem("Completed break");
+    if (!raw) return null;
+    return JSON.parse(raw);
+}
