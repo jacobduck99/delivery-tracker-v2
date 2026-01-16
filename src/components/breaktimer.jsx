@@ -1,15 +1,15 @@
 
 export function BreakButton({ showBreakModal }) {
-    return (
-        <div>
-          <button
-            className="w-13 bg-red-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700"
-            onClick={() => { showBreakModal(true); }}
-          >
-            B
-          </button>
-          </div>
-      );
+  return (
+    <div>
+      <button
+        className="w-13 bg-red-600 text-white py-2.5 rounded-full font-semibold hover:bg-red-700"
+        onClick={() => showBreakModal((prev) => !prev)}
+      >
+        B
+      </button>
+    </div>
+  );
 }
 
 export function BreakButtonModal({ setBreakSelection, handleSelectedBreak }) {
