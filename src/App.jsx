@@ -72,6 +72,7 @@ useEffect(() => {
     async function flushSync() {
         await syncDrops(runId);
         await syncEndShift();
+        clearCurrentRun();
     }
 
     // Run at startup
