@@ -13,6 +13,17 @@ def get_stats(run_id):
     conn = get_db() 
     cur = conn.execute(
         """
+        SELECT 
+            start_ts, end_ts
+            FROM breaks
+            WHERE run_id = ?
+        """,
+        (run_id,),
+        )
+    row = cur.fetchone()
+        
+    cur = conn.execute(
+        """
         SELECT
             drop_idx,
             address,
@@ -59,6 +70,11 @@ def get_stats(run_id):
         config_row["end_time"].replace("Z", "+00:00")
     ) 
 
+    break_start_time = row["start_ts"]
+    break_end_time = row["end_ts"]
+
+    break_duration = break_end_time - break_start_time
+
     shift_duration_seconds = (end_time - start_time).total_seconds()
     shift_duration_hours = shift_duration_seconds / 3600
 
@@ -87,7 +103,8 @@ def get_stats(run_id):
         "StartTime": start_time,
         "TruckDamage": truck_damage,
         "DurationHours": round(shift_duration_hours, 2),
-        "AverageTimeSeconds": round(avg_drop_seconds, 1)
+        "AverageTimeSeconds": round(avg_drop_seconds, 1),
+        "TotalBreakMinutes": break_duration
     }
     
     return jsonify({"ok": True, "data": stats}), 200
