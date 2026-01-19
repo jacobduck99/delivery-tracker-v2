@@ -183,21 +183,27 @@ return (
           </h3>
         </div>
 
-        <div className="grid grid-cols-2 gap-x-3 gap-y-3 px-6 py-3">
-          <Metric label="Van #" value={runData.VanNumber} />
-          <Metric label="Van Name" value={runData.VanName} />
-          <Metric label="Drops" value={runData.Drops} />
-          <Metric label="Duration" value={`${runData.DurationHours} hrs`} />
-          <Metric label="Start Time" value={formattedTime} />
-          <Metric label="Truck Damage" value={runData.TruckDamage ? runData.TruckDamage : "None"} />
-          <Metric
-            label="Avg / Drop"
-            value={readable}
-            full
-            highlight
-          />
-        <Metric label="Break minutes" value={runData.TotalBreakMinutes ? runData.TotalBreakMinutes : "N/A"} />
-        </div>
+    <div className="grid grid-cols-3 gap-x-6 gap-y-6 px-6 py-6">
+      <Metric label="Van #" value={runData.VanNumber} />
+      <Metric label="Van Name" value={runData.VanName} />
+      <Metric label="Drops" value={runData.Drops} />
+      <Metric label="Start Time" value={formattedTime} />
+      <Metric label="Duration" value={`${runData.DurationHours} hrs`} />
+      <Metric 
+        label="Break Time" 
+        value={runData.TotalBreakMinutes || "N/A"} 
+      />
+      <Metric
+        label="Avg Time / Drop"
+        value={readable}
+        highlight
+        full
+      />
+      <Metric 
+        label="Truck Damage" 
+        value={runData.TruckDamage || "None"} 
+      />
+    </div>
       </div>
 
     </div>
