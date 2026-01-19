@@ -11,6 +11,7 @@ stats_bp = Blueprint("stats", __name__)
 @stats_bp.get("/stats/<int:run_id>")
 def get_stats(run_id):
     conn = get_db() 
+    
     cur = conn.execute(
         """
         SELECT 
@@ -20,7 +21,7 @@ def get_stats(run_id):
         """,
         (run_id,),
     )
-    break_row = cur.fetchone()
+    break_rows = cur.fetchall()
         
     cur = conn.execute(
         """
@@ -53,7 +54,7 @@ def get_stats(run_id):
         """,
         (run_id,),
     )
-    config_row = cur.fetchone()
+    config_row = cur.fetchone()  
     
     deliveries = [dict(row) for row in rows]
     van_number = config_row["van_number"] 
@@ -67,14 +68,19 @@ def get_stats(run_id):
         config_row["end_time"].replace("Z", "+00:00")
     ) 
     
+    total_break_duration = 0
     break_duration_formatted = None
-    if break_row and break_row["start_ts"] and break_row["end_ts"]:
-        break_start_time = break_row["start_ts"]
-        break_end_time = break_row["end_ts"]
-        break_duration = break_end_time - break_start_time 
-        minutes = break_duration // 60000
-        seconds = (break_duration % 60000) // 1000
-        break_duration_formatted = f"{minutes}:{seconds:02d}"
+    
+    if break_rows:
+        for break_row in break_rows:
+            if break_row["start_ts"] and break_row["end_ts"]:
+                break_duration = break_row["end_ts"] - break_row["start_ts"]
+                total_break_duration += break_duration
+        
+        if total_break_duration > 0:
+            minutes = total_break_duration // 60000
+            seconds = (total_break_duration % 60000) // 1000
+            break_duration_formatted = f"{minutes}:{seconds:02d}"
     
     shift_duration_seconds = (end_time - start_time).total_seconds()
     shift_duration_hours = shift_duration_seconds / 3600
@@ -114,7 +120,6 @@ def get_stats(run_id):
 def get_previous_stats(userId):
     conn = get_db()
 
-    # 1️⃣ Find latest run_id FIRST
     cur = conn.execute(
         """
         SELECT id
@@ -133,7 +138,6 @@ def get_previous_stats(userId):
 
     run_id = row["id"]
 
-    # 2️⃣ Get breaks
     cur = conn.execute(
         """
         SELECT 
@@ -143,9 +147,8 @@ def get_previous_stats(userId):
         """,
         (run_id,),
     )
-    break_row = cur.fetchone()
+    break_rows = cur.fetchall()
 
-    # 3️⃣ Get deliveries
     cur = conn.execute(
         """
         SELECT
@@ -163,7 +166,6 @@ def get_previous_stats(userId):
     )
     deliveries = [dict(r) for r in cur.fetchall()]
 
-    # 4️⃣ Get config
     cur = conn.execute(
         """
         SELECT 
@@ -187,15 +189,19 @@ def get_previous_stats(userId):
         config_row["end_time"].replace("Z", "+00:00")
     )
 
-    # Calculate break duration (only if exists)
+    total_break_duration = 0
     break_duration_formatted = None
-    if break_row and break_row["start_ts"] and break_row["end_ts"]:
-        break_start_time = break_row["start_ts"]
-        break_end_time = break_row["end_ts"]
-        break_duration = break_end_time - break_start_time 
-        minutes = break_duration // 60000
-        seconds = (break_duration % 60000) // 1000
-        break_duration_formatted = f"{minutes}:{seconds:02d}"
+    
+    if break_rows:
+        for break_row in break_rows:
+            if break_row["start_ts"] and break_row["end_ts"]:
+                break_duration = break_row["end_ts"] - break_row["start_ts"]
+                total_break_duration += break_duration
+        
+        if total_break_duration > 0:
+            minutes = total_break_duration // 60000
+            seconds = (total_break_duration % 60000) // 1000
+            break_duration_formatted = f"{minutes}:{seconds:02d}"
 
     shift_duration_seconds = (end_time - start_time).total_seconds()
     shift_duration_hours = shift_duration_seconds / 3600
