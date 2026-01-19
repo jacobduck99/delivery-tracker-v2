@@ -78,10 +78,12 @@ useEffect(() => {
         } else {
           console.log("flushSync: no completed break to sync");
         }
-
-        await syncEndShift();
-
-        clearCurrentRun();
+        
+        const checkEndShift = loadPendingEndShift();
+        if (checkEndShift) {    
+            await syncEndShift();
+            clearCurrentRun();
+                }
       } catch (err) {
         console.error("flushSync failed:", err);
       }
