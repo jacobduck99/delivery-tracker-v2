@@ -19,8 +19,8 @@ def get_stats(run_id):
             WHERE run_id = ?
         """,
         (run_id,),
-        )
-    row = cur.fetchone()
+    )
+    break_row = cur.fetchone()
         
     cur = conn.execute(
         """
@@ -38,7 +38,7 @@ def get_stats(run_id):
         (run_id,),
     )
     rows = cur.fetchall()
-
+    
     cur = conn.execute(
         """
         SELECT 
@@ -54,50 +54,47 @@ def get_stats(run_id):
         (run_id,),
     )
     config_row = cur.fetchone()
-
+    
     deliveries = [dict(row) for row in rows]
-
     van_number = config_row["van_number"] 
     van_name = config_row["van_name"]
-
     truck_damage = config_row["truck_damage"]
      
     start_time = datetime.fromisoformat(
         config_row["start_time"].replace("Z", "+00:00")
     )
-
     end_time = datetime.fromisoformat(
         config_row["end_time"].replace("Z", "+00:00")
     ) 
-
-    break_start_time = row["start_ts"]
-    break_end_time = row["end_ts"]
-
-    break_duration = break_end_time - break_start_time 
-    minutes = break_duration // 60000
-    seconds = (break_duration % 60000) // 1000
-    formatted = f"{minutes}:{seconds:02d}"
+    
+    break_duration_formatted = None
+    if break_row and break_row["start_ts"] and break_row["end_ts"]:
+        break_start_time = break_row["start_ts"]
+        break_end_time = break_row["end_ts"]
+        break_duration = break_end_time - break_start_time 
+        minutes = break_duration // 60000
+        seconds = (break_duration % 60000) // 1000
+        break_duration_formatted = f"{minutes}:{seconds:02d}"
+    
     shift_duration_seconds = (end_time - start_time).total_seconds()
     shift_duration_hours = shift_duration_seconds / 3600
-
+    
     drops = len(deliveries)
-
     completed_drops = 0
     total_elapsed = 0
-
+    
     for drop in deliveries:
         elapsed = drop.get("elapsed")
-
         if elapsed is not None and elapsed > 0:
             completed_drops += 1
             total_elapsed += elapsed
-
+    
     avg_drop_seconds = (
         (total_elapsed / completed_drops) / 1000
         if completed_drops > 0
         else 0
     )
-
+    
     stats = {
         "Drops": drops,
         "VanNumber": van_number,
@@ -106,8 +103,10 @@ def get_stats(run_id):
         "TruckDamage": truck_damage,
         "DurationHours": round(shift_duration_hours, 2),
         "AverageTimeSeconds": round(avg_drop_seconds, 1),
-        "TotalBreakMinutes": formatted
     }
+    
+    if break_duration_formatted:
+        stats["TotalBreakMinutes"] = break_duration_formatted
     
     return jsonify({"ok": True, "data": stats}), 200
 
@@ -115,7 +114,7 @@ def get_stats(run_id):
 def get_previous_stats(userId):
     conn = get_db()
 
-    # 1️⃣ Find latest run_id
+    # 1️⃣ Find latest run_id FIRST
     cur = conn.execute(
         """
         SELECT id
@@ -134,7 +133,19 @@ def get_previous_stats(userId):
 
     run_id = row["id"]
 
-    # 2️⃣ Reuse the SAME logic as /stats/<run_id>
+    # 2️⃣ Get breaks
+    cur = conn.execute(
+        """
+        SELECT 
+            start_ts, end_ts
+            FROM breaks
+            WHERE run_id = ?
+        """,
+        (run_id,),
+    )
+    break_row = cur.fetchone()
+
+    # 3️⃣ Get deliveries
     cur = conn.execute(
         """
         SELECT
@@ -152,6 +163,7 @@ def get_previous_stats(userId):
     )
     deliveries = [dict(r) for r in cur.fetchall()]
 
+    # 4️⃣ Get config
     cur = conn.execute(
         """
         SELECT 
@@ -175,11 +187,20 @@ def get_previous_stats(userId):
         config_row["end_time"].replace("Z", "+00:00")
     )
 
+    # Calculate break duration (only if exists)
+    break_duration_formatted = None
+    if break_row and break_row["start_ts"] and break_row["end_ts"]:
+        break_start_time = break_row["start_ts"]
+        break_end_time = break_row["end_ts"]
+        break_duration = break_end_time - break_start_time 
+        minutes = break_duration // 60000
+        seconds = (break_duration % 60000) // 1000
+        break_duration_formatted = f"{minutes}:{seconds:02d}"
+
     shift_duration_seconds = (end_time - start_time).total_seconds()
     shift_duration_hours = shift_duration_seconds / 3600
 
     drops = len(deliveries)
-
     completed_drops = 0
     total_elapsed = 0
 
@@ -204,6 +225,9 @@ def get_previous_stats(userId):
         "DurationHours": round(shift_duration_hours, 2),
         "AverageTimeSeconds": round(avg_drop_seconds, 1),
     }
+    
+    if break_duration_formatted:
+        stats["TotalBreakMinutes"] = break_duration_formatted
 
     return jsonify({"ok": True, "data": stats}), 200
 
@@ -237,6 +261,3 @@ def get_last_30_days(userId):
     ]
 
     return jsonify({"ok": True, "data": data}), 200
-
-
-    

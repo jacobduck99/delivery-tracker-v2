@@ -196,7 +196,7 @@ return (
             full
             highlight
           />
-        <Metric label="Break minutes" value={runData.TotalBreakMinutes} />
+        <Metric label="Break minutes" value={runData.TotalBreakMinutes ? runData.TotalBreakMinutes : "N/A"} />
         </div>
       </div>
 
