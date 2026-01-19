@@ -52,6 +52,7 @@ export default function StatsPage() {
         enabled: !!selectedRunId
         });
 
+    // for the chart
     const { 
         data: chartData,
         isLoading: chartDataLoading,
@@ -195,6 +196,7 @@ return (
             full
             highlight
           />
+        <Metric label="Break minutes" value={runData.TotalBreakMinutes} />
         </div>
       </div>
 

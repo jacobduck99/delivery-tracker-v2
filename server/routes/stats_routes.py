@@ -73,8 +73,10 @@ def get_stats(run_id):
     break_start_time = row["start_ts"]
     break_end_time = row["end_ts"]
 
-    break_duration = break_end_time - break_start_time
-
+    break_duration = break_end_time - break_start_time 
+    minutes = break_duration // 60000
+    seconds = (break_duration % 60000) // 1000
+    formatted = f"{minutes}:{seconds:02d}"
     shift_duration_seconds = (end_time - start_time).total_seconds()
     shift_duration_hours = shift_duration_seconds / 3600
 
@@ -104,7 +106,7 @@ def get_stats(run_id):
         "TruckDamage": truck_damage,
         "DurationHours": round(shift_duration_hours, 2),
         "AverageTimeSeconds": round(avg_drop_seconds, 1),
-        "TotalBreakMinutes": break_duration
+        "TotalBreakMinutes": formatted
     }
     
     return jsonify({"ok": True, "data": stats}), 200
