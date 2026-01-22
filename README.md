@@ -42,7 +42,8 @@ It’s a tool that gives workers something they never had before:
 
 **A fair way to defend themselves with data.**
 
-[![Watch the video](https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg)](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+[![Watch the video](https://i.ytimg.com/vi/2ZGL23Aeevg/hqdefault.jpg)](https://www.youtube.com/watch?v=2ZGL23Aeevg)
+
 
 
 
